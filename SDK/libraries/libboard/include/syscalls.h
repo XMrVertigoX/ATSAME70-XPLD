@@ -50,7 +50,8 @@
 
 extern caddr_t _sbrk (int incr);
 
-extern int link(char *old, char *new);
+// extern int link(char *old, char *new);
+extern int link(char *pOld, char *pNew);
 
 extern int _close(int file);
 
