@@ -27,7 +27,7 @@ SOURCE_FILES += $(SDK_DIR)/libraries/libboard/source/led.c
 SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/mpu.c
 SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/pio.c
 SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/pmc.c
-SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/timetick.c
+# SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/timetick.c
 SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/wdt.c
 
 # ----- Linker search directories ----------------------------------------------
@@ -37,7 +37,7 @@ LIB_DIRS += $(SDK_DIR)/libraries/libchip/include/cmsis/CMSIS/Lib/GCC
 
 # ----- Libraries --------------------------------------------------------------
 
-# LIBS += 
+# LIBS +=
 
 # ----- Flags ------------------------------------------------------------------
 
