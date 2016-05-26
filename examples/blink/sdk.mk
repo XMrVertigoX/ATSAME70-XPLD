@@ -1,4 +1,4 @@
-SDK_DIR = ../../SDK
+SDK_DIR = ../../SDK/same70_softpack_1.5_for_gnu_arm_2015q3/examples/Atmel/SAME70_Xplained
 
 # ----- Symbols ----------------------------------------------------------------
 
@@ -37,7 +37,7 @@ LIB_DIRS += $(SDK_DIR)/libraries/libchip/include/cmsis/CMSIS/Lib/GCC
 
 # ----- Libraries --------------------------------------------------------------
 
-# LIBS += 
+# LIBS +=
 
 # ----- Flags ------------------------------------------------------------------
 
