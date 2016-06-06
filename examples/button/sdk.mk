@@ -8,7 +8,7 @@ SYMBOLS += ARM_MATH_CM7=true
 SYMBOLS += printf=iprintf
 SYMBOLS += scanf=iscanf
 
-# ----- Include direcrories ----------------------------------------------------
+# ----- Include directories ----------------------------------------------------
 
 INCLUDE_DIRS += $(SDK_DIR)/common/boards
 INCLUDE_DIRS += $(SDK_DIR)/common/services/clock

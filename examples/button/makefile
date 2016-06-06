@@ -2,7 +2,7 @@
 
 include ../config.mk
 
-PROJECT_NAME = blink
+PROJECT_NAME = button
 
 # ----- Sources ----------------------------------------------------------------
 

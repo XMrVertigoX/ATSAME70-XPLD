@@ -2,14 +2,14 @@
 
 include ../config.mk
 
-PROJECT_NAME = blink
+PROJECT_NAME = button
 
 # ----- Sources ----------------------------------------------------------------
 
 include sdk.mk
 
 INCLUDE_DIRS += src/config
-SOURCE_FILES += src/main.cpp
+SOURCE_FILES += $(wildcard src/*.cpp)
 
 # ----- Libraries --------------------------------------------------------------
 
