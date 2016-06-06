@@ -18,10 +18,14 @@ INCLUDE_DIRS += $(SDK_DIR)/common/utils
 
 INCLUDE_DIRS += $(SDK_DIR)/sam/boards
 INCLUDE_DIRS += $(SDK_DIR)/sam/boards/same70_xplained
+
 INCLUDE_DIRS += $(SDK_DIR)/sam/drivers/mpu
 INCLUDE_DIRS += $(SDK_DIR)/sam/drivers/pio
 INCLUDE_DIRS += $(SDK_DIR)/sam/drivers/pmc
+
 INCLUDE_DIRS += $(SDK_DIR)/sam/utils
+INCLUDE_DIRS += $(SDK_DIR)/sam/utils/cmsis/same70/include
+INCLUDE_DIRS += $(SDK_DIR)/sam/utils/cmsis/same70/source/templates
 INCLUDE_DIRS += $(SDK_DIR)/sam/utils/fpu
 INCLUDE_DIRS += $(SDK_DIR)/sam/utils/header_files
 INCLUDE_DIRS += $(SDK_DIR)/sam/utils/preprocessor
@@ -32,18 +36,18 @@ SOURCE_FILES += $(SDK_DIR)/common/services/clock/same70/sysclk.c
 SOURCE_FILES += $(SDK_DIR)/common/utils/interrupt/interrupt_sam_nvic.c
 
 SOURCE_FILES += $(SDK_DIR)/sam/boards/same70_xplained/init.c
+
 SOURCE_FILES += $(SDK_DIR)/sam/drivers/mpu/mpu.c
 SOURCE_FILES += $(SDK_DIR)/sam/drivers/pio/pio.c
 SOURCE_FILES += $(SDK_DIR)/sam/drivers/pio/pio_handler.c
 SOURCE_FILES += $(SDK_DIR)/sam/drivers/pmc/pmc.c
 SOURCE_FILES += $(SDK_DIR)/sam/drivers/pmc/sleep.c
 
-# ----- CMSIS ------------------------------------------------------------------
-
-INCLUDE_DIRS += $(SDK_DIR)/sam/utils/cmsis/same70/include
-INCLUDE_DIRS += $(SDK_DIR)/sam/utils/cmsis/same70/source/templates
 SOURCE_FILES += $(SDK_DIR)/sam/utils/cmsis/same70/source/templates/system_same70.c
 SOURCE_FILES += $(SDK_DIR)/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.c
+SOURCE_FILES += $(SDK_DIR)/sam/utils/syscalls/gcc/syscalls.c
+
+# ----- CMSIS ------------------------------------------------------------------
 
 INCLUDE_DIRS += $(SDK_DIR)/thirdparty/CMSIS/Include
 LIB_DIRS += $(SDK_DIR)/thirdparty/CMSIS/Lib/GCC

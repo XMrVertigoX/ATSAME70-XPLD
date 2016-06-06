@@ -2,14 +2,16 @@
 
 include ../config.mk
 
-PROJECT_NAME = button
+PROJECT_NAME = blink_freertos
 
 # ----- Sources ----------------------------------------------------------------
 
 include sdk.mk
+include freertos.mk
 
 INCLUDE_DIRS += src/config
 SOURCE_FILES += $(wildcard src/*.cpp)
+SOURCE_FILES += $(wildcard src/support/*.cpp)
 
 # ----- Libraries --------------------------------------------------------------
 

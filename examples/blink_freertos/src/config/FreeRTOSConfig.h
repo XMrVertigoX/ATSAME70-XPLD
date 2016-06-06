@@ -3,14 +3,16 @@
 
 #include <assert.h>
 
+#include "board.h"
+
 #define configASSERT(x) assert(x)
 
 #define configCHECK_FOR_STACK_OVERFLOW 0
-#define configCPU_CLOCK_HZ 24000000
+#define configCPU_CLOCK_HZ SystemCoreClock
 #define configMAX_PRIORITIES 4
 #define configMINIMAL_STACK_SIZE 256
 #define configTICK_RATE_HZ 1000
-// #define configTOTAL_HEAP_SIZE 10240
+#define configTOTAL_HEAP_SIZE 262144  // 256k
 #define configUSE_16_BIT_TICKS 0
 #define configUSE_IDLE_HOOK 0
 #define configUSE_MALLOC_FAILED_HOOK 0
@@ -36,11 +38,11 @@
 #define INCLUDE_xTaskGetHandle 1
 #define INCLUDE_xTaskResumeFromISR 1
 
-#define configKERNEL_INTERRUPT_PRIORITY ((7 << 5) | 0b00011111)
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY ((0 << 5) | 0b00011111)
+#define configKERNEL_INTERRUPT_PRIORITY (7 << __NVIC_PRIO_BITS)
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY (4 << __NVIC_PRIO_BITS)
 
-#define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
+#define vPortSVCHandler SVC_Handler
 #define xPortSysTickHandler SysTick_Handler
 
 #endif /* FREERTOS_CONFIG_H_ */

@@ -9,4 +9,4 @@ INCLUDE_DIRS += $(FREERTOS_DIR)/portable/GCC/ARM_CM7/r0p1
 
 SOURCE_FILES += $(wildcard $(FREERTOS_DIR)/*.c)
 SOURCE_FILES += $(FREERTOS_DIR)/portable/GCC/ARM_CM7/r0p1/port.c
-SOURCE_FILES += $(FREERTOS_DIR)/portable/MemMang/heap_3.c
+SOURCE_FILES += $(FREERTOS_DIR)/portable/MemMang/heap_4.c
