@@ -1,44 +1,66 @@
-SDK_DIR = ../../SDK/same70_softpack_1.5_for_gnu_arm_2015q3/examples/Atmel/SAME70_Xplained
+SDK_DIR = ../../SDK/xdk-asf-3.31.0
 
 # ----- Symbols ----------------------------------------------------------------
 
 SYMBOLS += __SAME70Q21__
-SYMBOLS += BOARD_SAME70_XPLD
+SYMBOLS += BOARD=SAME70_XPLAINED
+SYMBOLS += ARM_MATH_CM7=true
+SYMBOLS += printf=iprintf
+SYMBOLS += scanf=iscanf
 
-# ----- Include directories ----------------------------------------------------
+# ----- Include direcrories ----------------------------------------------------
 
-INCLUDE_DIRS += $(SDK_DIR)/libraries/libboard
-INCLUDE_DIRS += $(SDK_DIR)/libraries/libboard/include
+INCLUDE_DIRS += $(SDK_DIR)/common/boards
+INCLUDE_DIRS += $(SDK_DIR)/common/services/clock
+INCLUDE_DIRS += $(SDK_DIR)/common/services/gpio
+INCLUDE_DIRS += $(SDK_DIR)/common/services/ioport
+INCLUDE_DIRS += $(SDK_DIR)/common/utils
 
-INCLUDE_DIRS += $(SDK_DIR)/libraries/libchip
-INCLUDE_DIRS += $(SDK_DIR)/libraries/libchip/include
-INCLUDE_DIRS += $(SDK_DIR)/libraries/libchip/include/same70
-INCLUDE_DIRS += $(SDK_DIR)/libraries/libchip/include/cmsis/CMSIS/Include
+INCLUDE_DIRS += $(SDK_DIR)/sam/boards
+INCLUDE_DIRS += $(SDK_DIR)/sam/boards/same70_xplained
+INCLUDE_DIRS += $(SDK_DIR)/sam/drivers/mpu
+INCLUDE_DIRS += $(SDK_DIR)/sam/drivers/pio
+INCLUDE_DIRS += $(SDK_DIR)/sam/drivers/pmc
+INCLUDE_DIRS += $(SDK_DIR)/sam/utils
+INCLUDE_DIRS += $(SDK_DIR)/sam/utils/fpu
+INCLUDE_DIRS += $(SDK_DIR)/sam/utils/header_files
+INCLUDE_DIRS += $(SDK_DIR)/sam/utils/preprocessor
 
 # ----- Source files -----------------------------------------------------------
 
-SOURCE_FILES += $(SDK_DIR)/libraries/libboard/resources_e70/system_same70.c
-SOURCE_FILES += $(SDK_DIR)/libraries/libboard/resources_e70/gcc/startup_same70.c
-SOURCE_FILES += $(SDK_DIR)/libraries/libboard/source/board_lowlevel.c
-SOURCE_FILES += $(SDK_DIR)/libraries/libboard/source/dbg_console.c
-SOURCE_FILES += $(SDK_DIR)/libraries/libboard/source/syscalls.c
-SOURCE_FILES += $(SDK_DIR)/libraries/libboard/source/led.c
+SOURCE_FILES += $(SDK_DIR)/common/services/clock/same70/sysclk.c
+SOURCE_FILES += $(SDK_DIR)/common/utils/interrupt/interrupt_sam_nvic.c
 
-SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/mpu.c
-SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/pio.c
-SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/pmc.c
-# SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/timetick.c
-SOURCE_FILES += $(SDK_DIR)/libraries/libchip/source/wdt.c
+SOURCE_FILES += $(SDK_DIR)/sam/boards/same70_xplained/init.c
+SOURCE_FILES += $(SDK_DIR)/sam/drivers/mpu/mpu.c
+SOURCE_FILES += $(SDK_DIR)/sam/drivers/pio/pio.c
+SOURCE_FILES += $(SDK_DIR)/sam/drivers/pio/pio_handler.c
+SOURCE_FILES += $(SDK_DIR)/sam/drivers/pmc/pmc.c
+SOURCE_FILES += $(SDK_DIR)/sam/drivers/pmc/sleep.c
 
-# ----- Linker search directories ----------------------------------------------
+# ----- CMSIS ------------------------------------------------------------------
 
-LIB_DIRS += $(SDK_DIR)/libraries/libboard/resources_e70/gcc/
-LIB_DIRS += $(SDK_DIR)/libraries/libchip/include/cmsis/CMSIS/Lib/GCC
+INCLUDE_DIRS += $(SDK_DIR)/sam/utils/cmsis/same70/include
+INCLUDE_DIRS += $(SDK_DIR)/sam/utils/cmsis/same70/source/templates
+SOURCE_FILES += $(SDK_DIR)/sam/utils/cmsis/same70/source/templates/system_same70.c
+SOURCE_FILES += $(SDK_DIR)/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.c
+
+INCLUDE_DIRS += $(SDK_DIR)/thirdparty/CMSIS/Include
+LIB_DIRS += $(SDK_DIR)/thirdparty/CMSIS/Lib/GCC
 
 # ----- Libraries --------------------------------------------------------------
 
-# LIBS +=
+LIBS += arm_cortexM7lfdp_math_softfp
 
 # ----- Flags ------------------------------------------------------------------
 
-LDFLAGS += -Wl,--script=same70q21_flash.ld
+GCCFLAGS += -march=armv7-m
+GCCFLAGS += -mtune=cortex-m7
+GCCFLAGS += -mthumb
+
+CFLAGS   += -mfloat-abi=softfp -mfpu=fpv5-d16
+CXXFLAGS += -mfloat-abi=softfp -mfpu=fpv5-d16
+
+LINKER_SCRIPT_FLASH = $(SDK_DIR)/sam/utils/linker_scripts/same70/same70q21/gcc/flash.ld
+
+LDFLAGS += -Wl,--script=$(realpath $(LINKER_SCRIPT_FLASH))
