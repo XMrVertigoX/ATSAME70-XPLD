@@ -12,7 +12,6 @@
 #define configMAX_PRIORITIES 4
 #define configMINIMAL_STACK_SIZE 256
 #define configTICK_RATE_HZ 1000
-#define configTOTAL_HEAP_SIZE 262144  // 256k
 #define configUSE_16_BIT_TICKS 0
 #define configUSE_IDLE_HOOK 0
 #define configUSE_MALLOC_FAILED_HOOK 0

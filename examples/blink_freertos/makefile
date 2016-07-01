@@ -7,9 +7,18 @@ PROJECT_NAME = blink_freertos
 # ----- Sources ----------------------------------------------------------------
 
 include sdk.mk
-include freertos.mk
+
+INCLUDE_DIRS += ../../SEGGER_RTT
+SOURCE_FILES += $(wildcard ../../SEGGER_RTT/*.c)
+
+INCLUDE_DIRS += ../../FreeRTOS/include
+INCLUDE_DIRS += ../../FreeRTOS/portable/GCC/ARM_CM7/r0p1
+SOURCE_FILES += $(wildcard ../../FreeRTOS/*.c)
+SOURCE_FILES += ../../FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c
+SOURCE_FILES += ../../FreeRTOS/portable/MemMang/heap_3.c
 
 INCLUDE_DIRS += src/config
+
 SOURCE_FILES += $(wildcard src/*.cpp)
 SOURCE_FILES += $(wildcard src/support/*.cpp)
 
@@ -33,6 +42,7 @@ CFLAGS += -std=c11
 CXXFLAGS += $(COMMON_COMPILER_FLAGS)
 CXXFLAGS += -std=c++17
 CXXFLAGS += -fno-rtti
+CXXFLAGS += -fno-threadsafe-statics
 
 LDFLAGS += --specs=nano.specs
 LDFLAGS += --specs=nosys.specs

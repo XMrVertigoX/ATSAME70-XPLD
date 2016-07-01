@@ -1,11 +1,13 @@
 #include <cstdlib>
 
+#include "asf.h"
+
 #include "FreeRTOS.h"
 #include "task.h"
 
-#include "asf.h"
+#include "logging.hpp"
 
-void task(void *user) {
+void task(void* user) {
     ioport_set_pin_dir(LED0_GPIO, IOPORT_DIR_OUTPUT);
 
     for (;;) {
@@ -19,9 +21,12 @@ void task(void *user) {
 int main() {
     sysclk_init();
     board_init();
+
     ioport_init();
 
     xTaskCreate(task, NULL, 256, NULL, 1, NULL);
+
+    log("Enter scheduler\n");
 
     vTaskStartScheduler();
 
