@@ -1,0 +1,4 @@
+#ifndef FREERTOS_SUPPORT_HPP_
+#define FREERTOS_SUPPORT_HPP_
+
+#endif /* FREERTOS_SUPPORT_HPP_ */

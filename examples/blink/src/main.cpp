@@ -26,7 +26,7 @@ int main() {
 
     xTaskCreate(task, NULL, 256, NULL, 1, NULL);
 
-    log("Enter scheduler\n");
+    printf("Enter scheduler\n");
 
     vTaskStartScheduler();
 
