@@ -2,7 +2,7 @@
 
 TOOLCHAIN_PREFIX = arm-none-eabi-
 
-CC      = $(TOOLCHAIN_PREFIX)gcc
+GCC     = $(TOOLCHAIN_PREFIX)gcc
 GDB     = $(TOOLCHAIN_PREFIX)gdb
 OBJCOPY = $(TOOLCHAIN_PREFIX)objcopy
 SIZE    = $(TOOLCHAIN_PREFIX)size
