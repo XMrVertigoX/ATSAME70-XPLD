@@ -1,10 +1,10 @@
-# ----- Files ------------------------------------------------------------------
+# ----- Files -----------------------------------------------------------------
 
 BINARY     = $(OUTPUT_DIR)/$(PROJECT_NAME).bin
 EXECUTABLE = $(OUTPUT_DIR)/$(PROJECT_NAME).elf
 MAPFILE    = $(OUTPUT_DIR)/$(PROJECT_NAME).map
 
-# ----- Flags ------------------------------------------------------------------
+# ----- Flags -----------------------------------------------------------------
 
 CPPFLAGS += $(addprefix -D, $(SYMBOLS))
 CPPFLAGS += $(addprefix -I, $(realpath $(INCLUDE_DIRS)))
@@ -15,12 +15,12 @@ LDFLAGS += -Wl,-Map=$(MAPFILE)
 LIBFLAGS = $(addprefix -l, $(LIBS))
 # LIBFLAGS = -Wl,--start-group $(addprefix -l, $(LIBS)) -Wl,--end-group
 
-# ----- Objects ----------------------------------------------------------------
+# ----- Objects ---------------------------------------------------------------
 
 SORTED_SOURCE_FILES = $(sort $(realpath $(SOURCE_FILES)))
 SORTED_OBJECT_FILES = $(addprefix $(OBJECT_DIR),$(addsuffix .o,$(basename $(SORTED_SOURCE_FILES))))
 
-# ----- Rules ------------------------------------------------------------------
+# ----- Rules -----------------------------------------------------------------
 
 .PHONY: all clean download
 

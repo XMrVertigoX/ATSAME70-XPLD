@@ -1,4 +1,4 @@
-# ----- Toolchain --------------------------------------------------------------
+# ----- Toolchain -------------------------------------------------------------
 
 TOOLCHAIN_PREFIX = arm-none-eabi-
 
@@ -7,12 +7,12 @@ GDB     = $(TOOLCHAIN_PREFIX)gdb
 OBJCOPY = $(TOOLCHAIN_PREFIX)objcopy
 SIZE    = $(TOOLCHAIN_PREFIX)size
 
-# ----- Tools ------------------------------------------------------------------
+# ----- Tools -----------------------------------------------------------------
 
 MKDIR = mkdir -p
 RMDIR = rm -rf
 
-# ----- Directories and Files --------------------------------------------------
+# ----- Directories and Files -------------------------------------------------
 
 OBJECT_DIR = _obj
 OUTPUT_DIR = _out
