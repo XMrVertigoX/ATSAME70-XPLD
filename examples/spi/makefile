@@ -1,10 +1,10 @@
-# ----- Configuration ----------------------------------------------------------
+# ----- Configuration ---------------------------------------------------------
 
 include ../config.mk
 
 PROJECT_NAME = blink_freertos
 
-# ----- Sources ----------------------------------------------------------------
+# ----- Sources ---------------------------------------------------------------
 
 include sdk.mk
 
@@ -25,19 +25,19 @@ INCLUDE_DIRS += src/config
 SOURCE_FILES += $(wildcard src/*.cpp)
 SOURCE_FILES += $(wildcard src/support/*.cpp)
 
-# ----- Libraries --------------------------------------------------------------
+# ----- Libraries -------------------------------------------------------------
 
 # LIBS +=
 
 # LIB_DIRS +=
 
-# ----- Flags ------------------------------------------------------------------
+# ----- Flags -----------------------------------------------------------------
 
 # GCCFLAGS +=
 
 # CPPFLAGS +=
 
-COMMON_COMPILER_FLAGS = -O0 -g -fdata-sections -ffunction-sections -fno-exceptions -nostdlib
+COMMON_COMPILER_FLAGS = -O3 -g -fdata-sections -ffunction-sections -fno-exceptions -nostdlib
 
 CFLAGS += $(COMMON_COMPILER_FLAGS)
 CFLAGS += -std=c11
@@ -51,6 +51,6 @@ LDFLAGS += --specs=nano.specs
 LDFLAGS += --specs=nosys.specs
 LDFLAGS += -Wl,--gc-sections
 
-# ----- Rules ------------------------------------------------------------------
+# ----- Rules -----------------------------------------------------------------
 
 include ../rules.mk
