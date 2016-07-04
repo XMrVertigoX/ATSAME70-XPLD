@@ -15,6 +15,7 @@ INCLUDE_DIRS += $(SDK_DIR)/common/services/clock
 INCLUDE_DIRS += $(SDK_DIR)/common/services/gpio
 INCLUDE_DIRS += $(SDK_DIR)/common/services/ioport
 INCLUDE_DIRS += $(SDK_DIR)/common/services/spi
+INCLUDE_DIRS += $(SDK_DIR)/common/services/delay
 INCLUDE_DIRS += $(SDK_DIR)/common/utils
 
 INCLUDE_DIRS += $(SDK_DIR)/sam/boards
@@ -37,6 +38,7 @@ INCLUDE_DIRS += $(SDK_DIR)/thirdparty/CMSIS/Include
 # ----- Source files -----------------------------------------------------------
 
 SOURCE_FILES += $(SDK_DIR)/common/services/clock/same70/sysclk.c
+SOURCE_FILES += $(SDK_DIR)/common/services/delay/sam/cycle_counter.c
 SOURCE_FILES += $(SDK_DIR)/common/services/spi/sam_spi/spi_master.c
 SOURCE_FILES += $(SDK_DIR)/common/utils/interrupt/interrupt_sam_nvic.c
 SOURCE_FILES += $(SDK_DIR)/sam/boards/same70_xplained/init.c

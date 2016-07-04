@@ -3,6 +3,7 @@
 
 #include <board.h>
 #include <compiler.h>
+#include <delay.h>
 #include <fpu.h>
 #include <gpio.h>
 #include <interrupt.h>
@@ -13,8 +14,8 @@
 #include <pio.h>
 #include <pio_handler.h>
 #include <pmc.h>
-#include <spi.h>
 #include <sleep.h>
+#include <spi.h>
 #include <spi_master.h>
 #include <status_codes.h>
 #include <sysclk.h>
