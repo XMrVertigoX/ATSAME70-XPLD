@@ -15,10 +15,10 @@ uint8_t foo[] = { 0x0B, 0x07 };
 uint8_t bar[] = { 0x00, 0x00 };
 
 void task(void *user) {
-    spi.transceive(mySpiDevice, foo, bar, sizeof(bar));
+    spi.transceive(mySpiDevice, bar, foo, sizeof(bar));
 
     for (;;) {
-        spi.transceive(mySpiDevice, bar, NULL, sizeof(bar));
+//        spi.transceive(mySpiDevice, NULL, bar, sizeof(bar));
     }
 }
 
@@ -27,7 +27,7 @@ int main() {
     board_init();
 
     spi.initialize();
-    spi.setupDevice(mySpiDevice, spiPeripheral1, spiMode0, 10000000);
+    spi.setupDevice(mySpiDevice, SpiPeripheral1, SpiMode0, 10000000);
 
     xTaskCreate(task, NULL, 256, NULL, 1, NULL);
 

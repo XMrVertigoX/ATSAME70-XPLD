@@ -4,17 +4,17 @@
 #include <asf.h>
 
 enum Spi_Mode_t {
-    spiMode0,
-    spiMode1,
-    spiMode2,
-    spiMode3
+    SpiMode0,
+    SpiMode1,
+    SpiMode2,
+    SpiMode3
 };
 
 enum Spi_Peripheral_t {
-    spiPeripheral0,
-    spiPeripheral1,
-    spiPeripheral2,
-    spiPeripheral3
+    SpiPeripheral0,
+    SpiPeripheral1,
+    SpiPeripheral2,
+    SpiPeripheral3
 };
 
 struct Spi_Device_t {
@@ -23,7 +23,8 @@ struct Spi_Device_t {
 
 class SpiMaster {
  private:
-    void enablePins();
+    void enableChipSelectPin(Spi_Peripheral_t peripheral);
+    void enableSpiPins();
     void disableChipSelect(Spi_Device_t &device);
     void enableChipSelect(Spi_Device_t &device);
 
@@ -36,8 +37,8 @@ class SpiMaster {
     uint8_t initialize();
     uint8_t setupDevice(Spi_Device_t &device, Spi_Peripheral_t peripheral,
                         Spi_Mode_t mode, uint32_t baudRate);
-    uint8_t transceive(Spi_Device_t &device, uint8_t txBytes[],
-                       uint8_t rxBytes[], size_t numBytes);
+    uint8_t transceive(Spi_Device_t &device, uint8_t rxBytes[],
+                       uint8_t txBytes[], size_t numBytes);
 };
 
 #endif /* SPIMASTER_HPP_ */
