@@ -16,7 +16,6 @@
 #include <pmc.h>
 #include <sleep.h>
 #include <spi.h>
-#include <spi_master.h>
 #include <status_codes.h>
 #include <sysclk.h>
 
