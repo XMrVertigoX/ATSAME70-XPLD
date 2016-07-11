@@ -3,12 +3,7 @@
 
 #include <asf.h>
 
-enum Spi_Mode_t {
-    SpiMode0,
-    SpiMode1,
-    SpiMode2,
-    SpiMode3
-};
+enum Spi_Mode_t { SpiMode0, SpiMode1, SpiMode2, SpiMode3 };
 
 enum Spi_Peripheral_t {
     SpiPeripheral0,
@@ -22,23 +17,23 @@ struct Spi_Device_t {
 };
 
 class SpiMaster {
- private:
+   private:
     void enableChipSelectPin(Spi_Peripheral_t peripheral);
     void enableSpiPins();
-    void disableChipSelect(Spi_Device_t &device);
-    void enableChipSelect(Spi_Device_t &device);
+    void disableChipSelect(Spi_Peripheral_t peripheral);
+    void enableChipSelect(Spi_Peripheral_t peripheral);
 
     Spi *_spi;
     bool initialized = false;
 
- public:
+   public:
     SpiMaster(Spi *spi);
     ~SpiMaster();
-    uint8_t initialize();
+    uint8_t initialize(uint32_t delay = 0);
     uint8_t setupDevice(Spi_Device_t &device, Spi_Peripheral_t peripheral,
                         Spi_Mode_t mode, uint32_t baudRate);
-    uint8_t transceive(Spi_Device_t &device, uint8_t rxBytes[],
-                       uint8_t txBytes[], size_t numBytes);
+    uint8_t transceive(Spi_Device_t &device, uint8_t misoBytes[],
+                       uint8_t mosiBytes[], size_t numBytes);
 };
 
 #endif /* SPIMASTER_HPP_ */

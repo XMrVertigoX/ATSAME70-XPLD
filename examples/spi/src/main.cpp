@@ -11,14 +11,14 @@
 SpiMaster spi(SPI0);
 Spi_Device_t mySpiDevice;
 
-uint8_t foo[] = { 0x0B, 0x07 };
-uint8_t bar[] = { 0x00, 0x00 };
+uint8_t foo[] = {0x0B, 0x07};
+uint8_t bar[] = {0x00, 0x00};
 
 void task(void *user) {
     spi.transceive(mySpiDevice, bar, foo, sizeof(bar));
 
     for (;;) {
-//        spi.transceive(mySpiDevice, NULL, bar, sizeof(bar));
+        // spi.transceive(mySpiDevice, NULL, bar, sizeof(bar));
     }
 }
 
