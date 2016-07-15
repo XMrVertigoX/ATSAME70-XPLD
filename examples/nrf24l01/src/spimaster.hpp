@@ -1,7 +1,12 @@
 #ifndef SPIMASTER_HPP_
 #define SPIMASTER_HPP_
 
-enum Spi_Mode_t { Spi_Mode_0, Spi_Mode_1, SpiMode2, SpiMode3 };
+enum Spi_Mode_t {
+    Spi_Mode_0,
+    Spi_Mode_1,
+    Spi_Mode_2,
+    Spi_Mode_3
+};
 
 enum Spi_Peripheral_t {
     Spi_Peripheral_0,
@@ -15,7 +20,7 @@ struct Spi_Device_t {
 };
 
 class SpiMaster {
-   private:
+ private:
     void configurePeripheralChipSelectPin(Spi_Peripheral_t peripheral);
     void configureSpiPins();
     void disableChipSelect(Spi_Peripheral_t peripheral);
@@ -24,7 +29,7 @@ class SpiMaster {
     Spi *_spi;
     bool initialized = false;
 
-   public:
+ public:
     SpiMaster(Spi *spi);
     ~SpiMaster();
     uint8_t initialize(uint32_t delay = 0);
