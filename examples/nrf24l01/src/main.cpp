@@ -14,17 +14,24 @@ Spi_Device_t nrf24l01;
 uint8_t pwr_up[] = {0x00, 0b0000010};
 uint8_t status[2];
 
-void task(void *user) {
+void simpleTask(void *user) {
+    LOG("prepare simpleTask");
+
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
     spiMaster.transceive(nrf24l01, status, pwr_up, sizeof(pwr_up));
 
+    LOG("enter simpleTask loop");
+
     for (;;) {
         spiMaster.transceive(nrf24l01, status, NULL, sizeof(status));
+        vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
 
 int main() {
+    LOG("enter main");
+
     sysclk_init();
     board_init();
 
@@ -39,9 +46,9 @@ int main() {
     ioport_enable_pin(PIO_PD11_IDX);
     ioport_set_pin_dir(PIO_PD11_IDX, IOPORT_DIR_OUTPUT);
 
-    xTaskCreate(task, NULL, 256, NULL, 1, NULL);
+    xTaskCreate(simpleTask, NULL, 256, NULL, 1, NULL);
 
-    LOG("Enter scheduler");
+    LOG("enter scheduler");
 
     vTaskStartScheduler();
 

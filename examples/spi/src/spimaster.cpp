@@ -5,9 +5,9 @@
 
 #include "spimaster.hpp"
 
-#define polarityMask 0b00000010
-#define phaseMask 0b00000001
-#define placeholder 0xFF
+#define POLARITY_MASK 0b00000010
+#define PHASE_MASK 0b00000001
+#define PLACEHOLDER 0xFF
 #define waitUntil(x) while (!x)
 
 static void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
@@ -90,8 +90,8 @@ uint8_t SpiMaster::setupDevice(Spi_Device_t &device,
     spi_set_bits_per_transfer(_spi, peripheral, SPI_CSR_BITS_8_BIT);
     spi_set_baudrate_div(_spi, peripheral, baudRateDivider);
     spi_configure_cs_behavior(_spi, peripheral, SPI_CS_KEEP_LOW);
-    spi_set_clock_polarity(_spi, peripheral, (mode & polarityMask) >> 1);
-    spi_set_clock_phase(_spi, peripheral, ((~mode) & phaseMask));
+    spi_set_clock_polarity(_spi, peripheral, (mode & POLARITY_MASK) >> 1);
+    spi_set_clock_phase(_spi, peripheral, ((~mode) & PHASE_MASK));
 
     device.peripheral = peripheral;
 
@@ -114,7 +114,7 @@ uint8_t SpiMaster::transceive(Spi_Device_t &device, uint8_t misoBytes[],
         if (NULL != mosiBytes) {
             spi_put(_spi, mosiBytes[i]);
         } else {
-            spi_put(_spi, placeholder);
+            spi_put(_spi, PLACEHOLDER);
         }
 
         if (NULL != misoBytes) {
