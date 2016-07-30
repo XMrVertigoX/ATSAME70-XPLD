@@ -5,38 +5,36 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+#include "lib/driver/spidrv.hpp"
 #include "logging.hpp"
-#include "spimaster.hpp"
 
-SpiMaster spiMaster(SPI0);
+SpiDrv spi(SPI0);
 Spi_Device_t nrf24l01;
 
 uint8_t pwr_up[] = {0x00, 0b0000010};
 uint8_t status[2];
 
 void simpleTask(void *user) {
-    LOG("prepare simpleTask");
+    LOG("user(%p)", user);
 
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
-    spiMaster.transceive(nrf24l01, status, pwr_up, sizeof(pwr_up));
+    spi.transceive(nrf24l01, status, pwr_up, sizeof(pwr_up));
 
-    LOG("enter simpleTask loop");
+    LOG("enter loop");
 
     for (;;) {
-        spiMaster.transceive(nrf24l01, status, NULL, sizeof(status));
+        spi.transceive(nrf24l01, status, NULL, sizeof(status));
         vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
 
 int main() {
-    LOG("enter main");
-
     sysclk_init();
     board_init();
 
-    spiMaster.initialize();
-    spiMaster.setupDevice(nrf24l01, Spi_Peripheral_3, Spi_Mode_0, 10000000);
+    spi.enableMasterMode();
+    spi.setupDevice(nrf24l01, Spi_Peripheral_3, Spi_Mode_0, 10000000);
 
     // IRQ
     ioport_enable_pin(PIO_PA6_IDX);

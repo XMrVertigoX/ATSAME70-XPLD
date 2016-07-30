@@ -1,5 +1,5 @@
-#ifndef SINGLETON_HPP_
-#define SINGLETON_HPP_
+#ifndef STATICSINGLETON_HPP_
+#define STATICSINGLETON_HPP_
 
 template <typename TYPE>
 class StaticSingleton {
@@ -17,4 +17,4 @@ TYPE& StaticSingleton<TYPE>::Instance() {
     return instance;
 }
 
-#endif  // SINGLETON_HPP_
+#endif  // STATICSINGLETON_HPP_

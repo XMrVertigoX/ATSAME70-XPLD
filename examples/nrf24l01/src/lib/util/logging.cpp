@@ -2,12 +2,15 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+#include "FreeRTOS.h"
+#include "task.h"
+
 #include "logging.hpp"
 
 #define MAX_LOG_LENGTH 256
 #define REPLACEMENT_CHARACTER '_'
 
-void putVisibleChararcterRepresentation(char character) {
+static void putVisibleChararcterRepresentation(char character) {
     if (isprint(character)) {
         putchar(character);
     } else {
@@ -16,6 +19,8 @@ void putVisibleChararcterRepresentation(char character) {
 }
 
 void printVisible(const char *format, ...) {
+    portENTER_CRITICAL();
+
     static char bytes[MAX_LOG_LENGTH];
 
     size_t numBytes;
@@ -30,4 +35,6 @@ void printVisible(const char *format, ...) {
     }
 
     putchar('\n');
+
+    portEXIT_CRITICAL();
 }

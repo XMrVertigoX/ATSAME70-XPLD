@@ -25,7 +25,6 @@ SOURCE_FILES += ../../FreeRTOS/portable/MemMang/heap_3.c
 
 INCLUDE_DIRS += src/asf
 INCLUDE_DIRS += src/config
-INCLUDE_DIRS += src/lib/driver
 INCLUDE_DIRS += src/lib/util
 
 SOURCE_FILES += $(shell find ./src -type f -name *.c)

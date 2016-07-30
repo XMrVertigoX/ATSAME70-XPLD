@@ -2,17 +2,17 @@
 #define SINGLETON_HPP_
 
 template <typename TYPE>
-class Singleton {
+class StaticSingleton {
    public:
     static TYPE& Instance();
 
    protected:
-    Singleton() {}
-    virtual ~Singleton() {}
+    StaticSingleton() {}
+    virtual ~StaticSingleton() {}
 };
 
 template <typename TYPE>
-TYPE& Singleton<TYPE>::Instance() {
+TYPE& StaticSingleton<TYPE>::Instance() {
     static TYPE instance;
     return instance;
 }

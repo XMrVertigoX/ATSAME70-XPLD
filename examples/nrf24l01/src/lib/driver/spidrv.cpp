@@ -1,29 +1,32 @@
-#include "spimaster.hpp"
+#include <assert.h>
+#include <stdint.h>
 
-#include <cassert>
-#include <cstdint>
+#include <asf.h>
 
+#include "logging.hpp"
+
+#include "spidrv.hpp"
 
 #define POLARITY_MASK 0b00000010
 #define PHASE_MASK 0b00000001
 #define PLACEHOLDER 0xFF
-#define waitUntil(x) while (!x)
+#define WAIT_UNTIL(x) while (!x)
 
 static void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
     ioport_set_pin_mode(pin, mode);
     ioport_disable_pin(pin);
 }
 
-void SpiMaster::configureSpiPins() {
-    if (SPI0 == _spi) {
+void SpiDrv::configurePins() {
+    if (_spi == SPI0) {
         setPinMode(SPI0_MISO_GPIO, SPI0_MISO_FLAGS);
         setPinMode(SPI0_MOSI_GPIO, SPI0_MOSI_FLAGS);
         setPinMode(SPI0_SPCK_GPIO, SPI0_SPCK_FLAGS);
     }
 }
 
-void SpiMaster::configurePeripheralChipSelectPin(Spi_Peripheral_t peripheral) {
-    if (SPI0 == _spi) {
+void SpiDrv::configurePeripheralChipSelectPin(Spi_Peripheral_t peripheral) {
+    if (_spi == SPI0) {
         switch (peripheral) {
             case Spi_Peripheral_0:
                 setPinMode(SPI0_NPCS0_GPIO, SPI0_NPCS0_FLAGS);
@@ -41,23 +44,25 @@ void SpiMaster::configurePeripheralChipSelectPin(Spi_Peripheral_t peripheral) {
     }
 }
 
-void SpiMaster::enableChipSelect(Spi_Peripheral_t peripheral) {
+void SpiDrv::enableChipSelect(Spi_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, ~(1 << peripheral));
 }
 
-void SpiMaster::disableChipSelect(Spi_Peripheral_t peripheral) {
+void SpiDrv::disableChipSelect(Spi_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, (1 << peripheral));
 }
 
-SpiMaster::SpiMaster(Spi *spi) : _spi(spi) {}
+SpiDrv::SpiDrv(Spi *spi) : _spi(spi) {}
 
-SpiMaster::~SpiMaster() {
+SpiDrv::~SpiDrv() {
     spi_disable(_spi);
     spi_disable_clock(_spi);
 }
 
-uint8_t SpiMaster::initialize(uint32_t delay) {
-    configureSpiPins();
+uint8_t SpiDrv::enableMasterMode(uint32_t delay) {
+    LOG("delay(%d)", delay);
+
+    configurePins();
 
     spi_enable_clock(_spi);
     spi_reset(_spi);
@@ -69,14 +74,18 @@ uint8_t SpiMaster::initialize(uint32_t delay) {
     spi_set_delay_between_chip_select(_spi, delay);
     spi_enable(_spi);
 
-    initialized = true;
-
-    return EXIT_SUCCESS;
+    return 0;
 }
 
-uint8_t SpiMaster::setupDevice(Spi_Device_t &device,
-                               Spi_Peripheral_t peripheral, Spi_Mode_t mode,
-                               uint32_t baudRate) {
+uint8_t SpiDrv::enableSlaveMode() {
+    // TODO: Implement spi slave mode
+    return 1;
+}
+
+uint8_t SpiDrv::setupDevice(Spi_Device_t &device, Spi_Peripheral_t peripheral,
+                            Spi_Mode_t mode, uint32_t baudRate) {
+    LOG("peripheral(%d), mode(%d), baudRate(%d)", peripheral, mode, baudRate);
+
     int16_t baudRateDivider =
         spi_calc_baudrate_div(baudRate, sysclk_get_cpu_hz());
     assert(baudRateDivider > 0);
@@ -92,21 +101,19 @@ uint8_t SpiMaster::setupDevice(Spi_Device_t &device,
 
     device.peripheral = peripheral;
 
-    return EXIT_SUCCESS;
+    return 0;
 }
 
-uint8_t SpiMaster::transceive(Spi_Device_t &device, uint8_t misoBytes[],
-                              uint8_t mosiBytes[], size_t numBytes) {
-    assert(initialized);
-
+uint8_t SpiDrv::transceive(Spi_Device_t &device, uint8_t misoBytes[],
+                           uint8_t mosiBytes[], size_t numBytes) {
     if (0 == numBytes || (NULL == misoBytes && NULL == mosiBytes)) {
-        return EXIT_FAILURE;
+        return 1;
     }
 
     enableChipSelect(device.peripheral);
 
     for (int i = 0; i < numBytes; i++) {
-        waitUntil(spi_is_tx_ready(_spi));
+        WAIT_UNTIL(spi_is_tx_ready(_spi));
 
         if (NULL != mosiBytes) {
             spi_put(_spi, mosiBytes[i]);
@@ -115,14 +122,14 @@ uint8_t SpiMaster::transceive(Spi_Device_t &device, uint8_t misoBytes[],
         }
 
         if (NULL != misoBytes) {
-            waitUntil(spi_is_rx_ready(_spi));
+            WAIT_UNTIL(spi_is_rx_ready(_spi));
             misoBytes[i] = spi_get(_spi);
         }
     }
 
-    waitUntil(spi_is_tx_empty(_spi));
+    WAIT_UNTIL(spi_is_tx_empty(_spi));
     disableChipSelect(device.peripheral);
     spi_set_lastxfer(_spi);
 
-    return EXIT_SUCCESS;
+    return 0;
 }

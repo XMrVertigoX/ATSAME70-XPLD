@@ -2,15 +2,17 @@
 #define LOGGING_HPP_
 
 #include "FreeRTOS.h"
+#include "task.h"
 
-#define TIMESTAMP "%03d.%03d - "
-#define SECONDS xTaskGetTickCount() / 1000
-#define MILLISECONDS xTaskGetTickCount() % 1000
+#define TIMESTAMP "%d.%03d"
+#define FUNCTION "%s"
+#define SECONDS xTaskGetTickCount() * portTICK_PERIOD_MS / 1000
+#define MILLISECONDS xTaskGetTickCount() * portTICK_PERIOD_MS % 1000
 
 #ifndef NDEBUG
-// The "missing" comma (',') between TIMESTAMP and MESSAGE is intended!
-#define LOG(MESSAGE, ...) \
-    printVisible(TIMESTAMP MESSAGE, SECONDS, MILLISECONDS, ##__VA_ARGS__)
+#define LOG(MESSAGE, ...)                                                    \
+    printVisible(TIMESTAMP " " FUNCTION ": " MESSAGE, SECONDS, MILLISECONDS, \
+                 __FUNCTION__, ##__VA_ARGS__)
 #else
 #define LOG(...)
 #endif
