@@ -4,19 +4,15 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#define TIMESTAMP "%d.%03d"
-#define FUNCTION "%s"
-#define SECONDS (xTaskGetTickCount() * portTICK_PERIOD_MS / 1000)
-#define MILLISECONDS (xTaskGetTickCount() * portTICK_PERIOD_MS % 1000)
-
 #ifndef NDEBUG
-#define LOG(MESSAGE, ...)                                                    \
-    printVisible(TIMESTAMP " " FUNCTION ": " MESSAGE, SECONDS, MILLISECONDS, \
-                 __FUNCTION__, ##__VA_ARGS__)
+#define BUFFER(message, bytes, numBytes) printBuffer(message, bytes, numBytes)
+#define LOG(format, ...) print(format, ##__VA_ARGS__)
 #else
 #define LOG(...)
+#define BUFFER(...)
 #endif
 
-void printVisible(const char *format, ...);
+void print(const char *format, ...);
+void printBuffer(const char *message, uint8_t *bytes, uint32_t numBytes);
 
 #endif  // LOGGING_HPP_

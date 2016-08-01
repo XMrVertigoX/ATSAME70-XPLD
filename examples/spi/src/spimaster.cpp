@@ -23,30 +23,30 @@ void SpiDrv::configurePins() {
     }
 }
 
-void SpiDrv::configurePeripheralChipSelectPin(Spi_Peripheral_t peripheral) {
+void SpiDrv::configurePeripheralChipSelectPin(SpiDrv_Peripheral_t peripheral) {
     if (SPI0 == _spi) {
         switch (peripheral) {
-            case Spi_Peripheral_0:
+            case SpiDrv_Peripheral_0:
                 setPinMode(SPI0_NPCS0_GPIO, SPI0_NPCS0_FLAGS);
                 break;
-            case Spi_Peripheral_1:
+            case SpiDrv_Peripheral_1:
                 setPinMode(SPI0_NPCS1_GPIO, SPI0_NPCS1_FLAGS);
                 break;
-            case Spi_Peripheral_2:
+            case SpiDrv_Peripheral_2:
                 setPinMode(SPI0_NPCS2_GPIO, SPI0_NPCS2_FLAGS);
                 break;
-            case Spi_Peripheral_3:
+            case SpiDrv_Peripheral_3:
                 setPinMode(SPI0_NPCS3_GPIO, SPI0_NPCS3_FLAGS);
                 break;
         }
     }
 }
 
-void SpiDrv::enableChipSelect(Spi_Peripheral_t peripheral) {
+void SpiDrv::enableChipSelect(SpiDrv_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, ~(1 << peripheral));
 }
 
-void SpiDrv::disableChipSelect(Spi_Peripheral_t peripheral) {
+void SpiDrv::disableChipSelect(SpiDrv_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, (1 << peripheral));
 }
 
@@ -77,8 +77,8 @@ uint8_t SpiDrv::enableMasterMode(uint32_t delay) {
     return EXIT_SUCCESS;
 }
 
-uint8_t SpiDrv::setupDevice(Spi_Device_t &device,
-                               Spi_Peripheral_t peripheral, Spi_Mode_t mode,
+uint8_t SpiDrv::setupDevice(SpiDrv_Device_t &device,
+                               SpiDrv_Peripheral_t peripheral, SpiDrv_Mode_t mode,
                                uint32_t baudRate) {
     int16_t baudRateDivider =
         spi_calc_baudrate_div(baudRate, sysclk_get_cpu_hz());
@@ -98,7 +98,7 @@ uint8_t SpiDrv::setupDevice(Spi_Device_t &device,
     return EXIT_SUCCESS;
 }
 
-uint8_t SpiDrv::transceive(Spi_Device_t &device, uint8_t misoBytes[],
+uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
                               uint8_t mosiBytes[], size_t numBytes) {
     assert(initialized);
 

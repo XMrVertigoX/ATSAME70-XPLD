@@ -1,25 +1,25 @@
 #ifndef SPIMASTER_HPP_
 #define SPIMASTER_HPP_
 
-enum Spi_Mode_t { Spi_Mode_0, Spi_Mode_1, SpiMode2, SpiMode3 };
+enum SpiDrv_Mode_t { SpiDrv_Mode_0, SpiDrv_Mode_1, SpiMode2, SpiMode3 };
 
-enum Spi_Peripheral_t {
-    Spi_Peripheral_0,
-    Spi_Peripheral_1,
-    Spi_Peripheral_2,
-    Spi_Peripheral_3
+enum SpiDrv_Peripheral_t {
+    SpiDrv_Peripheral_0,
+    SpiDrv_Peripheral_1,
+    SpiDrv_Peripheral_2,
+    SpiDrv_Peripheral_3
 };
 
-struct Spi_Device_t {
-    Spi_Peripheral_t peripheral;
+struct SpiDrv_Device_t {
+    SpiDrv_Peripheral_t peripheral;
 };
 
 class SpiDrv {
    private:
-    void configurePeripheralChipSelectPin(Spi_Peripheral_t peripheral);
+    void configurePeripheralChipSelectPin(SpiDrv_Peripheral_t peripheral);
     void configurePins();
-    void disableChipSelect(Spi_Peripheral_t peripheral);
-    void enableChipSelect(Spi_Peripheral_t peripheral);
+    void disableChipSelect(SpiDrv_Peripheral_t peripheral);
+    void enableChipSelect(SpiDrv_Peripheral_t peripheral);
 
     Spi *_spi;
     bool initialized = false;
@@ -28,9 +28,9 @@ class SpiDrv {
     SpiDrv(Spi *spi);
     ~SpiDrv();
     uint8_t enableMasterMode(uint32_t delay = 0);
-    uint8_t setupDevice(Spi_Device_t &device, Spi_Peripheral_t peripheral,
-                        Spi_Mode_t mode, uint32_t baudRate);
-    uint8_t transceive(Spi_Device_t &device, uint8_t misoBytes[],
+    uint8_t setupDevice(SpiDrv_Device_t &device, SpiDrv_Peripheral_t peripheral,
+                        SpiDrv_Mode_t mode, uint32_t baudRate);
+    uint8_t transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
                        uint8_t mosiBytes[], size_t numBytes);
 };
 

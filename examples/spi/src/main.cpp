@@ -11,7 +11,7 @@
 #define SPI_FREQ 10000000
 
 SpiDrv spi(SPI0);
-Spi_Device_t logicAnalyzer;
+SpiDrv_Device_t logicAnalyzer;
 
 uint8_t foo[] = { 0x0B, 0x07 };
 uint8_t bar[] = { 0x00, 0x00 };
@@ -27,7 +27,7 @@ int main() {
     board_init();
 
     spi.enableMasterMode();
-    spi.setupDevice(logicAnalyzer, Spi_Peripheral_1, Spi_Mode_0, SPI_FREQ);
+    spi.setupDevice(logicAnalyzer, SpiDrv_Peripheral_1, SpiDrv_Mode_0, SPI_FREQ);
 
     xTaskCreate(task, NULL, 256, NULL, 1, NULL);
 

@@ -25,30 +25,30 @@ void SpiDrv::configurePins() {
     }
 }
 
-void SpiDrv::configurePeripheralChipSelectPin(Spi_Peripheral_t peripheral) {
+void SpiDrv::configurePeripheralChipSelectPin(SpiDrv_Peripheral_t peripheral) {
     if (_spi == SPI0) {
         switch (peripheral) {
-            case Spi_Peripheral_0:
+            case SpiDrv_Peripheral_0:
                 setPinMode(SPI0_NPCS0_GPIO, SPI0_NPCS0_FLAGS);
                 break;
-            case Spi_Peripheral_1:
+            case SpiDrv_Peripheral_1:
                 setPinMode(SPI0_NPCS1_GPIO, SPI0_NPCS1_FLAGS);
                 break;
-            case Spi_Peripheral_2:
+            case SpiDrv_Peripheral_2:
                 setPinMode(SPI0_NPCS2_GPIO, SPI0_NPCS2_FLAGS);
                 break;
-            case Spi_Peripheral_3:
+            case SpiDrv_Peripheral_3:
                 setPinMode(SPI0_NPCS3_GPIO, SPI0_NPCS3_FLAGS);
                 break;
         }
     }
 }
 
-void SpiDrv::enableChipSelect(Spi_Peripheral_t peripheral) {
+void SpiDrv::enableChipSelect(SpiDrv_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, ~(1 << peripheral));
 }
 
-void SpiDrv::disableChipSelect(Spi_Peripheral_t peripheral) {
+void SpiDrv::disableChipSelect(SpiDrv_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, (1 << peripheral));
 }
 
@@ -59,9 +59,7 @@ SpiDrv::~SpiDrv() {
     spi_disable_clock(_spi);
 }
 
-uint8_t SpiDrv::enableMasterMode(uint32_t delay) {
-    LOG("delay(%d)", delay);
-
+uint8_t SpiDrv::enableMasterMode(uint32_t delayBetweenChipSelect) {
     configurePins();
 
     spi_enable_clock(_spi);
@@ -71,7 +69,7 @@ uint8_t SpiDrv::enableMasterMode(uint32_t delay) {
     spi_disable_loopback(_spi);
     spi_set_fixed_peripheral_select(_spi);
     spi_disable_peripheral_select_decode(_spi);
-    spi_set_delay_between_chip_select(_spi, delay);
+    spi_set_delay_between_chip_select(_spi, delayBetweenChipSelect);
     spi_enable(_spi);
 
     return 0;
@@ -82,8 +80,9 @@ uint8_t SpiDrv::enableSlaveMode() {
     return 1;
 }
 
-uint8_t SpiDrv::setupDevice(Spi_Device_t &device, Spi_Peripheral_t peripheral,
-                            Spi_Mode_t mode, uint32_t baudRate) {
+uint8_t SpiDrv::setupDevice(SpiDrv_Device_t &device,
+                            SpiDrv_Peripheral_t peripheral, SpiDrv_Mode_t mode,
+                            uint32_t baudRate) {
     LOG("peripheral(%d), mode(%d), baudRate(%d)", peripheral, mode, baudRate);
 
     int16_t baudRateDivider =
@@ -104,27 +103,29 @@ uint8_t SpiDrv::setupDevice(Spi_Device_t &device, Spi_Peripheral_t peripheral,
     return 0;
 }
 
-uint8_t SpiDrv::transceive(Spi_Device_t &device, uint8_t misoBytes[],
+uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
                            uint8_t mosiBytes[], size_t numBytes) {
-    if (0 == numBytes || (NULL == misoBytes && NULL == mosiBytes)) {
+    if (0 == numBytes) {
         return 1;
     }
 
     enableChipSelect(device.peripheral);
 
+    BUFFER(">>>", mosiBytes, numBytes);
+
     for (int i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
 
-        if (NULL != mosiBytes) {
-            spi_put(_spi, mosiBytes[i]);
-        } else {
-            spi_put(_spi, PLACEHOLDER);
-        }
+        spi_put(_spi, mosiBytes[i]);
 
         if (NULL != misoBytes) {
             WAIT_UNTIL(spi_is_rx_ready(_spi));
             misoBytes[i] = spi_get(_spi);
         }
+    }
+
+    if (misoBytes != NULL) {
+        BUFFER("<<<", misoBytes, numBytes);
     }
 
     WAIT_UNTIL(spi_is_tx_empty(_spi));

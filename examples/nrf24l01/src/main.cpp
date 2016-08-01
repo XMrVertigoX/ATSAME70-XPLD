@@ -6,26 +6,23 @@
 #include "task.h"
 
 #include "lib/driver/spidrv.hpp"
+#include "lib/nrf24l01/nrf24l01p.hpp"
+#include "lib/nrf24l01/nrf24l01p_definitions.h"
 #include "logging.hpp"
 
 SpiDrv spi(SPI0);
-Spi_Device_t nrf24l01;
+SpiDrv_Device_t nrf24l01;
 
-uint8_t pwr_up[] = {0x00, 0b0000010};
-uint8_t status[2];
+//uint8_t one[] = { W_REGISTER | CONFIG, 0b00001010 };
+//uint8_t two[] = { R_REGISTER | CONFIG, 0b11111111 };}
 
 void simpleTask(void *user) {
-    LOG("user(%p)", user);
+    nRF24L01P transmitter(spi, nrf24l01);
 
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
-    spi.transceive(nrf24l01, status, pwr_up, sizeof(pwr_up));
-
     LOG("enter loop");
-
     for (;;) {
-        spi.transceive(nrf24l01, status, NULL, sizeof(status));
-        vTaskDelay(100 / portTICK_PERIOD_MS);
     }
 }
 
@@ -34,7 +31,7 @@ int main() {
     board_init();
 
     spi.enableMasterMode();
-    spi.setupDevice(nrf24l01, Spi_Peripheral_3, Spi_Mode_0, 10000000);
+    spi.setupDevice(nrf24l01, SpiDrv_Peripheral_3, SpiDrv_Mode_0, 10000000);
 
     // IRQ
     ioport_enable_pin(PIO_PA6_IDX);
@@ -47,7 +44,6 @@ int main() {
     xTaskCreate(simpleTask, NULL, 256, NULL, 1, NULL);
 
     LOG("enter scheduler");
-
     vTaskStartScheduler();
 
     return EXIT_FAILURE;
