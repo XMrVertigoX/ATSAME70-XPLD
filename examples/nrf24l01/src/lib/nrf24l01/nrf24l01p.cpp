@@ -1,42 +1,72 @@
+#include <string.h>
+
+#include "logging.hpp"
 #include "spidrv.hpp"
 
 #include "nrf24l01p.hpp"
 #include "nrf24l01p_definitions.h"
 
-#define CONFIG_REGISTER_MASK 0b00011111
+#define COMMAND_REGISTER_MASK 0b00011111
 #define PLACEHOLDER 0xFF
 
 nRF24L01P::nRF24L01P(SpiDrv &spi, SpiDrv_Device_t &device)
-    : _spi(spi), _device(device) {}
+        : _spi(spi),
+          _device(device),
+          _status(0) {
+}
 
-nRF24L01P::~nRF24L01P() {}
+nRF24L01P::~nRF24L01P() {
+}
 
-uint8_t nRF24L01P::readRegister(uint8_t reg, uint8_t &buf) {
-    uint8_t miso[2];
-    uint8_t mosi[2];
+uint8_t nRF24L01P::read(uint8_t addr, uint8_t bytes[], uint32_t numBytes) {
+    uint8_t miso[numBytes + 1];
+    uint8_t mosi[numBytes + 1];
 
-    mosi[0] = R_REGISTER | (reg & CONFIG_REGISTER_MASK);
-    mosi[1] = PLACEHOLDER;
+    mosi[0] = R_REGISTER | (addr & COMMAND_REGISTER_MASK);
+    memset(&mosi[1], PLACEHOLDER, numBytes);
+
+    _spi.transceive(_device, miso, mosi, numBytes + 1);
+
+    updateStatus(miso[0]);
+    memcpy(&miso[1], bytes, numBytes);
+
+    return 0;
+}
+
+uint8_t nRF24L01P::write(uint8_t command, uint8_t bytes[], uint32_t numBytes) {
+    uint8_t miso[numBytes + 1];
+    uint8_t mosi[numBytes + 1];
+
+    mosi[0] = W_REGISTER | (command & COMMAND_REGISTER_MASK);
+    memcpy(&mosi[1], bytes, numBytes);
 
     _spi.transceive(_device, miso, mosi, sizeof(mosi));
 
-    buf = miso[1];
+    updateStatus(miso[0]);
 
-    return miso[0];
+    return 0;
 }
 
-uint8_t nRF24L01P::writeRegister(uint8_t reg, uint8_t val) {
-    uint8_t miso[2];
-    uint8_t mosi[2];
-
-    mosi[0] = W_REGISTER | (reg & CONFIG_REGISTER_MASK);
-    mosi[1] = val;
-
-    _spi.transceive(_device, miso, mosi, sizeof(mosi));
-
-    return miso[0];
+void nRF24L01P::updateStatus(uint8_t status) {
+    _status = status;
 }
 
-void nRF24L01P::powerDown() {}
+void nRF24L01P::powerDown() {
+    LOG("powerDown");
 
-void nRF24L01P::powerUp() {}
+    uint8_t buffer[1];
+    read(CONFIG, buffer, sizeof(buffer));
+
+    buffer[0] &= ~PWR_UP;
+    write(CONFIG, buffer, sizeof(buffer));
+}
+
+void nRF24L01P::powerUp() {
+    LOG("powerUp");
+
+    uint8_t buffer[1];
+    read(CONFIG, buffer, sizeof(buffer));
+
+    buffer[0] |= PWR_UP;
+    write(CONFIG, buffer, sizeof(buffer));
+}
