@@ -3,6 +3,8 @@
 
 #include <asf.h>
 
+#include "FreeRTOS.h"
+
 #include "logging.hpp"
 
 #include "spidrv.hpp"
@@ -52,7 +54,9 @@ void SpiDrv::disableChipSelect(SpiDrv_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, (1 << peripheral));
 }
 
-SpiDrv::SpiDrv(Spi *spi) : _spi(spi) {}
+SpiDrv::SpiDrv(Spi *spi)
+        : _spi(spi) {
+}
 
 SpiDrv::~SpiDrv() {
     spi_disable(_spi);
@@ -106,11 +110,12 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
         return 1;
     }
 
+    portENTER_CRITICAL();
+
     enableChipSelect(device.peripheral);
 
     for (int i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
-
         spi_put(_spi, mosiBytes[i]);
 
         if (NULL != misoBytes) {
@@ -122,6 +127,11 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
     WAIT_UNTIL(spi_is_tx_empty(_spi));
     disableChipSelect(device.peripheral);
     spi_set_lastxfer(_spi);
+
+    portEXIT_CRITICAL();
+
+    BUFFER(">>>", mosiBytes, numBytes);
+    BUFFER("<<<", misoBytes, numBytes);
 
     return 0;
 }
