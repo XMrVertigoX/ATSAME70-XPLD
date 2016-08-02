@@ -44,13 +44,13 @@ SOURCE_FILES += $(shell find ./src -type f -name *.cpp)
 
 # CPPFLAGS +=
 
-COMMON_COMPILER_FLAGS = -O3 -g -fdata-sections -ffunction-sections -fno-exceptions -nostdlib
+COMMON_COMPILER_FLAGS = -O3 -g -nostdlib -fdata-sections -ffunction-sections -fno-exceptions -fno-unwind-tables
 
 CFLAGS += $(COMMON_COMPILER_FLAGS)
-CFLAGS += -std=c11
+CFLAGS += -std=gnu11
 
 CXXFLAGS += $(COMMON_COMPILER_FLAGS)
-CXXFLAGS += -std=c++17
+CXXFLAGS += -std=gnu++14
 CXXFLAGS += -fno-rtti
 CXXFLAGS += -fno-threadsafe-statics
 

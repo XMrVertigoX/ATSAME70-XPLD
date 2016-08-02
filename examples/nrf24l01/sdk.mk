@@ -7,7 +7,6 @@ SYMBOLS += BOARD=SAME70_XPLAINED
 SYMBOLS += ARM_MATH_CM7=true
 # SYMBOLS += printf=iprintf
 # SYMBOLS += scanf=iscanf
-SYMBOLS += asm=__asm__
 
 # ----- Include directories ----------------------------------------------------
 
@@ -61,12 +60,10 @@ LIB_DIRS += $(SDK_DIR)/thirdparty/CMSIS/Lib/GCC
 GCCFLAGS += -march=armv7-m
 GCCFLAGS += -mtune=cortex-m7
 GCCFLAGS += -mthumb
-
-CFLAGS   += -mfloat-abi=softfp -mfpu=fpv5-d16
-CXXFLAGS += -mfloat-abi=softfp -mfpu=fpv5-d16
+GCCFLAGS += -mfloat-abi=softfp -mfpu=fpv5-d16
 
 LINKER_SCRIPT_FLASH = $(SDK_DIR)/sam/utils/linker_scripts/same70/same70q21/gcc/flash.ld
 
+LDFLAGS += -Wl,--script=$(realpath $(LINKER_SCRIPT_FLASH))
 # LDFLAGS += -u _printf_float
 # LDFLAGS += -u _scanf_float
-LDFLAGS += -Wl,--script=$(realpath $(LINKER_SCRIPT_FLASH))
