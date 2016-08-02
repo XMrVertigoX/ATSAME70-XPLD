@@ -49,16 +49,14 @@ COMMON_CFLAGS += -ffunction-sections
 COMMON_CFLAGS += -fno-exceptions
 COMMON_CFLAGS += -fno-unwind-tables
 COMMON_CFLAGS += -g3
-COMMON_CFLAGS += -mfloat-abi=softfp
-COMMON_CFLAGS += -mfpu=fpv5-d16
 COMMON_CFLAGS += -nostdlib
 COMMON_CFLAGS += -O3
 
-CFLAGS += -std=gnu11
+# CFLAGS += -std=gnu11
 
-CXXFLAGS += -std=gnu++14
 CXXFLAGS += -fno-rtti
 CXXFLAGS += -fno-threadsafe-statics
+# CXXFLAGS += -std=gnu++14
 
 LDFLAGS += --specs=nano.specs
 LDFLAGS += --specs=nosys.specs

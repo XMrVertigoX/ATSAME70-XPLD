@@ -57,6 +57,9 @@ LIB_DIRS += $(SDK_DIR)/thirdparty/CMSIS/Lib/GCC
 
 # ----- Flags ------------------------------------------------------------------
 
+COMMON_CFLAGS += -mfloat-abi=softfp
+COMMON_CFLAGS += -mfpu=fpv5-d16
+
 LINKER_SCRIPT_FLASH = $(SDK_DIR)/sam/utils/linker_scripts/same70/same70q21/gcc/flash.ld
 
 LDFLAGS += -T $(realpath $(LINKER_SCRIPT_FLASH))
