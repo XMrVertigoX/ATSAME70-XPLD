@@ -13,13 +13,13 @@
 SpiDrv spi(SPI0);
 SpiDrv_Device_t nrf24l01;
 
-//uint8_t one[] = { W_REGISTER | CONFIG, 0b00001010 };
-//uint8_t two[] = { R_REGISTER | CONFIG, 0b11111111 };}
-
 void simpleTask(void *user) {
     nRF24L01P transmitter(spi, nrf24l01);
 
     vTaskDelay(100 / portTICK_PERIOD_MS);
+
+    transmitter.powerUp();
+    transmitter.powerDown();
 
     LOG("enter loop");
     for (;;) {
@@ -31,7 +31,7 @@ int main() {
     board_init();
 
     spi.enableMasterMode();
-    spi.setupDevice(nrf24l01, SpiDrv_Peripheral_3, SpiDrv_Mode_0, 10000000);
+    spi.setupDevice(nrf24l01, SpiDrv_Peripheral_3, SpiDrv_Mode_0, 2000000);
 
     // IRQ
     ioport_enable_pin(PIO_PA6_IDX);
