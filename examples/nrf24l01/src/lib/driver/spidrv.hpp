@@ -22,7 +22,7 @@ struct SpiDrv_Device_t {
 };
 
 class SpiDrv {
-   private:
+ private:
     void configurePeripheralChipSelectPin(SpiDrv_Peripheral_t peripheral);
     void configurePins();
     void disableChipSelect(SpiDrv_Peripheral_t peripheral);
@@ -30,7 +30,7 @@ class SpiDrv {
 
     Spi *_spi;
 
-   public:
+ public:
     SpiDrv(Spi *spi);
     ~SpiDrv();
     uint8_t enableMasterMode(uint32_t delayBetweenChipSelect = 0);

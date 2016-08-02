@@ -1,5 +1,4 @@
-**/bin
-**/obj
+_* # Temporary files
 
 eclipse.cmd
 Packages

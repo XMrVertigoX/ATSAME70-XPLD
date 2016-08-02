@@ -1,4 +1,4 @@
-SDK_DIR = ../../SDK/xdk-asf-3.31.0
+SDK_DIR = ../../ASF/xdk-asf-3.32.0
 
 # ----- Symbols ----------------------------------------------------------------
 
@@ -7,6 +7,7 @@ SYMBOLS += BOARD=SAME70_XPLAINED
 SYMBOLS += ARM_MATH_CM7=true
 # SYMBOLS += printf=iprintf
 # SYMBOLS += scanf=iscanf
+SYMBOLS += asm=__asm__
 
 # ----- Include directories ----------------------------------------------------
 

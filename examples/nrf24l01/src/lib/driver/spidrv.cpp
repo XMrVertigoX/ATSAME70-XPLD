@@ -54,8 +54,7 @@ void SpiDrv::disableChipSelect(SpiDrv_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, (1 << peripheral));
 }
 
-SpiDrv::SpiDrv(Spi *spi)
-        : _spi(spi) {
+SpiDrv::SpiDrv(Spi *spi) : _spi(spi) {
 }
 
 SpiDrv::~SpiDrv() {
@@ -76,12 +75,12 @@ uint8_t SpiDrv::enableMasterMode(uint32_t delayBetweenChipSelect) {
     spi_set_delay_between_chip_select(_spi, delayBetweenChipSelect);
     spi_enable(_spi);
 
-    return 0;
+    return (0);
 }
 
 uint8_t SpiDrv::enableSlaveMode() {
     // TODO: Implement spi slave mode
-    return 1;
+    return (1);
 }
 
 uint8_t SpiDrv::setupDevice(SpiDrv_Device_t &device,
@@ -101,13 +100,13 @@ uint8_t SpiDrv::setupDevice(SpiDrv_Device_t &device,
 
     device.peripheral = peripheral;
 
-    return 0;
+    return (0);
 }
 
 uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
                            uint8_t mosiBytes[], size_t numBytes) {
     if (0 == numBytes) {
-        return 1;
+        return (1);
     }
 
     portENTER_CRITICAL();
@@ -133,5 +132,5 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
     BUFFER(">>>", mosiBytes, numBytes);
     BUFFER("<<<", misoBytes, numBytes);
 
-    return 0;
+    return (0);
 }

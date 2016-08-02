@@ -18,8 +18,8 @@ void simpleTask(void *user) {
 
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
-    transmitter.powerUp();
-    transmitter.powerDown();
+    transmitter.config_powerUp();
+    transmitter.config_powerDown();
 
     LOG("enter loop");
     for (;;) {

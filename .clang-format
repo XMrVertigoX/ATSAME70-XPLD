@@ -5,7 +5,7 @@ IndentWidth: 4
 Language: Cpp
 
 AllowShortBlocksOnASingleLine: false
-AllowShortFunctionsOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: false
 
 ReflowComments: false
 SortIncludes: true
