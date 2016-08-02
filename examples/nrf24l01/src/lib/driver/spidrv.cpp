@@ -83,17 +83,14 @@ uint8_t SpiDrv::enableSlaveMode() {
 uint8_t SpiDrv::setupDevice(SpiDrv_Device_t &device,
                             SpiDrv_Peripheral_t peripheral, SpiDrv_Mode_t mode,
                             uint32_t baudRate) {
-    LOG("peripheral(%d), mode(%d), baudRate(%d)", peripheral, mode, baudRate);
-
-    int16_t baudRateDivider =
-        spi_calc_baudrate_div(baudRate, sysclk_get_cpu_hz());
-    assert(baudRateDivider > 0);
+    int16_t baudRateDiv = spi_calc_baudrate_div(baudRate, sysclk_get_cpu_hz());
+    assert(baudRateDiv > 0);
 
     configurePeripheralChipSelectPin(peripheral);
 
     spi_set_transfer_delay(_spi, peripheral, 0, 0);
     spi_set_bits_per_transfer(_spi, peripheral, SPI_CSR_BITS_8_BIT);
-    spi_set_baudrate_div(_spi, peripheral, baudRateDivider);
+    spi_set_baudrate_div(_spi, peripheral, baudRateDiv);
     spi_configure_cs_behavior(_spi, peripheral, SPI_CS_KEEP_LOW);
     spi_set_clock_polarity(_spi, peripheral, (mode & POLARITY_MASK) >> 1);
     spi_set_clock_phase(_spi, peripheral, ((~mode) & PHASE_MASK));
@@ -111,8 +108,6 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
 
     enableChipSelect(device.peripheral);
 
-    BUFFER(">>>", mosiBytes, numBytes);
-
     for (int i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
 
@@ -122,10 +117,6 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
             WAIT_UNTIL(spi_is_rx_ready(_spi));
             misoBytes[i] = spi_get(_spi);
         }
-    }
-
-    if (misoBytes != NULL) {
-        BUFFER("<<<", misoBytes, numBytes);
     }
 
     WAIT_UNTIL(spi_is_tx_empty(_spi));
