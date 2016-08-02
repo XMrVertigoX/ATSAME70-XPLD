@@ -14,7 +14,7 @@ class StaticSingleton {
 template <typename TYPE>
 TYPE& StaticSingleton<TYPE>::Instance() {
     static TYPE instance;
-    return instance;
+    return (instance);
 }
 
 #endif  // STATICSINGLETON_HPP_
