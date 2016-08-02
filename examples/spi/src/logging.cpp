@@ -4,7 +4,7 @@
 
 #include "logging.hpp"
 
-void printVisible(const char *format, ...) {
+void print(const char *format, ...) {
     char numBytes = 0xFF;
     char bytes[numBytes];
 

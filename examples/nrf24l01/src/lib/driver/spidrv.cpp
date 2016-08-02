@@ -1,9 +1,13 @@
-#include <cassert>
-#include <cstdint>
+#include <assert.h>
+#include <stdint.h>
 
 #include <asf.h>
 
-#include "spimaster.hpp"
+#include "FreeRTOS.h"
+
+#include "logging.hpp"
+
+#include "spidrv.hpp"
 
 #define POLARITY_MASK 0b00000010
 #define PHASE_MASK 0b00000001
@@ -16,7 +20,7 @@ static void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
 }
 
 void SpiDrv::configurePins() {
-    if (SPI0 == _spi) {
+    if (_spi == SPI0) {
         setPinMode(SPI0_MISO_GPIO, SPI0_MISO_FLAGS);
         setPinMode(SPI0_MOSI_GPIO, SPI0_MOSI_FLAGS);
         setPinMode(SPI0_SPCK_GPIO, SPI0_SPCK_FLAGS);
@@ -24,7 +28,7 @@ void SpiDrv::configurePins() {
 }
 
 void SpiDrv::configurePeripheralChipSelectPin(SpiDrv_Peripheral_t peripheral) {
-    if (SPI0 == _spi) {
+    if (_spi == SPI0) {
         switch (peripheral) {
             case SpiDrv_Peripheral_0:
                 setPinMode(SPI0_NPCS0_GPIO, SPI0_NPCS0_FLAGS);
@@ -50,16 +54,15 @@ void SpiDrv::disableChipSelect(SpiDrv_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, (1 << peripheral));
 }
 
-// ----- Public API -----------------------------------------------------------
-
-SpiDrv::SpiDrv(Spi *spi) : _spi(spi) {}
+SpiDrv::SpiDrv(Spi *spi) : _spi(spi) {
+}
 
 SpiDrv::~SpiDrv() {
     spi_disable(_spi);
     spi_disable_clock(_spi);
 }
 
-uint8_t SpiDrv::enableMasterMode(uint32_t delay) {
+uint8_t SpiDrv::enableMasterMode(uint32_t delayBetweenChipSelect) {
     configurePins();
 
     spi_enable_clock(_spi);
@@ -69,53 +72,50 @@ uint8_t SpiDrv::enableMasterMode(uint32_t delay) {
     spi_disable_loopback(_spi);
     spi_set_fixed_peripheral_select(_spi);
     spi_disable_peripheral_select_decode(_spi);
-    spi_set_delay_between_chip_select(_spi, delay);
+    spi_set_delay_between_chip_select(_spi, delayBetweenChipSelect);
     spi_enable(_spi);
 
-    initialized = true;
+    return (0);
+}
 
-    return EXIT_SUCCESS;
+uint8_t SpiDrv::enableSlaveMode() {
+    // TODO: Implement spi slave mode
+    return (1);
 }
 
 uint8_t SpiDrv::setupDevice(SpiDrv_Device_t &device,
-                               SpiDrv_Peripheral_t peripheral, SpiDrv_Mode_t mode,
-                               uint32_t baudRate) {
-    int16_t baudRateDivider =
-        spi_calc_baudrate_div(baudRate, sysclk_get_cpu_hz());
-    assert(baudRateDivider > 0);
+                            SpiDrv_Peripheral_t peripheral, SpiDrv_Mode_t mode,
+                            uint32_t baudRate) {
+    int16_t baudRateDiv = spi_calc_baudrate_div(baudRate, sysclk_get_cpu_hz());
+    assert(baudRateDiv > 0);
 
     configurePeripheralChipSelectPin(peripheral);
 
     spi_set_transfer_delay(_spi, peripheral, 0, 0);
     spi_set_bits_per_transfer(_spi, peripheral, SPI_CSR_BITS_8_BIT);
-    spi_set_baudrate_div(_spi, peripheral, baudRateDivider);
+    spi_set_baudrate_div(_spi, peripheral, baudRateDiv);
     spi_configure_cs_behavior(_spi, peripheral, SPI_CS_KEEP_LOW);
     spi_set_clock_polarity(_spi, peripheral, (mode & POLARITY_MASK) >> 1);
     spi_set_clock_phase(_spi, peripheral, ((~mode) & PHASE_MASK));
 
     device.peripheral = peripheral;
 
-    return EXIT_SUCCESS;
+    return (0);
 }
 
 uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
-                              uint8_t mosiBytes[], size_t numBytes) {
-    assert(initialized);
-
-    if (0 == numBytes || (NULL == misoBytes && NULL == mosiBytes)) {
-        return EXIT_FAILURE;
+                           uint8_t mosiBytes[], size_t numBytes) {
+    if (0 == numBytes) {
+        return (1);
     }
+
+    portENTER_CRITICAL();
 
     enableChipSelect(device.peripheral);
 
     for (int i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
-
-        if (NULL != mosiBytes) {
-            spi_put(_spi, mosiBytes[i]);
-        } else {
-            spi_put(_spi, PLACEHOLDER);
-        }
+        spi_put(_spi, mosiBytes[i]);
 
         if (NULL != misoBytes) {
             WAIT_UNTIL(spi_is_rx_ready(_spi));
@@ -127,5 +127,10 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
     disableChipSelect(device.peripheral);
     spi_set_lastxfer(_spi);
 
-    return EXIT_SUCCESS;
+    portEXIT_CRITICAL();
+
+    BUFFER(">>>", mosiBytes, numBytes);
+    BUFFER("<<<", misoBytes, numBytes);
+
+    return (0);
 }

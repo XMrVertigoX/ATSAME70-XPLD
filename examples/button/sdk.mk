@@ -1,4 +1,4 @@
-SDK_DIR = ../../SDK/xdk-asf-3.31.0
+SDK_DIR = ../../ASF/xdk-asf-3.32.0
 
 # ----- Symbols ----------------------------------------------------------------
 
@@ -54,9 +54,9 @@ LIBS += arm_cortexM7lfdp_math_softfp
 
 # ----- Flags ------------------------------------------------------------------
 
-GCCFLAGS += -march=armv7-m
-GCCFLAGS += -mtune=cortex-m7
-GCCFLAGS += -mthumb
+COMMON_GCC_FLAGS += -march=armv7-m
+COMMON_GCC_FLAGS += -mtune=cortex-m7
+COMMON_GCC_FLAGS += -mthumb
 
 CFLAGS   += -mfloat-abi=softfp -mfpu=fpv5-d16
 CXXFLAGS += -mfloat-abi=softfp -mfpu=fpv5-d16

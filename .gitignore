@@ -1,5 +1,4 @@
-**/bin
-**/obj
+**/_obj
+**/_out
 
-eclipse.cmd
 Packages

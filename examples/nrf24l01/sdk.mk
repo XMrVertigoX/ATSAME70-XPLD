@@ -1,12 +1,12 @@
-SDK_DIR = ../../SDK/xdk-asf-3.31.0
+SDK_DIR = ../../ASF/xdk-asf-3.32.0
 
 # ----- Symbols ----------------------------------------------------------------
 
 SYMBOLS += __SAME70Q21__
 SYMBOLS += BOARD=SAME70_XPLAINED
 SYMBOLS += ARM_MATH_CM7=true
-SYMBOLS += printf=iprintf
-SYMBOLS += scanf=iscanf
+# SYMBOLS += printf=iprintf
+# SYMBOLS += scanf=iscanf
 
 # ----- Include directories ----------------------------------------------------
 
@@ -57,13 +57,11 @@ LIB_DIRS += $(SDK_DIR)/thirdparty/CMSIS/Lib/GCC
 
 # ----- Flags ------------------------------------------------------------------
 
-GCCFLAGS += -march=armv7-m
-GCCFLAGS += -mtune=cortex-m7
-GCCFLAGS += -mthumb
-
-CFLAGS   += -mfloat-abi=softfp -mfpu=fpv5-d16
-CXXFLAGS += -mfloat-abi=softfp -mfpu=fpv5-d16
+COMMON_CFLAGS += -mfloat-abi=softfp
+COMMON_CFLAGS += -mfpu=fpv5-d16
 
 LINKER_SCRIPT_FLASH = $(SDK_DIR)/sam/utils/linker_scripts/same70/same70q21/gcc/flash.ld
 
-LDFLAGS += -Wl,--script=$(realpath $(LINKER_SCRIPT_FLASH))
+LDFLAGS += -T $(realpath $(LINKER_SCRIPT_FLASH))
+# LDFLAGS += -u _printf_float
+# LDFLAGS += -u _scanf_float
