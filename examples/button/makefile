@@ -23,13 +23,11 @@ SOURCE_FILES += src/main.cpp
 
 # CPPFLAGS +=
 
-COMMON_COMPILER_FLAGS = -O3 -g -fdata-sections -ffunction-sections -fno-exceptions -nostdlib
+COMMON_CFLAGS = -O3 -g -fdata-sections -ffunction-sections -fno-exceptions -nostdlib
 
-CFLAGS += $(COMMON_COMPILER_FLAGS)
-CFLAGS += -std=c11
+CFLAGS += $(COMMON_CFLAGS)
 
-CXXFLAGS += $(COMMON_COMPILER_FLAGS)
-CXXFLAGS += -std=c++17
+CXXFLAGS += $(COMMON_CFLAGS)
 CXXFLAGS += -fno-rtti
 
 LDFLAGS += --specs=nano.specs

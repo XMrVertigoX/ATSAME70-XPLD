@@ -40,16 +40,22 @@ SOURCE_FILES += $(shell find ./src -type f -name *.cpp)
 
 # ----- Flags -----------------------------------------------------------------
 
-# GCCFLAGS +=
+COMMON_GCC_FLAGS += -march=armv7-m
+COMMON_GCC_FLAGS += -mtune=cortex-m7
+COMMON_GCC_FLAGS += -mthumb
 
-# CPPFLAGS +=
+COMMON_CFLAGS += -fdata-sections
+COMMON_CFLAGS += -ffunction-sections
+COMMON_CFLAGS += -fno-exceptions
+COMMON_CFLAGS += -fno-unwind-tables
+COMMON_CFLAGS += -g3
+COMMON_CFLAGS += -mfloat-abi=softfp
+COMMON_CFLAGS += -mfpu=fpv5-d16
+COMMON_CFLAGS += -nostdlib
+COMMON_CFLAGS += -O3
 
-COMMON_COMPILER_FLAGS = -O3 -g -nostdlib -fdata-sections -ffunction-sections -fno-exceptions -fno-unwind-tables
-
-CFLAGS += $(COMMON_COMPILER_FLAGS)
 CFLAGS += -std=gnu11
 
-CXXFLAGS += $(COMMON_COMPILER_FLAGS)
 CXXFLAGS += -std=gnu++14
 CXXFLAGS += -fno-rtti
 CXXFLAGS += -fno-threadsafe-statics

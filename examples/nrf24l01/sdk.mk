@@ -57,13 +57,8 @@ LIB_DIRS += $(SDK_DIR)/thirdparty/CMSIS/Lib/GCC
 
 # ----- Flags ------------------------------------------------------------------
 
-GCCFLAGS += -march=armv7-m
-GCCFLAGS += -mtune=cortex-m7
-GCCFLAGS += -mthumb
-GCCFLAGS += -mfloat-abi=softfp -mfpu=fpv5-d16
-
 LINKER_SCRIPT_FLASH = $(SDK_DIR)/sam/utils/linker_scripts/same70/same70q21/gcc/flash.ld
 
-LDFLAGS += -Wl,--script=$(realpath $(LINKER_SCRIPT_FLASH))
+LDFLAGS += -T $(realpath $(LINKER_SCRIPT_FLASH))
 # LDFLAGS += -u _printf_float
 # LDFLAGS += -u _scanf_float

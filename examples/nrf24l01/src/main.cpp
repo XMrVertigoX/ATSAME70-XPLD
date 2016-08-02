@@ -46,5 +46,5 @@ int main() {
     LOG("enter scheduler");
     vTaskStartScheduler();
 
-    return EXIT_FAILURE;
+    return (EXIT_FAILURE);
 }

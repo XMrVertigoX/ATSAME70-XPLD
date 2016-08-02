@@ -26,7 +26,7 @@ uint8_t nRF24L01P::read(uint8_t command, uint8_t bytes[], uint32_t numBytes) {
 
     memcpy(&miso[1], bytes, numBytes);
 
-    return 0;
+    return (0);
 }
 
 uint8_t nRF24L01P::write(uint8_t command, uint8_t bytes[], uint32_t numBytes) {
@@ -38,7 +38,7 @@ uint8_t nRF24L01P::write(uint8_t command, uint8_t bytes[], uint32_t numBytes) {
 
     _spi.transceive(_device, miso, mosi, sizeof(mosi));
 
-    return 0;
+    return (0);
 }
 
 static inline void clearBit(uint8_t &byte, uint8_t bit) {
