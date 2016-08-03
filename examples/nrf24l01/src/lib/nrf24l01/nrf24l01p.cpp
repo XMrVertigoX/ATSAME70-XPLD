@@ -9,11 +9,9 @@
 #define PLACEHOLDER 0xFF
 
 nRF24L01P::nRF24L01P(SpiDrv &spi, SpiDrv_Device_t &device)
-    : _spi(spi), _device(device) {
-}
+    : _spi(spi), _device(device) {}
 
-nRF24L01P::~nRF24L01P() {
-}
+nRF24L01P::~nRF24L01P() {}
 
 uint8_t nRF24L01P::read(uint8_t command, uint8_t bytes[], uint32_t numBytes) {
     uint8_t miso[numBytes + 1];

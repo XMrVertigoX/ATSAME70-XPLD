@@ -54,8 +54,7 @@ void SpiDrv::disableChipSelect(SpiDrv_Peripheral_t peripheral) {
     spi_set_peripheral_chip_select_value(_spi, (1 << peripheral));
 }
 
-SpiDrv::SpiDrv(Spi *spi) : _spi(spi) {
-}
+SpiDrv::SpiDrv(Spi *spi) : _spi(spi) {}
 
 SpiDrv::~SpiDrv() {
     spi_disable(_spi);
@@ -76,11 +75,6 @@ uint8_t SpiDrv::enableMasterMode(uint32_t delayBetweenChipSelect) {
     spi_enable(_spi);
 
     return (0);
-}
-
-uint8_t SpiDrv::enableSlaveMode() {
-    // TODO: Implement spi slave mode
-    return (1);
 }
 
 uint8_t SpiDrv::setupDevice(SpiDrv_Device_t &device,

@@ -4,10 +4,10 @@
 #include <asf.h>
 
 enum SpiDrv_Mode_t {
-    SpiDrv_Mode_0,
-    SpiDrv_Mode_1,
-    SpiDrv_Mode_2,
-    SpiDrv_Mode_3,
+    SpiDrv_Mode_0,  // CPOL = 0, CPHA = 0
+    SpiDrv_Mode_1,  // CPOL = 0, CPHA = 1
+    SpiDrv_Mode_2,  // CPOL = 1, CPHA = 0
+    SpiDrv_Mode_3,  // CPOL = 1, CPHA = 1
 };
 
 enum SpiDrv_Peripheral_t {
@@ -22,7 +22,7 @@ struct SpiDrv_Device_t {
 };
 
 class SpiDrv {
- private:
+   private:
     void configurePeripheralChipSelectPin(SpiDrv_Peripheral_t peripheral);
     void configurePins();
     void disableChipSelect(SpiDrv_Peripheral_t peripheral);
@@ -30,11 +30,10 @@ class SpiDrv {
 
     Spi *_spi;
 
- public:
+   public:
     SpiDrv(Spi *spi);
     ~SpiDrv();
     uint8_t enableMasterMode(uint32_t delayBetweenChipSelect = 0);
-    uint8_t enableSlaveMode();
     uint8_t setupDevice(SpiDrv_Device_t &device, SpiDrv_Peripheral_t peripheral,
                         SpiDrv_Mode_t mode, uint32_t baudRate);
     uint8_t transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],

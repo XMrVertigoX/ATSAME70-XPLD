@@ -1,11 +1,10 @@
 ---
-BasedOnStyle: Google
-IndentWidth: 4
----
 Language: Cpp
+BasedOnStyle: Google
 
 AllowShortBlocksOnASingleLine: false
 AllowShortFunctionsOnASingleLine: Empty
+IndentWidth: 4
 ReflowComments: false
 SortIncludes: true
 ---
