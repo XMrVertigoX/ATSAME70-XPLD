@@ -6,7 +6,7 @@ PROJECT_NAME = nrf24l01
 
 # ----- Sources ---------------------------------------------------------------
 
-include sdk.mk
+include asf.mk
 
 # SEGGER RTT
 INCLUDE_DIRS += ../../SEGGER_RTT
