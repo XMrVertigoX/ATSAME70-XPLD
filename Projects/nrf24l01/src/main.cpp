@@ -8,7 +8,7 @@
 #include "lib/driver/spidrv.hpp"
 #include "lib/nrf24l01/nrf24l01p.hpp"
 #include "lib/nrf24l01/nrf24l01p_definitions.h"
-#include "logging.hpp"
+#include "lib/util/logging.hpp"
 
 SpiDrv spi(SPI0);
 SpiDrv_Device_t nrf24l01;
