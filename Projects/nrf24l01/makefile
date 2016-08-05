@@ -1,6 +1,6 @@
 # ----- Configuration ---------------------------------------------------------
 
-include ../config.mk
+include config.mk
 
 PROJECT_NAME = nrf24l01
 
@@ -64,4 +64,4 @@ LDFLAGS += -Wl,--gc-sections
 
 # ----- Rules -----------------------------------------------------------------
 
-include ../rules.mk
+include rules.mk
