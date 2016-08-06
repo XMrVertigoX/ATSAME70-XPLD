@@ -20,7 +20,6 @@ INCLUDE_DIRS += $(COMMON)/boards
 INCLUDE_DIRS += $(COMMON)/services/clock
 INCLUDE_DIRS += $(COMMON)/services/gpio
 INCLUDE_DIRS += $(COMMON)/services/ioport
-INCLUDE_DIRS += $(COMMON)/services/delay
 INCLUDE_DIRS += $(COMMON)/utils
 INCLUDE_DIRS += $(SAM)/boards
 INCLUDE_DIRS += $(SAM)/drivers/mpu
@@ -36,7 +35,6 @@ INCLUDE_DIRS += $(SAM)/utils/preprocessor
 INCLUDE_DIRS += $(THIRDPARTY)/CMSIS/Include
 
 SOURCE_FILES += $(COMMON)/services/clock/same70/sysclk.c
-SOURCE_FILES += $(COMMON)/services/delay/sam/cycle_counter.c
 SOURCE_FILES += $(COMMON)/utils/interrupt/interrupt_sam_nvic.c
 SOURCE_FILES += $(SAM)/boards/same70_xplained/init.c
 SOURCE_FILES += $(SAM)/drivers/mpu/mpu.c
