@@ -30,8 +30,8 @@ all: $(EXECUTABLE) $(BINARY)
 	@echo # Another new line for even better reading
 
 clean:
-	@echo [ RMD ] $(OBJECT_DIR) & $(RMDIR) $(OBJECT_DIR)
-	@echo [ RMD ] $(OUTPUT_DIR) & $(RMDIR) $(OUTPUT_DIR)
+	@echo [ RMD ] $(OBJECT_DIR) & $(RM) $(OBJECT_DIR)
+	@echo [ RMD ] $(OUTPUT_DIR) & $(RM) $(OUTPUT_DIR)
 
 download: $(EXECUTABLE)
 	$(GDB) -q -x download.gdb $<
