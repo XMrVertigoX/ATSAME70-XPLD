@@ -33,6 +33,7 @@ INCLUDE_DIRS += $(SAM)/utils/cmsis/same70/source/templates
 INCLUDE_DIRS += $(SAM)/utils/fpu
 INCLUDE_DIRS += $(SAM)/utils/header_files
 INCLUDE_DIRS += $(SAM)/utils/preprocessor
+INCLUDE_DIRS += $(THIRDPARTY)/CMSIS/Include
 
 SOURCE_FILES += $(COMMON)/services/clock/same70/sysclk.c
 SOURCE_FILES += $(COMMON)/services/delay/sam/cycle_counter.c
@@ -48,14 +49,9 @@ SOURCE_FILES += $(SAM)/utils/cmsis/same70/source/templates/system_same70.c
 SOURCE_FILES += $(SAM)/utils/cmsis/same70/source/templates/gcc/startup_same70.c
 SOURCE_FILES += $(SAM)/utils/syscalls/gcc/syscalls.c
 
-# ----- CMSIS ----------------------------------------------------------------
-
-INCLUDE_DIRS += $(THIRDPARTY)/CMSIS/Include
-
-LIB_DIRS += $(THIRDPARTY)/CMSIS/Lib/GCC
-
 # ----- Libraries ------------------------------------------------------------
 
+LIB_DIRS += $(THIRDPARTY)/CMSIS/Lib/GCC
 LIBS += arm_cortexM7lfdp_math_softfp
 
 # ----- Flags ----------------------------------------------------------------

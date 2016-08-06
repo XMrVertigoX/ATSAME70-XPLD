@@ -37,13 +37,13 @@ download: $(EXECUTABLE)
 	@$(GDB) -q -x download.gdb $<
 
 $(OBJECT_DIR)/%.o: /%.c
-	@echo [ CMP ] $(notdir $@) & $(MKDIR) $(dir $@) & $(GCC) $(COMMON_GCC_FLAGS) $(COMMON_CFLAGS) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+	@echo [ CMP ] $@ & $(MKDIR) $(dir $@) & $(GCC) $(COMMON_GCC_FLAGS) $(COMMON_CFLAGS) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 $(OBJECT_DIR)/%.o: /%.cpp
-	@echo [ CMP ] $(notdir $@) & $(MKDIR) $(dir $@) & $(GCC) $(COMMON_GCC_FLAGS) $(COMMON_CFLAGS) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
+	@echo [ CMP ] $@ & $(MKDIR) $(dir $@) & $(GCC) $(COMMON_GCC_FLAGS) $(COMMON_CFLAGS) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
 
 $(EXECUTABLE): $(SORTED_OBJECT_FILES)
-	@echo [ LNK ] $(notdir $@) & $(MKDIR) $(dir $@) & $(GCC) $(COMMON_GCC_FLAGS) $(LDFLAGS) $^ $(LIBFLAGS) -o $@
+	@echo [ LNK ] $@ & $(MKDIR) $(dir $@) & $(GCC) $(COMMON_GCC_FLAGS) $(LDFLAGS) $^ $(LIBFLAGS) -o $@
 
 $(BINARY): $(EXECUTABLE)
-	@echo [ CPY ] $(notdir $@) & $(MKDIR) $(dir $@) & $(OBJCOPY) -O binary $< $@
+	@echo [ CPY ] $@ & $(MKDIR) $(dir $@) & $(OBJCOPY) -O binary $< $@
