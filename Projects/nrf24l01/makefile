@@ -14,20 +14,18 @@ SOURCE_FILES += ../../SEGGER_RTT/SEGGER_RTT.c
 SOURCE_FILES += ../../SEGGER_RTT/SEGGER_RTT_Syscalls_GCC.c
 
 # FreeRTOS
-INCLUDE_DIRS += ../../FreeRTOS/include
-INCLUDE_DIRS += ../../FreeRTOS/portable/GCC/ARM_CM7/r0p1
-SOURCE_FILES += $(wildcard ../../FreeRTOS/*.c)
-SOURCE_FILES += ../../FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c
-SOURCE_FILES += ../../FreeRTOS/portable/MemMang/heap_3.c
+INCLUDE_DIRS += $(FREERTOS)/include
+INCLUDE_DIRS += $(FREERTOS)/portable/GCC/ARM_CM7/r0p1
+SOURCE_FILES += $(wildcard $(FREERTOS)/*.c)
+SOURCE_FILES += $(FREERTOS)/portable/GCC/ARM_CM7/r0p1/port.c
+SOURCE_FILES += $(FREERTOS)/portable/MemMang/heap_3.c
 
 # Project
 # SYMBOLS += NDEBUG
 
+INCLUDE_DIRS += src
 INCLUDE_DIRS += src/asf
 INCLUDE_DIRS += src/config
-INCLUDE_DIRS += src/lib/driver
-INCLUDE_DIRS += src/lib/nrf24l01
-INCLUDE_DIRS += src/lib/util
 
 SOURCE_FILES += $(shell find ./src -type f -name *.c)
 SOURCE_FILES += $(shell find ./src -type f -name *.cpp)

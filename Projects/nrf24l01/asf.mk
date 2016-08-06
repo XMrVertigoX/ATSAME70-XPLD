@@ -1,10 +1,8 @@
 # ----- Files and folders ----------------------------------------------------
 
-SDK_DIR = ../../ASF/xdk-asf-3.32.0
-
-COMMON = $(SDK_DIR)/common
-SAM = $(SDK_DIR)/sam
-THIRDPARTY = $(SDK_DIR)/thirdparty
+COMMON = $(ASF)/common
+SAM = $(ASF)/sam
+THIRDPARTY = $(ASF)/thirdparty
 
 LINKER_SCRIPT = $(SAM)/utils/linker_scripts/same70/same70q21/gcc/flash.ld
 
@@ -25,7 +23,6 @@ INCLUDE_DIRS += $(COMMON)/services/ioport
 INCLUDE_DIRS += $(COMMON)/services/delay
 INCLUDE_DIRS += $(COMMON)/utils
 INCLUDE_DIRS += $(SAM)/boards
-INCLUDE_DIRS += $(SAM)/boards/same70_xplained
 INCLUDE_DIRS += $(SAM)/drivers/mpu
 INCLUDE_DIRS += $(SAM)/drivers/pio
 INCLUDE_DIRS += $(SAM)/drivers/pmc

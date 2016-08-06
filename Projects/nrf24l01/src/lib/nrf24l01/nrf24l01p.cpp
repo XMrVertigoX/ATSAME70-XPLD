@@ -1,7 +1,8 @@
 #include <string.h>
+#include <stdint.h>
 
-#include "logging.hpp"
-#include "spidrv.hpp"
+#include "lib/util/logging.hpp"
+#include "lib/driver/spidrv.hpp"
 
 #include "nrf24l01p.hpp"
 #include "nrf24l01p_definitions.h"

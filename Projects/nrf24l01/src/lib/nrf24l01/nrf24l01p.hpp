@@ -1,7 +1,9 @@
 #ifndef NRF24L01P_HPP_
 #define NRF24L01P_HPP_
 
-#include "spidrv.hpp"
+#include <stdint.h>
+
+#include "lib/driver/spidrv.hpp"
 
 class nRF24L01P {
  private:
