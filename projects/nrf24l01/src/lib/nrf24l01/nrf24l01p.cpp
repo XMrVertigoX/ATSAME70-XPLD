@@ -1,8 +1,8 @@
 #include <cstdint>
 #include <cstring>
 
-#include "lib/util/logging.hpp"
 #include "lib/driver/spidrv.hpp"
+#include "lib/util/logging.hpp"
 
 #include "nrf24l01p.hpp"
 #include "nrf24l01p_definitions.h"
@@ -21,7 +21,7 @@ uint8_t nRF24L01P::read(uint8_t command, uint8_t bytes[], uint32_t numBytes) {
     mosi[0] = command;
     memset(&mosi[1], PLACEHOLDER, numBytes);
 
-    _spi.transceive(_device, miso, mosi, numBytes + 1);
+    _spi.transceive(_device, {miso, mosi, numBytes + 1});
 
     memcpy(&miso[1], bytes, numBytes);
 
@@ -35,7 +35,7 @@ uint8_t nRF24L01P::write(uint8_t command, uint8_t bytes[], uint32_t numBytes) {
     mosi[0] = command;
     memcpy(&mosi[1], bytes, numBytes);
 
-    _spi.transceive(_device, miso, mosi, sizeof(mosi));
+    _spi.transceive(_device, {miso, mosi, numBytes + 1});
 
     return (0);
 }

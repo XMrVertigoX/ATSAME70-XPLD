@@ -21,6 +21,12 @@ struct SpiDrv_Device_t {
     SpiDrv_Peripheral_t peripheral;
 };
 
+struct SpiDrv_Buffer_t {
+    uint8_t *misoBytes;
+    uint8_t *mosiBytes;
+    size_t numBytes;
+};
+
 class SpiDrv {
    private:
     void configurePeripheralChipSelectPin(SpiDrv_Peripheral_t peripheral);
@@ -36,8 +42,7 @@ class SpiDrv {
     uint8_t enableMasterMode(uint32_t delayBetweenChipSelect = 0);
     uint8_t setupDevice(SpiDrv_Device_t &device, SpiDrv_Peripheral_t peripheral,
                         SpiDrv_Mode_t mode, uint32_t baudRate);
-    uint8_t transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
-                       uint8_t mosiBytes[], size_t numBytes);
+    uint8_t transceive(SpiDrv_Device_t &device, SpiDrv_Buffer_t buffer);
 };
 
 #endif /* SPIDRV_HPP_ */

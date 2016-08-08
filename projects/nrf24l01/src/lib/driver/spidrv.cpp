@@ -5,8 +5,8 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include "lib/util/logging.hpp"
 #include "lib/driver/spidrv.hpp"
+#include "lib/util/logging.hpp"
 
 #define POLARITY_MASK 0b00000010
 #define PHASE_MASK 0b00000001
@@ -96,9 +96,8 @@ uint8_t SpiDrv::setupDevice(SpiDrv_Device_t &device,
     return (0);
 }
 
-uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
-                           uint8_t mosiBytes[], size_t numBytes) {
-    if (0 == numBytes) {
+uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, SpiDrv_Buffer_t buffer) {
+    if (0 == buffer.numBytes) {
         return (1);
     }
 
@@ -106,13 +105,13 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
 
     enableChipSelect(device.peripheral);
 
-    for (int i = 0; i < numBytes; i++) {
+    for (int i = 0; i < buffer.numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
-        spi_put(_spi, mosiBytes[i]);
+        spi_put(_spi, buffer.mosiBytes[i]);
 
-        if (NULL != misoBytes) {
+        if (NULL != buffer.misoBytes) {
             WAIT_UNTIL(spi_is_rx_ready(_spi));
-            misoBytes[i] = spi_get(_spi);
+            buffer.misoBytes[i] = spi_get(_spi);
         }
     }
 
@@ -122,8 +121,8 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
 
     portEXIT_CRITICAL();
 
-    BUFFER(">>>", {mosiBytes, numBytes});
-    BUFFER("<<<", {misoBytes, numBytes});
+    BUFFER(">>>", {buffer.mosiBytes, buffer.numBytes});
+    BUFFER("<<<", {buffer.misoBytes, buffer.numBytes});
 
     return (0);
 }
