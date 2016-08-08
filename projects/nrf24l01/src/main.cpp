@@ -1,9 +1,7 @@
-#include <cstdlib>
+#include <asf.h>
 
-#include "asf.h"
-
-#include "FreeRTOS.h"
-#include "task.h"
+#include <FreeRTOS.h>
+#include <task.h>
 
 #include "lib/driver/spidrv.hpp"
 #include "lib/nrf24l01/nrf24l01p.hpp"
@@ -21,7 +19,7 @@ void simpleTask(void *user) {
     transmitter.config_powerUp();
     transmitter.config_powerDown();
 
-    LOG("enter loop");
+    FORMAT("enter loop");
     for (;;) {
     }
 }
@@ -43,8 +41,6 @@ int main() {
 
     xTaskCreate(simpleTask, NULL, 256, NULL, 1, NULL);
 
-    LOG("enter scheduler");
+    FORMAT("enter scheduler");
     vTaskStartScheduler();
-
-    return (EXIT_FAILURE);
 }

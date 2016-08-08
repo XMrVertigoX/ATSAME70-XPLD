@@ -1,5 +1,5 @@
-#include <string.h>
-#include <stdint.h>
+#include <cstdint>
+#include <cstring>
 
 #include "lib/util/logging.hpp"
 #include "lib/driver/spidrv.hpp"
@@ -49,7 +49,7 @@ static inline void setBit(uint8_t &byte, uint8_t bit) {
 }
 
 void nRF24L01P::config_powerDown() {
-    LOG("powerDown");
+    FORMAT("powerDown");
 
     uint8_t data[1];
     read(R_REGISTER | CONFIG, data, sizeof(data));
@@ -58,7 +58,7 @@ void nRF24L01P::config_powerDown() {
 }
 
 void nRF24L01P::config_powerUp() {
-    LOG("powerUp");
+    FORMAT("powerUp");
 
     uint8_t data[1];
     read(R_REGISTER | CONFIG, data, sizeof(data));

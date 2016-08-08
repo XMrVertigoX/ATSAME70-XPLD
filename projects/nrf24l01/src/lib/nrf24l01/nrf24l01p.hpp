@@ -1,7 +1,7 @@
 #ifndef NRF24L01P_HPP_
 #define NRF24L01P_HPP_
 
-#include <stdint.h>
+#include <cstdint>
 
 #include "lib/driver/spidrv.hpp"
 

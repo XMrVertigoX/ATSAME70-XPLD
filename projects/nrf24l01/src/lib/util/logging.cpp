@@ -1,15 +1,16 @@
-#include <ctype.h>
-#include <stdarg.h>
-#include <stdio.h>
+#include <cctype>
+#include <cstdarg>
+#include <cstdio>
+#include <cstring>
 
-#include "FreeRTOS.h"
-#include "task.h"
+#include <FreeRTOS.h>
+#include <task.h>
 
 #include "logging.hpp"
 
 static const size_t maxLength = 256;
 
-void log(const char message[]) {
+void print(const char *message) {
     portENTER_CRITICAL();
 
     uint32_t millis = xTaskGetTickCount() * portTICK_PERIOD_MS;
@@ -18,9 +19,7 @@ void log(const char message[]) {
     portEXIT_CRITICAL();
 }
 
-void print(const char *format, ...) {
-    uint32_t millis = xTaskGetTickCount() * portTICK_PERIOD_MS;
-
+void printFormat(const char *format, ...) {
     char string[maxLength];
     size_t length;
 
@@ -35,21 +34,22 @@ void print(const char *format, ...) {
         }
     }
 
-    log(string);
+    print(string);
 }
 
-void printBuffer(const char *message, uint8_t *bytes, uint32_t numBytes) {
-    portENTER_CRITICAL();
+void printBuffer(const char *message, Buffer_t buffer) {
+    size_t messageLength = strlen(message);
+    size_t stringLength = messageLength + (buffer.numBytes * 3) + 1;
+    size_t byteStringLength = 3;
+    char string[stringLength];
 
-    uint32_t millis = xTaskGetTickCount() * portTICK_PERIOD_MS;
+    // Copy terminating zero in case that numBytes equals zero
+    memcpy(string, message, messageLength + 1);
 
-    printf("%d.%03d %s", millis / 1000, millis % 1000, message);
-
-    for (int i = 0; i < numBytes; ++i) {
-        printf(" %02x", bytes[i]);
+    for (int i = 0; i < buffer.numBytes; ++i) {
+        snprintf(&string[i * byteStringLength], byteStringLength + 1, " %02x",
+                 buffer.bytes[i]);
     }
 
-    fputc('\n', stdout);
-
-    portEXIT_CRITICAL();
+    print(string);
 }

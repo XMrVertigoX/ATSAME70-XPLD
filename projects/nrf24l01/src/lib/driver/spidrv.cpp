@@ -1,9 +1,9 @@
-#include <assert.h>
-#include <stdint.h>
+#include <cassert>
 
 #include <asf.h>
 
-#include "FreeRTOS.h"
+#include <FreeRTOS.h>
+#include <task.h>
 
 #include "lib/util/logging.hpp"
 #include "lib/driver/spidrv.hpp"
@@ -122,8 +122,8 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
 
     portEXIT_CRITICAL();
 
-    BUFFER(">>>", mosiBytes, numBytes);
-    BUFFER("<<<", misoBytes, numBytes);
+    BUFFER(">>>", {mosiBytes, numBytes});
+    BUFFER("<<<", {misoBytes, numBytes});
 
     return (0);
 }

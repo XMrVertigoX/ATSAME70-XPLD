@@ -1,18 +1,20 @@
 #ifndef LOGGING_HPP_
 #define LOGGING_HPP_
 
-#include "FreeRTOS.h"
-#include "task.h"
+struct Buffer_t {
+    uint8_t *bytes;
+    size_t numBytes;
+};
+
+void printBuffer(const char *message, Buffer_t buffer);
+void printFormat(const char *format, ...);
 
 #ifndef NDEBUG
-#define BUFFER(message, bytes, numBytes) printBuffer(message, bytes, numBytes)
-#define LOG(format, ...) print(format, ##__VA_ARGS__)
+#define BUFFER(...) printBuffer(__VA_ARGS__)
+#define FORMAT(...) printFormat(__VA_ARGS__)
 #else
-#define LOG(...)
 #define BUFFER(...)
+#define FORMAT(...)
 #endif
-
-void print(const char *format, ...);
-void printBuffer(const char *message, uint8_t *bytes, uint32_t numBytes);
 
 #endif  // LOGGING_HPP_
