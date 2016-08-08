@@ -50,9 +50,11 @@ LIBS += arm_cortexM7lfdp_math_softfp
 
 # ----- Flags ----------------------------------------------------------------
 
+# C/C++ flags
 COMMON_CFLAGS += -mfloat-abi=softfp
 COMMON_CFLAGS += -mfpu=fpv5-d16
 
+# Linker flags
 LDFLAGS += -T $(realpath $(LINKER_SCRIPT))
 # LDFLAGS += -u _printf_float
 # LDFLAGS += -u _scanf_float
