@@ -8,32 +8,21 @@ PROJECT_NAME = nrf24l01
 
 include asf.mk
 
-# RTT
-INCLUDE_DIRS += $(RTT)/RTT
-SOURCE_FILES += $(RTT)/RTT/SEGGER_RTT.c
-
-# FreeRTOS
-INCLUDE_DIRS += $(FREERTOS)/include
-INCLUDE_DIRS += $(FREERTOS)/portable/GCC/ARM_CM7/r0p1
-SOURCE_FILES += $(wildcard $(FREERTOS)/*.c)
-SOURCE_FILES += $(FREERTOS)/portable/GCC/ARM_CM7/r0p1/port.c
-SOURCE_FILES += $(FREERTOS)/portable/MemMang/heap_3.c
-
 # Project
 # SYMBOLS += NDEBUG
 
 INCLUDE_DIRS += src
 INCLUDE_DIRS += src/asf
 INCLUDE_DIRS += src/config
+INCLUDE_DIRS += src/rtt
 
 SOURCE_FILES += $(shell find ./src -type f -name *.c)
 SOURCE_FILES += $(shell find ./src -type f -name *.cpp)
 
 # ----- Libraries -------------------------------------------------------------
 
-# LIBS +=
-
 # LIB_DIRS +=
+# LIBS +=
 
 # ----- Flags -----------------------------------------------------------------
 
