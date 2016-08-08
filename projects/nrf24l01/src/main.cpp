@@ -19,7 +19,7 @@ void simpleTask(void *user) {
     transmitter.config_powerUp();
     transmitter.config_powerDown();
 
-    FORMAT("enter loop");
+    INFO("enter loop");
     for (;;) {
     }
 }
@@ -41,6 +41,6 @@ int main() {
 
     xTaskCreate(simpleTask, NULL, 256, NULL, 1, NULL);
 
-    FORMAT("enter scheduler");
+    INFO("enter scheduler");
     vTaskStartScheduler();
 }

@@ -49,7 +49,7 @@ static inline void setBit(uint8_t &byte, uint8_t bit) {
 }
 
 void nRF24L01P::config_powerDown() {
-    FORMAT("powerDown");
+    DEBUG("powerDown");
 
     uint8_t data[1];
     read(R_REGISTER | CONFIG, data, sizeof(data));
@@ -58,7 +58,7 @@ void nRF24L01P::config_powerDown() {
 }
 
 void nRF24L01P::config_powerUp() {
-    FORMAT("powerUp");
+    DEBUG("powerUp");
 
     uint8_t data[1];
     read(R_REGISTER | CONFIG, data, sizeof(data));

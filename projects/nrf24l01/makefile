@@ -9,7 +9,8 @@ PROJECT_NAME = nrf24l01
 include asf.mk
 
 # Project
-# SYMBOLS += NDEBUG
+SYMBOLS += LOG_LEVEL=7
+#SYMBOLS += NDEBUG
 
 INCLUDE_DIRS += src
 INCLUDE_DIRS += src/asf
