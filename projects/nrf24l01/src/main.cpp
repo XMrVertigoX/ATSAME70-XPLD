@@ -4,32 +4,26 @@
 #include <task.h>
 
 #include "lib/driver/spidrv.hpp"
-#include "lib/nrf24l01/nrf24l01p.hpp"
-#include "lib/nrf24l01/nrf24l01p_definitions.h"
+#include "lib/util/iarduino.hpp"
 #include "lib/util/logging.hpp"
 
-SpiDrv spi(SPI0);
-SpiDrv_Device_t nrf24l01;
+#include "mytask.hpp"
 
-void simpleTask(void *user) {
-    nRF24L01P transmitter(spi, nrf24l01);
-
-    vTaskDelay(100 / portTICK_PERIOD_MS);
-
-    transmitter.config_powerUp();
-    transmitter.config_powerDown();
-
-    INFO("enter loop");
-    for (;;) {
+#define ARDUINO                                       \
+    [](void *pvParameters) {                          \
+        IArduino *arduino = (IArduino *)pvParameters; \
+        arduino->setup();                             \
+        for (;;) arduino->loop();                     \
     }
-}
+
+SpiDrv spi(SPI0);
+MyTask myTask(spi);
 
 int main() {
     sysclk_init();
     board_init();
 
     spi.enableMasterMode();
-    spi.setupDevice(nrf24l01, SpiDrv_Peripheral_3, SpiDrv_Mode_0, 2000000);
 
     // IRQ
     ioport_enable_pin(PIO_PA6_IDX);
@@ -39,8 +33,7 @@ int main() {
     ioport_enable_pin(PIO_PD11_IDX);
     ioport_set_pin_dir(PIO_PD11_IDX, IOPORT_DIR_OUTPUT);
 
-    xTaskCreate(simpleTask, NULL, 256, NULL, 1, NULL);
+    xTaskCreate(ARDUINO, "nRF24L01P", 256, &myTask, 1, NULL);
 
-    INFO("enter scheduler");
     vTaskStartScheduler();
 }

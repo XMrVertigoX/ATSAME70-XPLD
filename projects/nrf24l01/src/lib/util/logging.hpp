@@ -18,54 +18,54 @@
 #define LOG_LEVEL SEVERITY_WARNING
 #endif
 
-#if !defined(NDEBUG) && LOG_LEVEL >= SEVERITY_EMERGENCY
-#define EMERGENCY(...) printFormat(__VA_ARGS__)
-#else
+#if defined(NDEBUG) || LOG_LEVEL < SEVERITY_EMERGENCY
 #define EMERGENCY(...)
+#else
+#define EMERGENCY(...) printFormat(__VA_ARGS__)
 #endif
 
-#if !defined(NDEBUG) && LOG_LEVEL >= SEVERITY_ALERT
-#define ALERT(...) printFormat(__VA_ARGS__)
-#else
+#if defined(NDEBUG) || LOG_LEVEL < SEVERITY_ALERT
 #define ALERT(...)
+#else
+#define ALERT(...) printFormat(__VA_ARGS__)
 #endif
 
-#if !defined(NDEBUG) && LOG_LEVEL >= SEVERITY_CRITICAL
-#define CRITICAL(...) printFormat(__VA_ARGS__)
-#else
+#if defined(NDEBUG) || LOG_LEVEL < SEVERITY_CRITICAL
 #define CRITICAL(...)
+#else
+#define CRITICAL(...) printFormat(__VA_ARGS__)
 #endif
 
-#if !defined(NDEBUG) && LOG_LEVEL >= SEVERITY_ERROR
-#define ERROR(...) printFormat(__VA_ARGS__)
-#else
+#if defined(NDEBUG) || LOG_LEVEL < SEVERITY_ERROR
 #define ERROR(...)
+#else
+#define ERROR(...) printFormat(__VA_ARGS__)
 #endif
 
-#if !defined(NDEBUG) && LOG_LEVEL >= SEVERITY_WARNING
-#define WARNING(...) printFormat(__VA_ARGS__)
-#else
+#if defined(NDEBUG) || LOG_LEVEL < SEVERITY_WARNING
 #define WARNING(...)
+#else
+#define WARNING(...) printFormat(__VA_ARGS__)
 #endif
 
-#if !defined(NDEBUG) && LOG_LEVEL >= SEVERITY_NOTICE
-#define NOTICE(...) printFormat(__VA_ARGS__)
-#else
+#if defined(NDEBUG) || LOG_LEVEL < SEVERITY_NOTICE
 #define NOTICE(...)
+#else
+#define NOTICE(...) printFormat(__VA_ARGS__)
 #endif
 
-#if !defined(NDEBUG) && LOG_LEVEL >= SEVERITY_INFO
-#define INFO(...) printFormat(__VA_ARGS__)
-#else
+#if defined(NDEBUG) || LOG_LEVEL < SEVERITY_INFO
 #define INFO(...)
+#else
+#define INFO(...) printFormat(__VA_ARGS__)
 #endif
 
-#if !defined(NDEBUG) && LOG_LEVEL >= SEVERITY_DEBUG
-#define BUFFER(...) printBuffer(__VA_ARGS__)
-#define DEBUG(...) printFormat(__VA_ARGS__)
-#else
+#if defined(NDEBUG) || LOG_LEVEL < SEVERITY_DEBUG
 #define BUFFER(...)
 #define DEBUG(...)
+#else
+#define BUFFER(...) printBuffer(__VA_ARGS__)
+#define DEBUG(...) printFormat(__VA_ARGS__)
 #endif
 
 struct Buffer_t {
