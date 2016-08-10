@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-#include <services/spidrv.hpp>
+#include <lib/services/spidrv.hpp>
 
 class nRF24L01P {
    private:

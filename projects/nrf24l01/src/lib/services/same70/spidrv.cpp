@@ -5,7 +5,7 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <util/logging.hpp>
+#include <lib/util/logging.hpp>
 
 #include "spidrv.hpp"
 

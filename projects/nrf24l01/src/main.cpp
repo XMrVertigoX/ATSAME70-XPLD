@@ -3,9 +3,9 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <services/spidrv.hpp>
-#include <util/iarduinotask.hpp>
-#include <util/logging.hpp>
+#include <lib/services/spidrv.hpp>
+#include <lib/util/iarduinotask.hpp>
+#include <lib/util/logging.hpp>
 
 #include "mytask.hpp"
 
@@ -19,6 +19,8 @@ static void arduinoTaskFunction(void *pvParameters) {
 }
 
 int main() {
+
+	
     sysclk_init();
     board_init();
 
