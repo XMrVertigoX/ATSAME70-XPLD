@@ -19,8 +19,6 @@ static void arduinoTaskFunction(void *pvParameters) {
 }
 
 int main() {
-
-	
     sysclk_init();
     board_init();
 
