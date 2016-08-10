@@ -1,7 +1,7 @@
-#ifndef NRF24L01P_DEFINITIONS_H_
-#define NRF24L01P_DEFINITIONS_H_
+#ifndef DEFINITIONS_H_
+#define DEFINITIONS_H_
 
-// ----- SPI commands --------------------------------------------------------
+// ----- SPI commands ---------------------------------------------------------
 #define R_REGISTER 0b00000000
 #define W_REGISTER 0b00100000
 #define R_RX_PAYLOAD 0b01100001
@@ -14,15 +14,16 @@
 #define W_TX_PAYLOAD_NOACK 0b10110000
 #define NOP 0b11111111
 
-// ----- Register map table --------------------------------------------------
+// ----- Register map table ---------------------------------------------------
+
 #define CONFIG 0x00  // Configuration register
-#define MASK_RX_DR 6
-#define MASK_TX_DS 5
-#define MASK_MAX_RT 4
-#define EN_CRC 3
-#define CRCO 2
-#define PWR_UP 1
-#define PRIM_RX 0
+#define CONFIG_MASK_RX_DR 6
+#define CONFIG_MASK_TX_DS 5
+#define CONFIG_MASK_MAX_RT 4
+#define CONFIG_EN_CRC 3
+#define CONFIG_CRCO 2
+#define CONFIG_PWR_UP 1
+#define CONFIG_PRIM_RX 0
 
 // #define EN_AA 0x01
 // #define EN_RXADDR 0x02
@@ -50,4 +51,4 @@
 // #define DYNPD 0x1C
 // #define FEATURE 0x1D
 
-#endif /* NRF24L01P_DEFINITIONS_H_ */
+#endif /* DEFINITIONS_H_ */

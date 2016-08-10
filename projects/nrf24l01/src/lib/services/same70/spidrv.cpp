@@ -5,8 +5,9 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include "lib/driver/spidrv.hpp"
-#include "lib/util/logging.hpp"
+#include <lib/util/logging.hpp>
+
+#include "spidrv.hpp"
 
 #define POLARITY_MASK 0b00000010
 #define PHASE_MASK 0b00000001

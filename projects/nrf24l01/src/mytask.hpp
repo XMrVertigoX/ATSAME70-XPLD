@@ -1,9 +1,9 @@
 #ifndef MYTASK_HPP_
 #define MYTASK_HPP_
 
-#include "lib/driver/spidrv.hpp"
-#include "lib/nrf24l01/nrf24l01p.hpp"
-#include "lib/util/iarduino.hpp"
+#include <lib/components/wireless/nrf24l01p/nrf24l01p.hpp>
+#include <lib/services/spidrv.hpp>
+#include <lib/util/iarduino.hpp>
 
 class MyTask : public IArduino {
    private:

@@ -3,9 +3,9 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include "lib/driver/spidrv.hpp"
-#include "lib/util/iarduino.hpp"
-#include "lib/util/logging.hpp"
+#include <lib/services/spidrv.hpp>
+#include <lib/util/iarduino.hpp>
+#include <lib/util/logging.hpp>
 
 #include "mytask.hpp"
 

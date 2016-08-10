@@ -1,5 +1,5 @@
-#ifndef SPIDRV_HPP_
-#define SPIDRV_HPP_
+#ifndef SPIDRV_SAME70_HPP_
+#define SPIDRV_SAME70_HPP_
 
 #include <asf.h>
 
@@ -45,4 +45,4 @@ class SpiDrv {
     uint8_t transceive(SpiDrv_Device_t &device, SpiDrv_Buffer_t buffer);
 };
 
-#endif /* SPIDRV_HPP_ */
+#endif /* SPIDRV_SAME70_HPP_ */

@@ -3,9 +3,8 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include "lib/driver/spidrv.hpp"
-#include "lib/nrf24l01/nrf24l01p.hpp"
-#include "lib/nrf24l01/nrf24l01p_definitions.h"
+#include <lib/components/wireless/nrf24l01p/nrf24l01p.hpp>
+#include <lib/services/spidrv.hpp>
 
 #include "mytask.hpp"
 
