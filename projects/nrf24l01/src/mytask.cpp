@@ -3,8 +3,8 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <lib/components/wireless/nrf24l01p/nrf24l01p.hpp>
-#include <lib/services/spidrv.hpp>
+#include <components/wireless/nrf24l01p/nrf24l01p.hpp>
+#include <services/spidrv.hpp>
 
 #include "mytask.hpp"
 

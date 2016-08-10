@@ -12,9 +12,9 @@ include asf.mk
 SYMBOLS += LOG_LEVEL=7
 #SYMBOLS += NDEBUG
 
-INCLUDE_DIRS += src
 INCLUDE_DIRS += src/asf
 INCLUDE_DIRS += src/config
+INCLUDE_DIRS += src/lib
 INCLUDE_DIRS += src/rtt
 
 SOURCE_FILES += $(shell find ./src -type f -name *.c)

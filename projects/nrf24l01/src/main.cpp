@@ -3,21 +3,20 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <lib/services/spidrv.hpp>
-#include <lib/util/iarduino.hpp>
-#include <lib/util/logging.hpp>
+#include <services/spidrv.hpp>
+#include <util/iarduinotask.hpp>
+#include <util/logging.hpp>
 
 #include "mytask.hpp"
 
-#define ARDUINO                                       \
-    [](void *pvParameters) {                          \
-        IArduino *arduino = (IArduino *)pvParameters; \
-        arduino->setup();                             \
-        for (;;) arduino->loop();                     \
-    }
-
 SpiDrv spi(SPI0);
 MyTask myTask(spi);
+
+static void arduinoTaskFunction(void *pvParameters) {
+    IArduinoTask *arduino = static_cast<IArduinoTask *>(pvParameters);
+    arduino->setup();
+    for (;;) arduino->loop();
+}
 
 int main() {
     sysclk_init();
@@ -33,7 +32,7 @@ int main() {
     ioport_enable_pin(PIO_PD11_IDX);
     ioport_set_pin_dir(PIO_PD11_IDX, IOPORT_DIR_OUTPUT);
 
-    xTaskCreate(ARDUINO, "nRF24L01P", 256, &myTask, 1, NULL);
+    xTaskCreate(arduinoTaskFunction, "nRF24L01P", 256, &myTask, 1, NULL);
 
     vTaskStartScheduler();
 }
