@@ -4,7 +4,7 @@
 #include <task.h>
 
 #include <lib/services/spidrv.hpp>
-#include <lib/util/iarduinotask.hpp>
+#include <lib/util/arduinotask.hpp>
 #include <lib/util/logging.hpp>
 
 #include "mytask.hpp"

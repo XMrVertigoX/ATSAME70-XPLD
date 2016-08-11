@@ -2,9 +2,9 @@
 #define MYTASK_HPP_
 
 #include <lib/services/spidrv.hpp>
-#include <lib/util/iarduinotask.hpp>
+#include <lib/util/arduinotask.hpp>
 
-class MyTask : public IArduinoTask {
+class MyTask : public ArduinoTask {
    private:
     SpiDrv &_spi;
     SpiDrv_Device_t _spiDevice;
