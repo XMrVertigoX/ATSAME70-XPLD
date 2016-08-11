@@ -1,7 +1,6 @@
 #ifndef MYTASK_HPP_
 #define MYTASK_HPP_
 
-#include <lib/components/wireless/nrf24l01p/nrf24l01p.hpp>
 #include <lib/services/spidrv.hpp>
 #include <lib/util/iarduinotask.hpp>
 
