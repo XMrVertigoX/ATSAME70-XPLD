@@ -26,7 +26,7 @@ int main() {
     ioport_enable_pin(PIO_PD11_IDX);
     ioport_set_pin_dir(PIO_PD11_IDX, IOPORT_DIR_OUTPUT);
 
-    xTaskCreate(ARDUINO_TASK_FUNCTION, "nRF24L01P", 256, &myTask, 1, NULL);
+    myTask.attachToScheduler("DEFAULT", 256, 1);
 
     vTaskStartScheduler();
 }
