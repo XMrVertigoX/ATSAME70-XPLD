@@ -37,7 +37,7 @@ COMMON_CFLAGS += -fno-exceptions
 COMMON_CFLAGS += -fno-unwind-tables
 COMMON_CFLAGS += -g3
 COMMON_CFLAGS += -nostdlib
-COMMON_CFLAGS += -O3
+COMMON_CFLAGS += -Og
 
 CFLAGS += -std=gnu11
 

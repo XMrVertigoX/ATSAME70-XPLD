@@ -8,12 +8,12 @@
 
 #include "mytask.hpp"
 
-MyTask::MyTask(SpiDrv spi) : _spi(spi) {}
+MyTask::MyTask(SpiDrv &spi) : _spi(spi) {}
 
 MyTask::~MyTask() {}
 
 void MyTask::setup() {
-    _spi.setupDevice(_spiDevice, SpiDrv_Peripheral_3, SpiDrv_Mode_0, 2000000);
+    _spi.setupDevice(_spiDevice, SpiDrv_Peripheral_3, SpiDrv_Mode_0, 10000000);
 
     nRF24L01P transmitter(_spi, _spiDevice);
 

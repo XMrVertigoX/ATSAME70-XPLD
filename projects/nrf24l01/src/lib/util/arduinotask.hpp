@@ -11,10 +11,10 @@ class ArduinoTask {
     virtual void setup() = 0;
     virtual void loop() = 0;
 
-    BaseType_t attachToScheduler(const char *const pcName,
-                                 const uint16_t usStackDepth,
-                                 UBaseType_t uxPriority,
-                                 TaskHandle_t *const pxCreatedTask = NULL);
+    BaseType_t attachToScheduler(const char *const name,
+                                 const uint16_t stackDepth,
+                                 UBaseType_t priority,
+                                 TaskHandle_t *const handle = NULL);
 
    protected:
     virtual ~ArduinoTask();

@@ -6,15 +6,14 @@
 #include <task.h>
 
 #include <lib/util/logging.hpp>
+#include <lib/util/util.hpp>
 
 #include "spidrv.hpp"
 
 #define POLARITY_MASK 0b00000010
 #define PHASE_MASK 0b00000001
-#define PLACEHOLDER 0xFF
-#define WAIT_UNTIL(x) while (!x)
 
-static void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
+static inline void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
     ioport_set_pin_mode(pin, mode);
     ioport_disable_pin(pin);
 }
@@ -27,7 +26,7 @@ void SpiDrv::configurePins() {
     }
 }
 
-void SpiDrv::configurePeripheralChipSelectPin(SpiDrv_Peripheral_t peripheral) {
+void SpiDrv::configurePeripheralChipSelectPin(SpiDrv_Peripheral_t &peripheral) {
     if (_spi == SPI0) {
         switch (peripheral) {
             case SpiDrv_Peripheral_0:
@@ -44,14 +43,6 @@ void SpiDrv::configurePeripheralChipSelectPin(SpiDrv_Peripheral_t peripheral) {
                 break;
         }
     }
-}
-
-void SpiDrv::enableChipSelect(SpiDrv_Peripheral_t peripheral) {
-    spi_set_peripheral_chip_select_value(_spi, ~(1 << peripheral));
-}
-
-void SpiDrv::disableChipSelect(SpiDrv_Peripheral_t peripheral) {
-    spi_set_peripheral_chip_select_value(_spi, (1 << peripheral));
 }
 
 SpiDrv::SpiDrv(Spi *spi) : _spi(spi) {}
@@ -97,33 +88,35 @@ uint8_t SpiDrv::setupDevice(SpiDrv_Device_t &device,
     return (0);
 }
 
-uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, SpiDrv_Buffer_t buffer) {
-    if (0 == buffer.numBytes) {
+uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
+                           uint8_t mosiBytes[], size_t numBytes) {
+    if (0 == numBytes) {
         return (1);
     }
 
     portENTER_CRITICAL();
 
-    enableChipSelect(device.peripheral);
+    spi_set_peripheral_chip_select_value(_spi, ~(1 << device.peripheral));
 
-    for (int i = 0; i < buffer.numBytes; i++) {
+    for (int i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
-        spi_put(_spi, buffer.mosiBytes[i]);
+        spi_put(_spi, mosiBytes[i]);
 
-        if (NULL != buffer.misoBytes) {
+        if (NULL != misoBytes) {
             WAIT_UNTIL(spi_is_rx_ready(_spi));
-            buffer.misoBytes[i] = spi_get(_spi);
+            misoBytes[i] = spi_get(_spi);
         }
     }
 
     WAIT_UNTIL(spi_is_tx_empty(_spi));
-    disableChipSelect(device.peripheral);
+
+    spi_set_peripheral_chip_select_value(_spi, (1 << device.peripheral));
     spi_set_lastxfer(_spi);
 
     portEXIT_CRITICAL();
 
-    BUFFER(">>>", {buffer.mosiBytes, buffer.numBytes});
-    BUFFER("<<<", {buffer.misoBytes, buffer.numBytes});
+    BUFFER(">>>", {mosiBytes, numBytes});
+    BUFFER("<<<", {misoBytes, numBytes});
 
     return (0);
 }

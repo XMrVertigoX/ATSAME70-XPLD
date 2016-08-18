@@ -10,7 +10,7 @@ class MyTask : public ArduinoTask {
     SpiDrv_Device_t _spiDevice;
 
    public:
-    MyTask(SpiDrv spi);
+    MyTask(SpiDrv &spi);
     ~MyTask();
     void setup();
     void loop();
