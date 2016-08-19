@@ -37,18 +37,18 @@ void printFormat(const char *format, ...) {
     print(string);
 }
 
-void printBuffer(const char *message, Buffer_t buffer) {
+void printBuffer(const char *message, uint8_t bytes[], size_t numBytes) {
     size_t messageLength = strlen(message);
-    size_t stringLength = messageLength + (buffer.numBytes * 3) + 1;
+    size_t stringLength = messageLength + (numBytes * 3) + 1;
     size_t byteStringLength = 3;
     char string[stringLength];
 
     // Copy terminating zero in case that numBytes equals zero
     memcpy(string, message, messageLength + 1);
 
-    for (int i = 0; i < buffer.numBytes; ++i) {
+    for (int i = 0; i < numBytes; ++i) {
         snprintf(&string[i * byteStringLength], byteStringLength + 1, " %02x",
-                 buffer.bytes[i]);
+                 bytes[i]);
     }
 
     print(string);

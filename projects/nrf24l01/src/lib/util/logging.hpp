@@ -1,6 +1,8 @@
 #ifndef LOGGING_HPP_
 #define LOGGING_HPP_
 
+#include <cstdint>
+
 /*
  * Follows RFC5424 (https://tools.ietf.org/html/rfc5424)
  */
@@ -68,12 +70,7 @@
 #define DEBUG(...) printFormat(__VA_ARGS__)
 #endif
 
-struct Buffer_t {
-    uint8_t *bytes;
-    size_t numBytes;
-};
-
-void printBuffer(const char *message, Buffer_t buffer);
+void printBuffer(const char *message, uint8_t bytes[], size_t numBytes);
 void printFormat(const char *format, ...);
 
 #endif /* LOGGING_HPP_ */

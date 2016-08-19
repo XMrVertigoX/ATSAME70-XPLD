@@ -115,8 +115,8 @@ uint8_t SpiDrv::transceive(SpiDrv_Device_t &device, uint8_t misoBytes[],
 
     portEXIT_CRITICAL();
 
-    BUFFER(">>>", {mosiBytes, numBytes});
-    BUFFER("<<<", {misoBytes, numBytes});
+    BUFFER(">>>", mosiBytes, numBytes);
+    BUFFER("<<<", misoBytes, numBytes);
 
     return (0);
 }
