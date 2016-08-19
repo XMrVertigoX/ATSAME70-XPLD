@@ -3,9 +3,9 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <lib/services/spidrv.hpp>
-#include <lib/util/arduinotask.hpp>
-#include <lib/util/logging.hpp>
+#include <xXx/services/spidrv.hpp>
+#include <xXx/util/arduinotask.hpp>
+#include <xXx/util/logging.hpp>
 
 #include "mytask.hpp"
 

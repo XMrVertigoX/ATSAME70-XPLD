@@ -1,8 +1,8 @@
 #ifndef MYTASK_HPP_
 #define MYTASK_HPP_
 
-#include <lib/services/spidrv.hpp>
-#include <lib/util/arduinotask.hpp>
+#include <xXx/services/spidrv.hpp>
+#include <xXx/util/arduinotask.hpp>
 
 class MyTask : public ArduinoTask {
    private:
