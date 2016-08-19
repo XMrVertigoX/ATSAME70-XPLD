@@ -7,5 +7,6 @@
 
 // sam
 #include <spi.h>
+#include <xdmac.h>
 
 #endif  // ASF_H_
