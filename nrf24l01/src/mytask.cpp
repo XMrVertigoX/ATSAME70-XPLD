@@ -4,18 +4,13 @@
 #include <task.h>
 
 #include <xXx/components/wireless/nrf24l01p/nrf24l01p.hpp>
-#include <xXx/services/spidrv.hpp>
 
+#include "driver/spidevice.hpp"
 #include "mytask.hpp"
 
-MyTask::MyTask(SpiDrv &spi) : _spi(spi) {}
-
-MyTask::~MyTask() {}
-
 void MyTask::setup() {
-    _spi.setupDevice(_spiDevice, SpiDrv_Peripheral_3, SpiDrv_Mode_0, 10000000);
-
-    nRF24L01P transmitter(_spi, _spiDevice);
+    SpiDevice spi(SPI0, 1, 0, 10000000);
+    nRF24L01P transmitter(spi);
 
     vTaskDelay(100 / portTICK_PERIOD_MS);
 

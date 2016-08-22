@@ -1,19 +1,21 @@
 #ifndef MYTASK_HPP_
 #define MYTASK_HPP_
 
-#include <xXx/services/spidrv.hpp>
 #include <xXx/util/arduinotask.hpp>
+#include <xXx/util/singleton.hpp>
 
-class MyTask : public ArduinoTask {
-   private:
-    SpiDrv &_spi;
-    SpiDrv_Device_t _spiDevice;
+#include "driver/spidevice.hpp"
+
+class MyTask : public Singleton<MyTask>, public ArduinoTask {
+    friend class Singleton<MyTask>;
 
    public:
-    MyTask(SpiDrv &spi);
-    ~MyTask();
     void setup();
     void loop();
+
+   private:
+    MyTask() = default;
+    ~MyTask() = default;
 };
 
 #endif /* MYTASK_HPP_ */
