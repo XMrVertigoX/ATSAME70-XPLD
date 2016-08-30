@@ -5,8 +5,8 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <xXx/util/logging.hpp>
-#include <xXx/util/util.hpp>
+#include <xXx/utils/logging.hpp>
+#include <xXx/utils/util.hpp>
 
 #include "spidevice.hpp"
 

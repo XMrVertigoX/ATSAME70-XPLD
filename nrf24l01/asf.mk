@@ -14,6 +14,7 @@ SYMBOLS += ARM_MATH_CM7=true
 # ----- Source files and header ----------------------------------------------
 
 # CMSIS
+LIBRARY_DIRS += $(CMSIS)/Lib/GCC
 INCLUDE_DIRS += $(CMSIS)/Include
 
 # Common
@@ -60,7 +61,6 @@ SOURCE_FILES += $(SAM)/utils/syscalls/gcc/syscalls.c
 
 # ----- Libraries ------------------------------------------------------------
 
-LIB_DIRS += $(CMSIS)/Lib/GCC
 LIBS += arm_cortexM7lfdp_math_softfp
 
 # ----- Flags ----------------------------------------------------------------

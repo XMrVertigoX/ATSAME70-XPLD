@@ -9,7 +9,7 @@ MAPFILE    = $(OUTPUT_DIR)/$(PROJECT_NAME).map
 CPPFLAGS += $(addprefix -D, $(SYMBOLS))
 CPPFLAGS += $(addprefix -I, $(realpath $(INCLUDE_DIRS)))
 
-LDFLAGS += $(addprefix -L, $(realpath $(LIB_DIRS)))
+LDFLAGS += $(addprefix -L, $(realpath $(LIBRARY_DIRS)))
 LDFLAGS += -Wl,-Map=$(MAPFILE)
 
 LIBFLAGS = $(addprefix -l, $(LIBS))
@@ -29,9 +29,15 @@ all: $(EXECUTABLE) $(BINARY)
 	$(SIZE) $<
 	@echo # Another new line for even better reading
 
-clean:
-	@echo [ RMD ] $(OBJECT_DIR) & $(RM) $(OBJECT_DIR)
-	@echo [ RMD ] $(OUTPUT_DIR) & $(RM) $(OUTPUT_DIR)
+clean: clean_obj clean_out
+	
+clean_obj:
+	@echo [ RMD ] $(OBJECT_DIR)
+	$(RM) $(OBJECT_DIR)
+	
+clean_out:
+	@echo [ RMD ] $(OUTPUT_DIR)
+	$(RM) $(OUTPUT_DIR)
 
 download: $(EXECUTABLE)
 	$(GDB) -q -x download.gdb $<

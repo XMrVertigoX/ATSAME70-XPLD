@@ -4,8 +4,11 @@
 #include <task.h>
 
 #include <xXx/components/wireless/nrf24l01p/nrf24l01p.hpp>
+#include <xXx/utils/logging.hpp>
 
-#include "driver/spidevice.hpp"
+#include <drivers/spi/spicontroller.hpp>
+#include <drivers/spi/spidevice.hpp>
+
 #include "mytask.hpp"
 
 void MyTask::setup() {

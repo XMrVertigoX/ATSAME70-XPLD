@@ -3,9 +3,9 @@
 
 #include <asf.h>
 
-#include <xXx/drivers/genericspi.hpp>
+#include <xXx/services/ispi.hpp>
 
-class SpiDevice : public GenericSpi {
+class SpiDevice : public ISpi {
    private:
     void configurePeripheralChipSelectPin();
 

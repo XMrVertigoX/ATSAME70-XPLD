@@ -7,7 +7,8 @@ static inline void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
     ioport_disable_pin(pin);
 }
 
-void SpiController::enableMaster(Spi *spi, uint32_t delayBetweenChipSelect) {
+void SpiController::enableMasterMode(Spi *spi,
+                                     uint32_t delayBetweenChipSelect) {
     configurePins(spi);
 
     spi_enable_clock(spi);

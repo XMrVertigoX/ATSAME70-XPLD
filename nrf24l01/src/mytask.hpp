@@ -1,10 +1,10 @@
 #ifndef MYTASK_HPP_
 #define MYTASK_HPP_
 
-#include <xXx/util/arduinotask.hpp>
-#include <xXx/util/singleton.hpp>
+#include <xXx/utils/arduinotask.hpp>
+#include <xXx/utils/singleton.hpp>
 
-#include "driver/spidevice.hpp"
+#include <drivers/spi/spicontroller.hpp>
 
 class MyTask : public Singleton<MyTask>, public ArduinoTask {
     friend class Singleton<MyTask>;
