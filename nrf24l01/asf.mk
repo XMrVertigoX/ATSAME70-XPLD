@@ -1,3 +1,5 @@
+ASF = ../libs/ASF
+
 # ----- Files and folders ----------------------------------------------------
 
 CMSIS = $(ASF)/thirdparty/CMSIS
