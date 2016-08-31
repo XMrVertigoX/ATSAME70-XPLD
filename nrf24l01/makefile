@@ -8,8 +8,7 @@ PROJECT_NAME = nrf24l01
 
 include asf.mk
 
-SYMBOLS += LOG_LEVEL=7
-#SYMBOLS += NDEBUG
+# SYMBOLS += NDEBUG
 
 INCLUDE_DIRS += ../libs
 SOURCE_FILES += $(wildcard ../libs/xXx/components/wireless/nrf24l01p/*.cpp)
@@ -17,7 +16,6 @@ SOURCE_FILES += $(wildcard ../libs/xXx/support/*.cpp)
 SOURCE_FILES += $(wildcard ../libs/xXx/utils/*.cpp)
 
 INCLUDE_DIRS += src
-INCLUDE_DIRS += src/asf
 INCLUDE_DIRS += src/config
 INCLUDE_DIRS += src/rtt
 
@@ -26,8 +24,8 @@ SOURCE_FILES += $(shell find ./src -type f -name *.cpp)
 
 # ----- Libraries -------------------------------------------------------------
 
-# LIB_DIRS +=
-# LIBS +=
+# LIBRARY_DIRS +=
+# LIBRARIES +=
 
 # ----- Flags -----------------------------------------------------------------
 

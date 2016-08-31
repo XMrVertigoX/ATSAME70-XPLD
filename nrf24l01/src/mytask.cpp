@@ -18,6 +18,9 @@ void MyTask::setup() {
     vTaskDelay(100 / portTICK_PERIOD_MS);
 
     transmitter.config_powerUp();
+
+    vTaskDelay(100 / portTICK_PERIOD_MS);
+
     transmitter.config_powerDown();
 }
 

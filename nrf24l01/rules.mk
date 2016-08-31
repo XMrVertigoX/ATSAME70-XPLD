@@ -12,8 +12,8 @@ CPPFLAGS += $(addprefix -I, $(realpath $(INCLUDE_DIRS)))
 LDFLAGS += $(addprefix -L, $(realpath $(LIBRARY_DIRS)))
 LDFLAGS += -Wl,-Map=$(MAPFILE)
 
-LIBFLAGS = $(addprefix -l, $(LIBS))
-# LIBFLAGS = -Wl,--start-group $(addprefix -l, $(LIBS)) -Wl,--end-group
+LIBFLAGS = $(addprefix -l, $(LIBRARIES))
+# LIBFLAGS = -Wl,--start-group $(addprefix -l, $(LIBRARIES)) -Wl,--end-group
 
 # ----- Objects ---------------------------------------------------------------
 

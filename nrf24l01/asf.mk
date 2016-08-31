@@ -1,19 +1,19 @@
 ASF = ../libs/ASF
 
-# ----- Files and folders ----------------------------------------------------
+# ----- Files and folders -----------------------------------------------------
 
 CMSIS = $(ASF)/thirdparty/CMSIS
 COMMON = $(ASF)/common
 FREERTOS = $(ASF)/thirdparty/freertos/freertos-8.2.3/Source
 SAM = $(ASF)/sam
 
-# ----- Symbols --------------------------------------------------------------
+# ----- Symbols ---------------------------------------------------------------
 
 SYMBOLS += __SAME70Q21__
 SYMBOLS += BOARD=SAME70_XPLAINED
 SYMBOLS += ARM_MATH_CM7=true
 
-# ----- Source files and header ----------------------------------------------
+# ----- Source files and header -----------------------------------------------
 
 # CMSIS
 LIBRARY_DIRS += $(CMSIS)/Lib/GCC
@@ -61,17 +61,16 @@ SOURCE_FILES += $(SAM)/utils/cmsis/same70/source/templates/system_same70.c
 SOURCE_FILES += $(SAM)/utils/cmsis/same70/source/templates/gcc/startup_same70.c
 SOURCE_FILES += $(SAM)/utils/syscalls/gcc/syscalls.c
 
-# ----- Libraries ------------------------------------------------------------
+# ----- Libraries -------------------------------------------------------------
 
-LIBS += arm_cortexM7lfdp_math_softfp
+LIBRARIES += arm_cortexM7lfdp_math_softfp
 
-# ----- Flags ----------------------------------------------------------------
-
-LINKER_SCRIPT = $(SAM)/utils/linker_scripts/same70/same70q21/gcc/flash.ld
+# ----- Flags -----------------------------------------------------------------
 
 # C/C++ flags
 COMMON_CFLAGS += -mfloat-abi=softfp
 COMMON_CFLAGS += -mfpu=fpv5-d16
 
 # Linker flags
+LINKER_SCRIPT = $(SAM)/utils/linker_scripts/same70/same70q21/gcc/flash.ld
 LDFLAGS += -T $(realpath $(LINKER_SCRIPT))

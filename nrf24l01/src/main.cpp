@@ -12,6 +12,10 @@
 
 int main() {
     sysclk_init();
+
+    SCB_EnableICache();
+    SCB_EnableDCache();
+
     board_init();
 
     sysclk_enable_peripheral_clock(ID_XDMAC);
