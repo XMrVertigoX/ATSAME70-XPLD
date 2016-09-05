@@ -3,6 +3,7 @@
 
 // common
 #include <ioport.h>
+#include <sleepmgr.h>
 #include <sysclk.h>
 
 // sam

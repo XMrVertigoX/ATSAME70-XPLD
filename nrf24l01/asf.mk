@@ -12,6 +12,7 @@ SAM = $(ASF)/sam
 SYMBOLS += __SAME70Q21__
 SYMBOLS += BOARD=SAME70_XPLAINED
 SYMBOLS += ARM_MATH_CM7=true
+SYMBOLS += __FPU_PRESENT=1
 
 # ----- Source files and header -----------------------------------------------
 
@@ -23,8 +24,10 @@ INCLUDE_DIRS += $(CMSIS)/Include
 INCLUDE_DIRS += $(COMMON)/boards
 INCLUDE_DIRS += $(COMMON)/services/clock
 INCLUDE_DIRS += $(COMMON)/services/ioport
+INCLUDE_DIRS += $(COMMON)/services/sleepmgr
 INCLUDE_DIRS += $(COMMON)/utils
 SOURCE_FILES += $(COMMON)/services/clock/same70/sysclk.c
+SOURCE_FILES += $(COMMON)/services/sleepmgr/sam/sleepmgr.c
 SOURCE_FILES += $(COMMON)/utils/interrupt/interrupt_sam_nvic.c
 
 # FreeRTOS
