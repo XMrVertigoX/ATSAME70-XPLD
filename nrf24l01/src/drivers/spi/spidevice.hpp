@@ -3,7 +3,7 @@
 
 #include <asf.h>
 
-#include <xXx/services/ispi.hpp>
+#include <xXx/interfaces/ispi.hpp>
 
 class SpiDevice : public ISpi {
    private:
