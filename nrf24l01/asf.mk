@@ -24,8 +24,10 @@ INCLUDE_DIRS += $(CMSIS)/Include
 INCLUDE_DIRS += $(COMMON)/boards
 INCLUDE_DIRS += $(COMMON)/services/clock
 INCLUDE_DIRS += $(COMMON)/services/ioport
+INCLUDE_DIRS += $(COMMON)/services/sleepmgr
 INCLUDE_DIRS += $(COMMON)/utils
 SOURCE_FILES += $(COMMON)/services/clock/same70/sysclk.c
+SOURCE_FILES += $(COMMON)/services/sleepmgr/sam/sleepmgr.c
 SOURCE_FILES += $(COMMON)/utils/interrupt/interrupt_sam_nvic.c
 
 # FreeRTOS

@@ -17,7 +17,7 @@
 #define configUSE_MALLOC_FAILED_HOOK 0
 #define configUSE_PREEMPTION 1
 #define configUSE_TICK_HOOK 0
-#define configUSE_TICKLESS_IDLE 0
+#define configUSE_TICKLESS_IDLE 1
 
 #define INCLUDE_vTaskPrioritySet 1
 #define INCLUDE_uxTaskPriorityGet 1

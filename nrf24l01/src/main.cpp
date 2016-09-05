@@ -7,6 +7,7 @@
 #include <xXx/utils/logging.hpp>
 
 #include <drivers/spi/spicontroller.hpp>
+#include <sleepmanager.hpp>
 
 #include "mytask.hpp"
 
@@ -28,8 +29,8 @@ int main() {
     ioport_enable_pin(PIO_PD11_IDX);
     ioport_set_pin_dir(PIO_PD11_IDX, IOPORT_DIR_OUTPUT);
 
+    SleepManager::getInstance().init();
     SpiController::getInstance().enableMasterMode(SPI0);
-
     MyTask::getInstance().attachToScheduler(256, 1);
 
     vTaskStartScheduler();
