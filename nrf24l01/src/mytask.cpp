@@ -11,7 +11,7 @@
 
 #include "mytask.hpp"
 
-void MyTask::setup() {
+void BlinkTask::setup() {
     SpiDevice spi(SPI0, 1, 0, 10000000);
     nRF24L01P transmitter(spi);
 
@@ -24,4 +24,4 @@ void MyTask::setup() {
     transmitter.config_powerDown();
 }
 
-void MyTask::loop() {}
+void BlinkTask::loop() {}

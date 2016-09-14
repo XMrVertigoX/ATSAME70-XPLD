@@ -58,6 +58,7 @@ SOURCE_FILES += $(SAM)/boards/same70_xplained/init.c
 SOURCE_FILES += $(SAM)/drivers/pio/pio.c
 SOURCE_FILES += $(SAM)/drivers/pio/pio_handler.c
 SOURCE_FILES += $(SAM)/drivers/pmc/pmc.c
+SOURCE_FILES += $(SAM)/drivers/pmc/sleep.c
 SOURCE_FILES += $(SAM)/drivers/spi/spi.c
 SOURCE_FILES += $(SAM)/drivers/xdmac/xdmac.c
 SOURCE_FILES += $(SAM)/utils/cmsis/same70/source/templates/system_same70.c

@@ -6,16 +6,16 @@
 
 #include <drivers/spi/spicontroller.hpp>
 
-class MyTask : public Singleton<MyTask>, public ArduinoTask {
-    friend class Singleton<MyTask>;
+class BlinkTask : public Singleton<BlinkTask>, public ArduinoTask {
+    friend class Singleton<BlinkTask>;
 
    public:
     void setup();
     void loop();
 
    private:
-    MyTask() = default;
-    ~MyTask() = default;
+    BlinkTask() = default;
+    ~BlinkTask() = default;
 };
 
 #endif /* MYTASK_HPP_ */

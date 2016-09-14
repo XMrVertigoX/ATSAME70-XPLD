@@ -1,7 +1,5 @@
 # ----- Configuration ---------------------------------------------------------
 
-include config.mk
-
 PROJECT_NAME = nrf24l01
 
 # ----- Sources ---------------------------------------------------------------
@@ -29,9 +27,9 @@ SOURCE_FILES += $(shell find ./src -type f -name *.cpp)
 
 # ----- Flags -----------------------------------------------------------------
 
-COMMON_GCC_FLAGS += -march=armv7-m
-COMMON_GCC_FLAGS += -mtune=cortex-m7
-COMMON_GCC_FLAGS += -mthumb
+GCCFLAGS += -march=armv7-m
+GCCFLAGS += -mtune=cortex-m7
+GCCFLAGS += -mthumb
 
 COMMON_CFLAGS += -fdata-sections
 COMMON_CFLAGS += -ffunction-sections

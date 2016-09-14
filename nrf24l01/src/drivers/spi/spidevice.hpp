@@ -17,7 +17,7 @@ class SpiDevice : public ISpi {
     ~SpiDevice();
 
     // GenericSpi
-    void transmit(uint8_t misoBytes[], uint8_t mosiBytes[], size_t numBytes);
+    uint8_t transmit(uint8_t misoBytes[], uint8_t mosiBytes[], size_t numBytes);
 };
 
 #endif /* SPIDRV_SAME70_HPP_ */

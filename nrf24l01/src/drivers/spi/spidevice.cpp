@@ -39,8 +39,8 @@ SpiDevice::~SpiDevice() {
     spi_disable_clock(_spi);
 }
 
-void SpiDevice::transmit(uint8_t misoBytes[], uint8_t mosiBytes[],
-                         size_t numBytes) {
+uint8_t SpiDevice::transmit(uint8_t misoBytes[], uint8_t mosiBytes[],
+                            size_t numBytes) {
     portENTER_CRITICAL();
 
     spi_set_peripheral_chip_select_value(_spi, ~(1 << _peripheral));
@@ -64,6 +64,8 @@ void SpiDevice::transmit(uint8_t misoBytes[], uint8_t mosiBytes[],
 
     BUFFER(">>>", mosiBytes, numBytes);
     BUFFER("<<<", misoBytes, numBytes);
+
+    return (0);
 }
 
 void SpiDevice::configurePeripheralChipSelectPin() {
