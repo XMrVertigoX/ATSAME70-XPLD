@@ -11,6 +11,10 @@
 
 #include "mytask.hpp"
 
+SleepManager &sleepManager = SleepManager::getInstance();
+SpiController &spiController = SpiController::getInstance();
+MyTask &myTask = MyTask::getInstance();
+
 int main() {
     sysclk_init();
 
@@ -29,9 +33,9 @@ int main() {
     ioport_enable_pin(PIO_PD11_IDX);
     ioport_set_pin_dir(PIO_PD11_IDX, IOPORT_DIR_OUTPUT);
 
-    SleepManager::getInstance().init();
-    SpiController::getInstance().enableMasterMode(SPI0);
-    MyTask::getInstance().attach(256, 1);
+    sleepManager.init();
+    spiController.enableMasterMode(SPI0);
+    myTask.attach(256, 1);
 
     sleepmgr_lock_mode(SLEEPMGR_SLEEP_WFE);
 
