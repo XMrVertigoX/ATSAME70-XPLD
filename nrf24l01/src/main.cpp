@@ -31,7 +31,7 @@ int main() {
 
     SleepManager::getInstance().init();
     SpiController::getInstance().enableMasterMode(SPI0);
-    BlinkTask::getInstance().attachToScheduler(256, 1);
+    MyTask::getInstance().attach(256, 1);
 
     sleepmgr_lock_mode(SLEEPMGR_SLEEP_WFE);
 

@@ -51,4 +51,4 @@ LDFLAGS += -Wl,--gc-sections
 
 # ----- Rules -----------------------------------------------------------------
 
-include rules.mk
+include ../libs/xXx/utils/rules.mk

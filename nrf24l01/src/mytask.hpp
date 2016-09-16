@@ -1,10 +1,12 @@
 #ifndef MYTASK_HPP_
 #define MYTASK_HPP_
 
+#include <xXx/templates/singleton.hpp>
 #include <xXx/utils/arduinotask.hpp>
-#include <xXx/utils/singleton.hpp>
 
 #include <drivers/spi/spicontroller.hpp>
+
+using namespace xXx;
 
 class BlinkTask : public Singleton<BlinkTask>, public ArduinoTask {
     friend class Singleton<BlinkTask>;

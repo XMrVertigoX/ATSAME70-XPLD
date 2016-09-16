@@ -3,7 +3,9 @@
 
 #include <asf.h>
 
-#include <xXx/utils/singleton.hpp>
+#include <xXx/templates/singleton.hpp>
+
+using namespace xXx;
 
 class SpiController : public Singleton<SpiController> {
     friend class Singleton<SpiController>;

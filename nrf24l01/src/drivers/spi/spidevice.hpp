@@ -5,6 +5,8 @@
 
 #include <xXx/interfaces/ispi.hpp>
 
+using namespace xXx;
+
 class SpiDevice : public ISpi {
    private:
     void configurePeripheralChipSelectPin();

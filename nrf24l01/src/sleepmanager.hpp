@@ -3,7 +3,9 @@
 
 #include <asf.h>
 
-#include <xXx/utils/singleton.hpp>
+#include <xXx/templates/singleton.hpp>
+
+using namespace xXx;
 
 class SleepManager : public Singleton<SleepManager> {
     friend class Singleton<SleepManager>;
