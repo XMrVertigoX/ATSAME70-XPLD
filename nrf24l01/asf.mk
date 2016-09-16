@@ -2,10 +2,10 @@ ASF = ../libs/ASF
 
 # ----- Files and folders -----------------------------------------------------
 
-CMSIS = $(ASF)/thirdparty/CMSIS
-COMMON = $(ASF)/common
+CMSIS    = $(ASF)/thirdparty/CMSIS
+COMMON   = $(ASF)/common
 FREERTOS = $(ASF)/thirdparty/freertos/freertos-8.2.3/Source
-SAM = $(ASF)/sam
+SAM      = $(ASF)/sam
 
 # ----- Symbols ---------------------------------------------------------------
 
