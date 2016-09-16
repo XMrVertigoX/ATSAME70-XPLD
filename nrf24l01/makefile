@@ -32,6 +32,7 @@ GCCFLAGS += -mthumb
 
 COMMON_CFLAGS += -fdata-sections
 COMMON_CFLAGS += -ffunction-sections
+COMMON_CFLAGS += -fno-builtin
 COMMON_CFLAGS += -fno-exceptions
 COMMON_CFLAGS += -fno-unwind-tables
 COMMON_CFLAGS += -g3
