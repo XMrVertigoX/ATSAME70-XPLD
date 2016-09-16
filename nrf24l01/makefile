@@ -51,4 +51,6 @@ LDFLAGS += -Wl,--gc-sections
 
 # ----- Rules -----------------------------------------------------------------
 
+TOOLCHAIN_PREFIX = arm-none-eabi-
+
 include ../libs/xXx/utils/rules.mk
