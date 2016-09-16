@@ -8,16 +8,16 @@
 
 using namespace xXx;
 
-class BlinkTask : public Singleton<BlinkTask>, public ArduinoTask {
-    friend class Singleton<BlinkTask>;
+class MyTask : public Singleton<MyTask>, public ArduinoTask {
+    friend class Singleton<MyTask>;
 
    public:
     void setup();
     void loop();
 
    private:
-    BlinkTask() = default;
-    ~BlinkTask() = default;
+    MyTask() = default;
+    ~MyTask() = default;
 };
 
 #endif /* MYTASK_HPP_ */
