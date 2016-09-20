@@ -1,5 +1,5 @@
-#ifndef SPIDRV_SAME70_HPP_
-#define SPIDRV_SAME70_HPP_
+#ifndef SPIDRV_HPP_
+#define SPIDRV_HPP_
 
 #include <asf.h>
 
@@ -22,4 +22,4 @@ class SpiDevice : public ISpi {
     uint8_t transmit(uint8_t misoBytes[], uint8_t mosiBytes[], size_t numBytes);
 };
 
-#endif /* SPIDRV_SAME70_HPP_ */
+#endif /* SPIDRV_HPP_ */
