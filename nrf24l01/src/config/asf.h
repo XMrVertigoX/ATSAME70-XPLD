@@ -10,4 +10,7 @@
 #include <spi.h>
 #include <xdmac.h>
 
+// board
+#include <led.h>
+
 #endif  // ASF_H_

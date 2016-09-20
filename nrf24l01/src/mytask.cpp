@@ -24,4 +24,8 @@ void MyTask::setup() {
     transmitter.config_powerDown();
 }
 
-void MyTask::loop() {}
+void MyTask::loop() {
+    LOG("LED");
+    LED_Toggle(LED0);
+    vTaskDelay(500 / portTICK_PERIOD_MS);
+}

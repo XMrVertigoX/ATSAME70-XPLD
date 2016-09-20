@@ -44,6 +44,7 @@ SOURCE_FILES += $(FREERTOS)/portable/MemMang/heap_3.c
 
 # Sam
 INCLUDE_DIRS += $(SAM)/boards
+INCLUDE_DIRS += $(SAM)/boards/same70_xplained
 INCLUDE_DIRS += $(SAM)/drivers/pio
 INCLUDE_DIRS += $(SAM)/drivers/pmc
 INCLUDE_DIRS += $(SAM)/drivers/spi

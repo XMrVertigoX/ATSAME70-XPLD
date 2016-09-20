@@ -39,7 +39,7 @@
 #define configKERNEL_INTERRUPT_PRIORITY (7 << __NVIC_PRIO_BITS)
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY (4 << __NVIC_PRIO_BITS)
 
-#define portSUPPRESS_TICKS_AND_SLEEP vPortSuppressTicksAndSleep
+#define portSUPPRESS_TICKS_AND_SLEEP(x) vPortSuppressTicksAndSleep(x)
 
 #define xPortPendSVHandler PendSV_Handler
 #define vPortSVCHandler SVC_Handler
