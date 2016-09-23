@@ -1,7 +1,7 @@
 # ----- Configuration ---------------------------------------------------------
 
-PROJECT_NAME     = nrf24l01
 TOOLCHAIN_PREFIX = arm-none-eabi-
+PROJECT_NAME     = nrf24l01
 
 # ----- Sources ---------------------------------------------------------------
 
