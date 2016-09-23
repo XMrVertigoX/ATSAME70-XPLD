@@ -6,12 +6,12 @@
 #include <task.h>
 
 #include <xXx/utils/logging.hpp>
-#include <xXx/utils/util.hpp>
 
 #include "spidevice.hpp"
 
 #define POLARITY_MASK 0b00000010
 #define PHASE_MASK 0b00000001
+#define WAIT_UNTIL(x) while (!x)
 
 static inline void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
     ioport_set_pin_mode(pin, mode);
