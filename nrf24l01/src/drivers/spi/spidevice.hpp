@@ -8,13 +8,13 @@
 using namespace xXx;
 
 class SpiDevice : public ISpi {
-   private:
+  private:
     void configurePeripheralChipSelectPin();
 
     Spi *_spi;
     uint32_t _peripheral;
 
-   public:
+  public:
     SpiDevice(Spi *spi, uint32_t peripheral, uint32_t mode, uint32_t baudRate);
     ~SpiDevice();
 

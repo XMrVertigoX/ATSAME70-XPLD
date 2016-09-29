@@ -10,11 +10,11 @@ using namespace xXx;
 class SpiController : public Singleton<SpiController> {
     friend class Singleton<SpiController>;
 
-   public:
+  public:
     ~SpiController() = default;
     void enableMasterMode(Spi *spi, uint32_t delayBetweenChipSelect = 0);
 
-   private:
+  private:
     SpiController() = default;
     void configurePins(Spi *spi);
 };

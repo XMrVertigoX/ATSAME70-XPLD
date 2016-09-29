@@ -11,11 +11,11 @@ using namespace xXx;
 class MyTask : public Singleton<MyTask>, public ArduinoTask {
     friend class Singleton<MyTask>;
 
-   public:
+  public:
     void setup();
     void loop();
 
-   private:
+  private:
     MyTask() = default;
     ~MyTask() = default;
 };

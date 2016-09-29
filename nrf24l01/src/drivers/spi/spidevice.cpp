@@ -71,18 +71,18 @@ uint8_t SpiDevice::transmit(uint8_t misoBytes[], uint8_t mosiBytes[],
 void SpiDevice::configurePeripheralChipSelectPin() {
     if (_spi == SPI0) {
         switch (_peripheral) {
-            case 0:
-                setPinMode(SPI0_NPCS0_GPIO, SPI0_NPCS0_FLAGS);
-                break;
-            case 1:
-                setPinMode(SPI0_NPCS1_GPIO, SPI0_NPCS1_FLAGS);
-                break;
-            case 2:
-                setPinMode(SPI0_NPCS2_GPIO, SPI0_NPCS2_FLAGS);
-                break;
-            case 3:
-                setPinMode(SPI0_NPCS3_GPIO, SPI0_NPCS3_FLAGS);
-                break;
+        case 0:
+            setPinMode(SPI0_NPCS0_GPIO, SPI0_NPCS0_FLAGS);
+            break;
+        case 1:
+            setPinMode(SPI0_NPCS1_GPIO, SPI0_NPCS1_FLAGS);
+            break;
+        case 2:
+            setPinMode(SPI0_NPCS2_GPIO, SPI0_NPCS2_FLAGS);
+            break;
+        case 3:
+            setPinMode(SPI0_NPCS3_GPIO, SPI0_NPCS3_FLAGS);
+            break;
         }
     }
 }
