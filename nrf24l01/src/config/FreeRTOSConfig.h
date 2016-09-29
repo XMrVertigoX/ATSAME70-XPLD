@@ -8,7 +8,9 @@
 #define configASSERT(x) assert(x)
 #define configCHECK_FOR_STACK_OVERFLOW 0
 #define configCPU_CLOCK_HZ SystemCoreClock
+#define configKERNEL_INTERRUPT_PRIORITY (7 << (8 - __NVIC_PRIO_BITS))
 #define configMAX_PRIORITIES 4
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY (4 << (8 - __NVIC_PRIO_BITS))
 #define configMINIMAL_STACK_SIZE 256
 #define configTICK_RATE_HZ 1000
 #define configUSE_16_BIT_TICKS 0
@@ -16,7 +18,7 @@
 #define configUSE_MALLOC_FAILED_HOOK 0
 #define configUSE_PREEMPTION 1
 #define configUSE_TICK_HOOK 0
-#define configUSE_TICKLESS_IDLE 0
+#define configUSE_TICKLESS_IDLE 1
 
 #define INCLUDE_vTaskPrioritySet 1
 #define INCLUDE_uxTaskPriorityGet 1
@@ -35,11 +37,6 @@
 #define INCLUDE_xTaskAbortDelay 1
 #define INCLUDE_xTaskGetHandle 1
 #define INCLUDE_xTaskResumeFromISR 1
-
-#define configKERNEL_INTERRUPT_PRIORITY (7 << __NVIC_PRIO_BITS)
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY (4 << __NVIC_PRIO_BITS)
-
-#define portSUPPRESS_TICKS_AND_SLEEP(x) vPortSuppressTicksAndSleep(x)
 
 #define xPortPendSVHandler PendSV_Handler
 #define vPortSVCHandler SVC_Handler
