@@ -12,7 +12,6 @@ SAM      = $(ASF)/sam
 SYMBOLS += __SAME70Q21__
 SYMBOLS += BOARD=SAME70_XPLAINED
 SYMBOLS += ARM_MATH_CM7=true
-SYMBOLS += __FPU_PRESENT=1
 
 # ----- Source files and header -----------------------------------------------
 
