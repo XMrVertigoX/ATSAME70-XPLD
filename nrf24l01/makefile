@@ -11,6 +11,7 @@ include asf.mk
 
 INCLUDE_DIRS += ../libs
 SOURCE_FILES += $(wildcard ../libs/xXx/components/wireless/nrf24l01p/*.cpp)
+SOURCE_FILES += $(wildcard ../libs/xXx/os/*.cpp)
 SOURCE_FILES += $(wildcard ../libs/xXx/support/*.cpp)
 SOURCE_FILES += $(wildcard ../libs/xXx/utils/*.cpp)
 

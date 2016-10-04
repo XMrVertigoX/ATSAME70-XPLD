@@ -1,23 +1,19 @@
 #ifndef MYTASK_HPP_
 #define MYTASK_HPP_
 
+#include <xXx/os/arduinotask.hpp>
 #include <xXx/templates/singleton.hpp>
-#include <xXx/utils/arduinotask.hpp>
 
 #include <drivers/spi/spicontroller.hpp>
 
 using namespace xXx;
 
-class MyTask : public Singleton<MyTask>, public ArduinoTask {
-    friend class Singleton<MyTask>;
-
+class MyTask : public ArduinoTask {
   public:
+    MyTask(uint16_t stack, UBaseType_t priority);
+    ~MyTask();
     void setup();
     void loop();
-
-  private:
-    MyTask() = default;
-    ~MyTask() = default;
 };
 
 #endif /* MYTASK_HPP_ */

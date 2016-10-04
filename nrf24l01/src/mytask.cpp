@@ -4,12 +4,18 @@
 #include <task.h>
 
 #include <xXx/components/wireless/nrf24l01p/nrf24l01p.hpp>
+#include <xXx/os/arduinotask.hpp>
 #include <xXx/utils/logging.hpp>
 
 #include <drivers/spi/spicontroller.hpp>
 #include <drivers/spi/spidevice.hpp>
 
 #include "mytask.hpp"
+
+MyTask::MyTask(uint16_t stack, UBaseType_t priority)
+    : ArduinoTask(stack, priority) {}
+
+MyTask::~MyTask() {}
 
 void MyTask::setup() {
     SpiDevice spi(SPI0, 1, 0, 10000000);

@@ -3,7 +3,7 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <xXx/utils/arduinotask.hpp>
+#include <xXx/os/arduinotask.hpp>
 #include <xXx/utils/logging.hpp>
 
 #include <drivers/spi/spicontroller.hpp>
@@ -13,7 +13,8 @@
 
 SleepManager &sleepManager = SleepManager::getInstance();
 SpiController &spiController = SpiController::getInstance();
-MyTask &myTask = MyTask::getInstance();
+
+MyTask myTask(256, 1);
 
 int main() {
     sysclk_init();
@@ -35,9 +36,6 @@ int main() {
 
     sleepManager.init();
     spiController.enableMasterMode(SPI0);
-    myTask.attach(256, 1);
-
-    sleepmgr_lock_mode(SLEEPMGR_SLEEP_WFE);
 
     vTaskStartScheduler();
 }
