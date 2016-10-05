@@ -6,6 +6,7 @@
 #include "board.h"
 
 // clang-format off
+
 #define configASSERT(x)                      assert(x)
 #define configCHECK_FOR_STACK_OVERFLOW       (0)
 #define configCPU_CLOCK_HZ                   (SystemCoreClock)
@@ -42,6 +43,7 @@
 #define xPortPendSVHandler(x)                PendSV_Handler(x)
 #define vPortSVCHandler(x)                   SVC_Handler(x)
 #define xPortSysTickHandler(x)               SysTick_Handler(x)
+
 // clang-format on
 
 #endif /* FREERTOS_CONFIG_H_ */
