@@ -33,7 +33,7 @@ uint32_t SleepManager::rtos2rtc(TickType_t ticks) {
 void vPortSuppressTicksAndSleep(TickType_t expectedSleepTicks) {
     uint32_t actualSleepTicks = 0;
 
-    SleepManager &sleepManager = SleepManager::getInstance();
+    SleepManager &sleepManager    = SleepManager::getInstance();
     eSleepModeStatus eSleepStatus = eTaskConfirmSleepModeStatus();
 
     if (eSleepStatus == eAbortSleep) {

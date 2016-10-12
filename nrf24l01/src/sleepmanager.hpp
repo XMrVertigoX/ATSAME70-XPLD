@@ -18,7 +18,7 @@ class SleepManager : public Singleton<SleepManager> {
     uint32_t sleep(TickType_t ticks = 0);
 
   private:
-    SleepManager() = default;
+    SleepManager()  = default;
     ~SleepManager() = default;
 
     TickType_t rtc2rtos(uint32_t ticks);

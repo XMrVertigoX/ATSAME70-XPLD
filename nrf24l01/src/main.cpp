@@ -11,7 +11,7 @@
 
 #include "mytask.hpp"
 
-SleepManager &sleepManager = SleepManager::getInstance();
+SleepManager &sleepManager   = SleepManager::getInstance();
 SpiController &spiController = SpiController::getInstance();
 
 MyTask myTask(256, 1);
