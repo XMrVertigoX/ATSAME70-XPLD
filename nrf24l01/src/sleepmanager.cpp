@@ -31,8 +31,7 @@ uint32_t SleepManager::rtos2rtc(TickType_t ticks) {
 // ----- FreeRTOS hook function -----------------------------------------------
 
 void vPortSuppressTicksAndSleep(TickType_t expectedSleepTicks) {
-    uint32_t actualSleepTicks = 0;
-
+    uint32_t actualSleepTicks     = 0;
     SleepManager &sleepManager    = SleepManager::getInstance();
     eSleepModeStatus eSleepStatus = eTaskConfirmSleepModeStatus();
 
@@ -41,7 +40,6 @@ void vPortSuppressTicksAndSleep(TickType_t expectedSleepTicks) {
     }
 
     // TODO: Disable timer/interrupts here
-    taskDISABLE_INTERRUPTS();
 
     if (eSleepStatus == eStandardSleep) {
         actualSleepTicks = sleepManager.sleep(expectedSleepTicks);
@@ -52,5 +50,4 @@ void vPortSuppressTicksAndSleep(TickType_t expectedSleepTicks) {
     vTaskStepTick(actualSleepTicks);
 
     // TODO: Enable timer/interrupts here
-    taskENABLE_INTERRUPTS();
 }
