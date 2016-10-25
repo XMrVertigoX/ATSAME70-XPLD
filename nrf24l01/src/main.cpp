@@ -14,7 +14,7 @@
 SleepManager &sleepManager   = SleepManager::getInstance();
 SpiController &spiController = SpiController::getInstance();
 
-MyTask myTask(256, 1);
+MyTask myTask;
 
 int main() {
     sysclk_init();

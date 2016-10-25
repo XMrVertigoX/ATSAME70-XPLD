@@ -12,8 +12,7 @@
 
 #include "mytask.hpp"
 
-MyTask::MyTask(uint16_t stack, UBaseType_t priority)
-    : ArduinoTask(stack, priority) {}
+MyTask::MyTask() : ArduinoTask(256, 1) {}
 
 MyTask::~MyTask() {}
 

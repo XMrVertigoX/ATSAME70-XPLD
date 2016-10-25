@@ -10,7 +10,7 @@ using namespace xXx;
 
 class MyTask : public ArduinoTask {
   public:
-    MyTask(uint16_t stack, UBaseType_t priority);
+    MyTask();
     ~MyTask();
     void setup();
     void loop();
