@@ -32,24 +32,14 @@ GCCFLAGS      += -march=armv7-m
 GCCFLAGS      += -mtune=cortex-m7
 GCCFLAGS      += -mthumb
 
-COMMON_CFLAGS += -fdata-sections
-COMMON_CFLAGS += -ffunction-sections
-COMMON_CFLAGS += -fno-builtin
-COMMON_CFLAGS += -fno-exceptions
-COMMON_CFLAGS += -fno-unwind-tables
-COMMON_CFLAGS += -g3
-COMMON_CFLAGS += -nostdlib
+COMMON_CFLAGS += -g
 COMMON_CFLAGS += -Og
 
 CFLAGS        += -std=gnu11
 
-CXXFLAGS      += -fno-rtti
-CXXFLAGS      += -fno-threadsafe-statics
 CXXFLAGS      += -std=gnu++14
 
-LDFLAGS       += --specs=nano.specs
-LDFLAGS       += --specs=nosys.specs
-LDFLAGS       += -Wl,--gc-sections
+LDFLAGS       += 
 
 # ----- Rules -----------------------------------------------------------------
 
