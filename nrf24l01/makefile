@@ -28,7 +28,7 @@ SOURCE_FILES += $(shell find ./src -type f -name *.cpp)
 
 # ----- Flags -----------------------------------------------------------------
 
-GCCFLAGS      += -march=armv7-m
+GCCFLAGS      += -march=armv7e-m
 GCCFLAGS      += -mtune=cortex-m7
 GCCFLAGS      += -mthumb
 
@@ -38,8 +38,6 @@ COMMON_CFLAGS += -Og
 CFLAGS        += -std=gnu11
 
 CXXFLAGS      += -std=gnu++14
-
-LDFLAGS       += 
 
 # ----- Rules -----------------------------------------------------------------
 

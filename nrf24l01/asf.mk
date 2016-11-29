@@ -67,13 +67,12 @@ SOURCE_FILES += $(SAM)/utils/syscalls/gcc/syscalls.c
 
 # ----- Libraries -------------------------------------------------------------
 
-LIBRARIES += arm_cortexM7lfdp_math_softfp
+LIBRARIES += arm_cortexM7lfdp_math
 
 # ----- Flags -----------------------------------------------------------------
 
-# C/C++ flags
-COMMON_CFLAGS += -mfloat-abi=softfp
-COMMON_CFLAGS += -mfpu=fpv5-d16
+GCCFLAGS += -mfloat-abi=hard
+GCCFLAGS += -mfpu=fpv5-d16
 
 # Linker flags
 LINKER_SCRIPT = $(SAM)/utils/linker_scripts/same70/same70q21/gcc/flash.ld
