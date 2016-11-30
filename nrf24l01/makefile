@@ -8,6 +8,7 @@ PROJECT_NAME     = nrf24l01
 include asf.mk
 
 # SYMBOLS += NDEBUG
+SYMBOLS += ARM_MATH_CM7
 
 INCLUDE_DIRS += ../libs
 SOURCE_FILES += $(wildcard ../libs/xXx/components/wireless/nrf24l01p/*.cpp)
@@ -24,20 +25,24 @@ SOURCE_FILES += $(shell find ./src -type f -name *.cpp)
 
 # ----- Libraries -------------------------------------------------------------
 
-# LIBRARIES +=
+LIBRARIES +=
 
 # ----- Flags -----------------------------------------------------------------
 
-GCCFLAGS      += -march=armv7e-m
-GCCFLAGS      += -mtune=cortex-m7
-GCCFLAGS      += -mthumb
+GCCFLAGS += -march=armv7e-m
+GCCFLAGS += -mtune=cortex-m7
+GCCFLAGS += -mthumb
+GCCFLAGS += -mfloat-abi=hard
+GCCFLAGS += -mfpu=fpv5-d16
 
 COMMON_CFLAGS += -g
 COMMON_CFLAGS += -Og
 
-CFLAGS        += -std=gnu11
+CFLAGS += -std=gnu11
 
-CXXFLAGS      += -std=gnu++14
+CXXFLAGS += -std=gnu++14
+
+CPPFLAGS +=
 
 # ----- Rules -----------------------------------------------------------------
 

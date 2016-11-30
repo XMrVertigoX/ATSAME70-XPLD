@@ -11,13 +11,12 @@ SAM      = $(ASF)/sam
 
 SYMBOLS += __SAME70Q21__
 SYMBOLS += BOARD=SAME70_XPLAINED
-SYMBOLS += ARM_MATH_CM7=true
 
 # ----- Source files and header -----------------------------------------------
 
 # CMSIS
-LIBRARY_DIRS += $(CMSIS)/Lib/GCC
 INCLUDE_DIRS += $(CMSIS)/Include
+LIBRARY_DIRS += $(CMSIS)/Lib/GCC
 
 # Common
 INCLUDE_DIRS += $(COMMON)/boards
@@ -71,9 +70,5 @@ LIBRARIES += arm_cortexM7lfdp_math
 
 # ----- Flags -----------------------------------------------------------------
 
-GCCFLAGS += -mfloat-abi=hard
-GCCFLAGS += -mfpu=fpv5-d16
-
-# Linker flags
 LINKER_SCRIPT = $(SAM)/utils/linker_scripts/same70/same70q21/gcc/flash.ld
 LDFLAGS += -T $(realpath $(LINKER_SCRIPT))
