@@ -10,18 +10,19 @@ include asf.mk
 # SYMBOLS += NDEBUG
 SYMBOLS += ARM_MATH_CM7
 
+# >>> Libraries
 INCLUDE_DIRS += ../libs
-SOURCE_FILES += $(wildcard ../libs/xXx/components/wireless/nrf24l01p/*.cpp)
-SOURCE_FILES += $(wildcard ../libs/xXx/os/*.cpp)
-SOURCE_FILES += $(wildcard ../libs/xXx/support/*.cpp)
-SOURCE_FILES += $(wildcard ../libs/xXx/utils/*.cpp)
 
+SOURCE_FILES += $(shell find ../libs/xXx -iregex ".*\.\(c\|cpp\|s\)")
+SOURCE_FILES += $(shell find ../libs/SEGGER_RTT -iregex ".*\.\(c\|cpp\|s\)")
+# <<< Libraries
+
+# >>> Project
 INCLUDE_DIRS += src
 INCLUDE_DIRS += src/config
-INCLUDE_DIRS += src/rtt
 
-SOURCE_FILES += $(shell find ./src -type f -name *.c)
-SOURCE_FILES += $(shell find ./src -type f -name *.cpp)
+SOURCE_FILES += $(shell find src -iregex ".*\.\(c\|cpp\|s\)")
+# <<< Project
 
 # ----- Libraries -------------------------------------------------------------
 
@@ -29,8 +30,7 @@ LIBRARIES +=
 
 # ----- Flags -----------------------------------------------------------------
 
-GCCFLAGS += -march=armv7e-m
-GCCFLAGS += -mtune=cortex-m7
+GCCFLAGS += -mcpu=cortex-m7
 GCCFLAGS += -mthumb
 GCCFLAGS += -mfloat-abi=hard
 GCCFLAGS += -mfpu=fpv5-d16
