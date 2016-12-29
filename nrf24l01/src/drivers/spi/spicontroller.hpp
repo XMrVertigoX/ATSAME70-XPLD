@@ -11,11 +11,12 @@ class SpiController : public Singleton<SpiController> {
     friend class Singleton<SpiController>;
 
   public:
-    ~SpiController() = default;
     void enableMasterMode(Spi *spi, uint32_t delayBetweenChipSelect = 0);
 
   private:
-    SpiController() = default;
+    SpiController()  = default;
+    ~SpiController() = default;
+
     void configurePins(Spi *spi);
 };
 
