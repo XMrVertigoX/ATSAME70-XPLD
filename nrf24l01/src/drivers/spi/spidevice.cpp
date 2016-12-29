@@ -39,31 +39,32 @@ SpiDevice::~SpiDevice() {
     spi_disable_clock(_spi);
 }
 
-uint8_t SpiDevice::transmit(uint8_t misoBytes[], uint8_t mosiBytes[],
-                            size_t numBytes) {
+uint8_t SpiDevice::transmit(uint8_t mosiBytes[], size_t mosiNumBytes,
+                            ISpi_TransmitCallback_t callback, void *user) {
+    size_t misoNumBytes = mosiNumBytes;
+    uint8_t misoBytes[misoNumBytes];
+
     portENTER_CRITICAL();
 
     spi_set_peripheral_chip_select_value(_spi, ~(1 << _peripheral));
 
-    for (int i = 0; i < numBytes; i++) {
+    for (int i = 0; i < mosiNumBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
         spi_put(_spi, mosiBytes[i]);
 
-        if (NULL != misoBytes) {
-            WAIT_UNTIL(spi_is_rx_ready(_spi));
-            misoBytes[i] = spi_get(_spi);
-        }
+        WAIT_UNTIL(spi_is_rx_ready(_spi));
+        misoBytes[i] = spi_get(_spi);
     }
 
-    WAIT_UNTIL(spi_is_tx_empty(_spi));
+    spi_set_lastxfer(_spi);
 
     spi_set_peripheral_chip_select_value(_spi, (1 << _peripheral));
-    spi_set_lastxfer(_spi);
 
     portEXIT_CRITICAL();
 
-    BUFFER(">>>", mosiBytes, numBytes);
-    BUFFER("<<<", misoBytes, numBytes);
+    if (callback) {
+        callback(misoBytes, misoNumBytes, user);
+    }
 
     return (0);
 }
@@ -71,18 +72,10 @@ uint8_t SpiDevice::transmit(uint8_t misoBytes[], uint8_t mosiBytes[],
 void SpiDevice::configurePeripheralChipSelectPin() {
     if (_spi == SPI0) {
         switch (_peripheral) {
-        case 0:
-            setPinMode(SPI0_NPCS0_GPIO, SPI0_NPCS0_FLAGS);
-            break;
-        case 1:
-            setPinMode(SPI0_NPCS1_GPIO, SPI0_NPCS1_FLAGS);
-            break;
-        case 2:
-            setPinMode(SPI0_NPCS2_GPIO, SPI0_NPCS2_FLAGS);
-            break;
-        case 3:
-            setPinMode(SPI0_NPCS3_GPIO, SPI0_NPCS3_FLAGS);
-            break;
+            case 0: setPinMode(SPI0_NPCS0_GPIO, SPI0_NPCS0_FLAGS); break;
+            case 1: setPinMode(SPI0_NPCS1_GPIO, SPI0_NPCS1_FLAGS); break;
+            case 2: setPinMode(SPI0_NPCS2_GPIO, SPI0_NPCS2_FLAGS); break;
+            case 3: setPinMode(SPI0_NPCS3_GPIO, SPI0_NPCS3_FLAGS); break;
         }
     }
 }
