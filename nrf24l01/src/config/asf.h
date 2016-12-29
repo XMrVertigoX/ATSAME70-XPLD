@@ -11,6 +11,7 @@
 #include <xdmac.h>
 
 // board
+#include <board.h>
 #include <led.h>
 
 #endif // ASF_H_
