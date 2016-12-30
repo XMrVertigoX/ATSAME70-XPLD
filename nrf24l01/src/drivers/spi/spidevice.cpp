@@ -18,9 +18,15 @@ static inline void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
     ioport_disable_pin(pin);
 }
 
-SpiDevice::SpiDevice(Spi *spi, uint32_t peripheral, uint32_t mode,
-                     uint32_t baudRate)
-    : _spi(spi), _peripheral(peripheral) {
+SpiDevice::SpiDevice(Spi *spi, uint32_t peripheral)
+    : _spi(spi), _peripheral(peripheral) {}
+
+SpiDevice::~SpiDevice() {
+    spi_disable(_spi);
+    spi_disable_clock(_spi);
+}
+
+void SpiDevice::init(uint32_t mode, uint32_t baudRate) {
     int16_t baudRateDiv = spi_calc_baudrate_div(baudRate, sysclk_get_cpu_hz());
     assert(baudRateDiv > 0);
 
@@ -32,11 +38,6 @@ SpiDevice::SpiDevice(Spi *spi, uint32_t peripheral, uint32_t mode,
     spi_configure_cs_behavior(_spi, _peripheral, SPI_CS_KEEP_LOW);
     spi_set_clock_polarity(_spi, _peripheral, (mode & POLARITY_MASK) >> 1);
     spi_set_clock_phase(_spi, _peripheral, ((~mode) & PHASE_MASK));
-}
-
-SpiDevice::~SpiDevice() {
-    spi_disable(_spi);
-    spi_disable_clock(_spi);
 }
 
 uint8_t SpiDevice::transmit(uint8_t mosiBytes[], size_t mosiNumBytes,

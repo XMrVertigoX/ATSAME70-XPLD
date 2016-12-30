@@ -15,8 +15,10 @@ class SpiDevice : public ISpi {
     uint32_t _peripheral;
 
   public:
-    SpiDevice(Spi *spi, uint32_t peripheral, uint32_t mode, uint32_t baudRate);
+    SpiDevice(Spi *spi, uint32_t peripheral);
     ~SpiDevice();
+
+    void init(uint32_t mode, uint32_t baudRate);
 
     uint8_t transmit(uint8_t mosiBytes[], size_t mosiNumBytes,
                      ISpi_TransmitCallback_t callback, void *user);
