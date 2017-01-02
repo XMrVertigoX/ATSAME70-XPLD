@@ -24,6 +24,7 @@ INCLUDE_DIRS += $(COMMON)/services/clock
 INCLUDE_DIRS += $(COMMON)/services/ioport
 INCLUDE_DIRS += $(COMMON)/services/sleepmgr
 INCLUDE_DIRS += $(COMMON)/utils
+
 SOURCE_FILES += $(COMMON)/services/clock/same70/sysclk.c
 SOURCE_FILES += $(COMMON)/services/sleepmgr/sam/sleepmgr.c
 SOURCE_FILES += $(COMMON)/utils/interrupt/interrupt_sam_nvic.c
@@ -31,6 +32,7 @@ SOURCE_FILES += $(COMMON)/utils/interrupt/interrupt_sam_nvic.c
 # FreeRTOS
 INCLUDE_DIRS += $(FREERTOS)/include
 INCLUDE_DIRS += $(FREERTOS)/portable/GCC/ARM_CM7/r0p1
+
 SOURCE_FILES += $(FREERTOS)/croutine.c
 SOURCE_FILES += $(FREERTOS)/event_groups.c
 SOURCE_FILES += $(FREERTOS)/list.c
@@ -53,6 +55,7 @@ INCLUDE_DIRS += $(SAM)/utils/cmsis/same70/source/templates
 INCLUDE_DIRS += $(SAM)/utils/fpu
 INCLUDE_DIRS += $(SAM)/utils/header_files
 INCLUDE_DIRS += $(SAM)/utils/preprocessor
+
 SOURCE_FILES += $(SAM)/boards/same70_xplained/init.c
 SOURCE_FILES += $(SAM)/drivers/pio/pio.c
 SOURCE_FILES += $(SAM)/drivers/pio/pio_handler.c
