@@ -41,7 +41,7 @@ void SpiDevice::init(uint32_t mode, uint32_t baudRate) {
 }
 
 uint8_t SpiDevice::transmit(uint8_t mosiBytes[], size_t mosiNumBytes,
-                            ISpi_TransmitCallback_t callback, void *user) {
+                            ISpi_Callback_t callback, void *user) {
     size_t misoNumBytes = mosiNumBytes;
     uint8_t misoBytes[misoNumBytes];
 
