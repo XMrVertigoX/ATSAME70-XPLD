@@ -2,5 +2,6 @@
 #define CONF_BOARD_H_
 
 #define BOARD_NO_PUSHBUTTON_2
+#define CONF_BOARD_ENABLE_CACHE
 
 #endif /* CONF_BOARD_H_ */
