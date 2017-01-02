@@ -2,8 +2,10 @@
 
 #include "SEGGER_RTT.h"
 
+#define UNUSED(x) (void)x
+
 int _write(int f, char *bytes, int numBytes) {
-    (void *)f;
+    UNUSED(f);
 
     SEGGER_RTT_Write(0, bytes, numBytes);
 
@@ -11,8 +13,8 @@ int _write(int f, char *bytes, int numBytes) {
 }
 
 int _write_r(struct _reent *r, int f, const void *bytes, size_t numBytes) {
-    (void *)r;
-    (void *)f;
+    UNUSED(r);
+    UNUSED(f);
 
     SEGGER_RTT_Write(0, bytes, numBytes);
 
