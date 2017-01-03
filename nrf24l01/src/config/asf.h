@@ -7,6 +7,8 @@
 #include <sysclk.h>
 
 // sam
+#include <pio.h>
+#include <pio_handler.h>
 #include <spi.h>
 #include <xdmac.h>
 
