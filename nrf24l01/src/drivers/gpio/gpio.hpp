@@ -1,31 +1,37 @@
-/*
- * gpiodrv.hpp
- *
- *  Created on: 29.12.2016
- *      Author: caspa
- */
-
 #ifndef GPIO_HPP_
 #define GPIO_HPP_
+
+#include <asf.h>
 
 #include <xXx/interfaces/igpio.hpp>
 
 namespace xXx {
 
 class Gpio : public IGpio {
+  private:
+    ioport_pin_t _pin;
+
+    static void staticISR(uint32_t group_id, uint32_t group_mask);
+    static IGpio_Callback_t _callback[5][32];
+    static void *_user[5][32];
+
   public:
-    Gpio();
+    Gpio(ioport_pin_t pin);
     virtual ~Gpio();
+    void init(ioport_direction dir);
 
     /* General functionality */
-    bool read();
+    void clear();
+    bool get();
+    void set();
     void toggle();
-    void write(bool state);
 
     /* Interrupt control */
     void disableInterrupt();
-    void enableInterrupt(IGpio_Callback_t cb, void *user);
+    void enableInterrupt(IGpio_Callback_t callback, void *user);
 };
+
+typedef Gpio *Gpio_Handle_t;
 
 } /* namespace xXx */
 
