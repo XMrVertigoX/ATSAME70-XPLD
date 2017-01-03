@@ -2,7 +2,9 @@
 
 #include "SEGGER_RTT.h"
 
-#define UNUSED(x) (void)x
+#if !defined(UNUSED)
+#define UNUSED(x) (void)(x)
+#endif
 
 int _write(int f, char *bytes, int numBytes) {
     UNUSED(f);
