@@ -40,7 +40,7 @@ SOURCE_FILES += $(FREERTOS)/queue.c
 SOURCE_FILES += $(FREERTOS)/tasks.c
 SOURCE_FILES += $(FREERTOS)/timers.c
 SOURCE_FILES += $(FREERTOS)/portable/GCC/ARM_CM7/r0p1/port.c
-SOURCE_FILES += $(FREERTOS)/portable/MemMang/heap_3.c
+SOURCE_FILES += $(FREERTOS)/portable/MemMang/heap_4.c
 
 # Sam
 INCLUDE_DIRS += $(SAM)/boards

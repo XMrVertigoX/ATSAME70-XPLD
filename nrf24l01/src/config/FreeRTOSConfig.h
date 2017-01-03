@@ -17,6 +17,7 @@
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY GET_INTERRUPT_PRIORITY(4)
 #define configMINIMAL_STACK_SIZE             (256)
 #define configTICK_RATE_HZ                   (1000)
+#define configTOTAL_HEAP_SIZE                (4096)
 #define configUSE_16_BIT_TICKS               (0)
 #define configUSE_IDLE_HOOK                  (0)
 #define configUSE_MALLOC_FAILED_HOOK         (0)
