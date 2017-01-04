@@ -8,6 +8,21 @@
 
 namespace xXx {
 
+static inline int groupId2groupIndex(uint32_t groupId) {
+    switch (groupId) {
+        case ID_PIOA: return (0); break;
+        case ID_PIOB: return (1); break;
+        case ID_PIOC: return (2); break;
+        case ID_PIOD: return (3); break;
+        case ID_PIOE: return (4); break;
+    }
+
+    return (-1);
+}
+
+IGpio_Callback_t Gpio::_callback[5][32];
+void *Gpio::_user[5][32];
+
 Gpio::Gpio(ioport_pin_t pin) : _pin(pin) {}
 
 Gpio::~Gpio() {}
@@ -18,19 +33,19 @@ void Gpio::init(ioport_direction dir) {
 }
 
 void Gpio::clear() {
-    pio_set_pin_low(_pin);
+    ioport_set_pin_level(_pin, false);
 }
 
 bool Gpio::get() {
-    return (pio_get_pin_value(_pin));
+    return (ioport_get_pin_level(_pin));
 }
 
 void Gpio::set() {
-    pio_set_pin_high(_pin);
+    ioport_set_pin_level(_pin, true);
 }
 
 void Gpio::toggle() {
-    pio_toggle_pin(_pin);
+    ioport_toggle_pin_level(_pin);
 }
 
 void Gpio::disableInterrupt() {
@@ -38,29 +53,37 @@ void Gpio::disableInterrupt() {
 }
 
 void Gpio::enableInterrupt(IGpio_Callback_t callback, void *user) {
-    uint32_t group_id = pio_get_pin_group_id(_pin);
+    int groupIndex = groupId2groupIndex(pio_get_pin_group_id(_pin));
 
-    _callback[0][_pin] = callback;
-    _user[0][_pin]     = user;
+    if (groupIndex < 0) {
+        return;
+    }
 
-    pio_handler_set_pin(_pin, PIN_PUSHBUTTON_1_ATTR, staticISR);
+    _callback[groupIndex][_pin] = callback;
+    _user[groupIndex][_pin]     = user;
+
+    // Todo:
+    pio_handler_set_pin(_pin, (PIO_PULLUP | PIO_DEBOUNCE | PIO_IT_RISE_EDGE),
+                        staticISR);
     pio_enable_pin_interrupt(_pin);
 }
 
-IGpio_Callback_t Gpio::_callback[5][32];
-void *Gpio::_user[5][32];
+void Gpio::staticISR(uint32_t groupId, uint32_t groupMask) {
+    int groupIndex   = groupId2groupIndex(groupId);
+    uint8_t pinIndex = 0;
 
-void Gpio::staticISR(uint32_t group_id, uint32_t group_mask) {
-    uint32_t pinIndex = 0;
+    if (groupIndex < 0) {
+        return;
+    }
 
-    if (group_mask > 0) {
-        while (group_mask >>= 1) {
+    if (groupMask > 0) {
+        while (groupMask >>= 1) {
             pinIndex++;
         }
     }
 
-    if (Gpio::_callback[0][pinIndex]) {
-        Gpio::_callback[0][pinIndex](Gpio::_user[0][pinIndex]);
+    if (_callback[groupIndex][pinIndex]) {
+        _callback[groupIndex][pinIndex](_user[groupIndex][pinIndex]);
     }
 }
 
