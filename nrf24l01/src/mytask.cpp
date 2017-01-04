@@ -19,16 +19,14 @@ MyTask::MyTask(SpiDevice &spi, Gpio &ce, Gpio &irq)
 MyTask::~MyTask() {}
 
 void MyTask::setup() {
-    nRF24L01P transmitter(_spi, _irq, _ce);
+    //    nRF24L01P transmitter(_spi, _irq, _ce);
 
-    vTaskDelay(100 / portTICK_PERIOD_MS);
-    transmitter.config_powerUp();
-    vTaskDelay(100 / portTICK_PERIOD_MS);
-    transmitter.config_powerDown();
+    //    vTaskDelay(100 / portTICK_PERIOD_MS);
+    //    transmitter.config_powerUp();
+    //    vTaskDelay(100 / portTICK_PERIOD_MS);
+    //    transmitter.config_powerDown();
 }
 
 void MyTask::loop() {
-    LOG("LED");
-    LED_Toggle(LED0);
-    vTaskDelay(500 / portTICK_PERIOD_MS);
+    // vTaskDelay(500 / portTICK_PERIOD_MS);
 }
