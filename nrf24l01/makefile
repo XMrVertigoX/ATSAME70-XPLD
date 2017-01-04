@@ -9,7 +9,7 @@ include asf.mk
 
 # SYMBOLS += NDEBUG
 SYMBOLS += ARM_MATH_CM7
-SYMBOLS += __FPU_PRESENT
+SYMBOLS += __FPU_PRESENT=1
 
 # >>> Libraries
 INCLUDE_DIRS += ../libs
