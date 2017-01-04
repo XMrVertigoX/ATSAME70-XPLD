@@ -4,6 +4,3 @@
 [submodule "libs/xXx"]
 	path = libs/xXx
 	url = https://github.com/XMrVertigoX/xXx_CPP.git
-[submodule "libs/RF24"]
-	path = libs/RF24
-	url = https://github.com/XMrVertigoX/RF24.git
