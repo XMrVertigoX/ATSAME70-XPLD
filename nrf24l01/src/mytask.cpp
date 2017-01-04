@@ -3,7 +3,7 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <xXx/components/wireless/nrf24l01p/nrf24l01p.hpp>
+#include <xXx/components/wireless/RF24/RF24.hpp>
 #include <xXx/os/arduinotask.hpp>
 #include <xXx/utils/logging.hpp>
 
@@ -18,14 +18,7 @@ MyTask::MyTask(SpiDevice &spi, Gpio &ce, Gpio &irq)
 
 MyTask::~MyTask() {}
 
-void MyTask::setup() {
-    //    nRF24L01P transmitter(_spi, _irq, _ce);
-
-    //    vTaskDelay(100 / portTICK_PERIOD_MS);
-    //    transmitter.config_powerUp();
-    //    vTaskDelay(100 / portTICK_PERIOD_MS);
-    //    transmitter.config_powerDown();
-}
+void MyTask::setup() {}
 
 void MyTask::loop() {
     // vTaskDelay(500 / portTICK_PERIOD_MS);

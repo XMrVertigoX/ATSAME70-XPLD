@@ -40,16 +40,13 @@ void SpiDevice::init(uint32_t mode, uint32_t baudRate) {
     spi_set_clock_phase(_spi, _peripheral, ((~mode) & PHASE_MASK));
 }
 
-uint8_t SpiDevice::transmit(uint8_t mosiBytes[], size_t mosiNumBytes,
-                            ISpi_Callback_t callback, void *user) {
-    size_t misoNumBytes = mosiNumBytes;
-    uint8_t misoBytes[misoNumBytes];
-
+uint8_t SpiDevice::transmit(uint8_t mosiBytes[], uint8_t misoBytes[],
+                            size_t numBytes) {
     portENTER_CRITICAL();
 
     spi_set_peripheral_chip_select_value(_spi, ~(1 << _peripheral));
 
-    for (int i = 0; i < mosiNumBytes; i++) {
+    for (int i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
         spi_put(_spi, mosiBytes[i]);
 
@@ -63,10 +60,7 @@ uint8_t SpiDevice::transmit(uint8_t mosiBytes[], size_t mosiNumBytes,
 
     portEXIT_CRITICAL();
 
-    if (callback) {
-        callback(misoBytes, misoNumBytes, user);
-    }
-
+    // Todo
     return (0);
 }
 

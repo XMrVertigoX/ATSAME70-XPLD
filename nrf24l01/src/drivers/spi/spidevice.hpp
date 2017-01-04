@@ -20,8 +20,7 @@ class SpiDevice : public ISpi {
 
     void init(uint32_t mode, uint32_t baudRate);
 
-    uint8_t transmit(uint8_t mosiBytes[], size_t mosiNumBytes,
-                     ISpi_Callback_t callback, void *user);
+    uint8_t transmit(uint8_t mosiBytes[], uint8_t misoBytes[], size_t numBytes);
 };
 
 #endif /* SPIDEVICE_HPP_ */
