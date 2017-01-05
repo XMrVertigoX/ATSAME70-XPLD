@@ -18,11 +18,10 @@ MyTask::MyTask(RF24 &rf24) : ArduinoTask(256, 1), _rf24(rf24) {}
 MyTask::~MyTask() {}
 
 void MyTask::setup() {
-    uint8_t buffer[] = {1};
+    uint8_t buffer[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     _rf24.begin();
-    _rf24.openWritingPipe(0xF0F0F0F0F0);
-    _rf24.write(buffer, sizeof(buffer));
+    _rf24.openWritingPipe(0x0f0f0f0f0f);
     _rf24.write(buffer, sizeof(buffer));
 }
 
