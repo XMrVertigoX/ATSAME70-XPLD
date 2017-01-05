@@ -3,7 +3,7 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <xXx/components/wireless/RF24/RF24.hpp>
+#include <xXx/components/wireless/RF24/nRF24L01.hpp>
 #include <xXx/utils/logging.hpp>
 
 #include "drivers/gpio/gpio.hpp"
@@ -22,7 +22,7 @@ SpiMgr &spiManager     = SpiMgr::getInstance();
 SpiDevice rf24_spi(SPI0, 1);
 Gpio rf24_ce(EXT1_PIN_5);
 Gpio rf24_irq(EXT1_PIN_9);
-RF24 rf24(rf24_spi, rf24_ce, rf24_irq);
+nRF24L01 rf24(rf24_spi, rf24_ce, rf24_irq);
 
 RadioTask radioTask(rf24);
 
