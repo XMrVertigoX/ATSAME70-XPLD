@@ -9,9 +9,11 @@
 
 #include "spidevice.hpp"
 
-#define POLARITY_MASK 0b00000010
-#define PHASE_MASK 0b00000001
+// clang-format off
+#define POLARITY_MASK (0b00000010)
+#define PHASE_MASK    (0b00000001)
 #define WAIT_UNTIL(x) while (!x)
+// clang-format on
 
 static inline void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
     ioport_set_pin_mode(pin, mode);
@@ -44,7 +46,7 @@ uint8_t SpiDevice::transmit(uint8_t mosiBytes[], uint8_t misoBytes[],
                             size_t numBytes) {
     portENTER_CRITICAL();
 
-    spi_set_peripheral_chip_select_value(_spi, ~(1 << _peripheral));
+    enableChipSelect();
 
     for (int i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
@@ -56,12 +58,20 @@ uint8_t SpiDevice::transmit(uint8_t mosiBytes[], uint8_t misoBytes[],
 
     spi_set_lastxfer(_spi);
 
-    spi_set_peripheral_chip_select_value(_spi, (1 << _peripheral));
+    disableChipSelect();
 
     portEXIT_CRITICAL();
 
     // Todo
     return (0);
+}
+
+void SpiDevice::enableChipSelect() {
+    spi_set_peripheral_chip_select_value(_spi, ~(1 << _peripheral));
+}
+
+void SpiDevice::disableChipSelect() {
+    spi_set_peripheral_chip_select_value(_spi, (1 << _peripheral));
 }
 
 void SpiDevice::configurePeripheralChipSelectPin() {

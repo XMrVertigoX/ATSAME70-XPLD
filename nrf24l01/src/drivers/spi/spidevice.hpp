@@ -10,6 +10,8 @@ using namespace xXx;
 class SpiDevice : public ISpi {
   private:
     void configurePeripheralChipSelectPin();
+    void enableChipSelect();
+    void disableChipSelect();
 
     Spi *_spi;
     uint32_t _peripheral;
