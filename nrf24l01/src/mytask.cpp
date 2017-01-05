@@ -13,12 +13,18 @@
 
 #include "mytask.hpp"
 
-MyTask::MyTask(SpiDevice &spi, Gpio &ce, Gpio &irq)
-    : ArduinoTask(256, 1), _spi(spi), _ce(ce), _irq(irq) {}
+MyTask::MyTask(RF24 &rf24) : ArduinoTask(256, 1), _rf24(rf24) {}
 
 MyTask::~MyTask() {}
 
-void MyTask::setup() {}
+void MyTask::setup() {
+    uint8_t buffer[] = {1};
+
+    _rf24.begin();
+    _rf24.openWritingPipe(0xF0F0F0F0F0);
+    _rf24.write(buffer, sizeof(buffer));
+    _rf24.write(buffer, sizeof(buffer));
+}
 
 void MyTask::loop() {
     // vTaskDelay(500 / portTICK_PERIOD_MS);

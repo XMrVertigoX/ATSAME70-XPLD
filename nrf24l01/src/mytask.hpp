@@ -12,12 +12,10 @@ using namespace xXx;
 
 class MyTask : public ArduinoTask {
   private:
-    SpiDevice &_spi;
-    Gpio &_ce;
-    Gpio &_irq;
+    RF24 &_rf24;
 
   public:
-    MyTask(SpiDevice &spi, Gpio &ce, Gpio &irq);
+    MyTask(RF24 &rf24);
     ~MyTask();
     void setup();
     void loop();
