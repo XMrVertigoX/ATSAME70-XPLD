@@ -7,17 +7,13 @@
 #include <xXx/os/arduinotask.hpp>
 #include <xXx/utils/logging.hpp>
 
-#include <drivers/gpio/gpio.hpp>
-#include <drivers/spi/spicontroller.hpp>
-#include <drivers/spi/spidevice.hpp>
+#include "radiotask.hpp"
 
-#include "mytask.hpp"
+RadioTask::RadioTask(RF24 &rf24) : ArduinoTask(256, 1), _rf24(rf24) {}
 
-MyTask::MyTask(RF24 &rf24) : ArduinoTask(256, 1), _rf24(rf24) {}
+RadioTask::~RadioTask() {}
 
-MyTask::~MyTask() {}
-
-void MyTask::setup() {
+void RadioTask::setup() {
     uint8_t buffer[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     _rf24.begin();
@@ -25,6 +21,6 @@ void MyTask::setup() {
     _rf24.write(buffer, sizeof(buffer));
 }
 
-void MyTask::loop() {
+void RadioTask::loop() {
     // vTaskDelay(500 / portTICK_PERIOD_MS);
 }

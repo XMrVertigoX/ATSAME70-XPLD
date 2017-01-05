@@ -4,29 +4,27 @@
 #include <task.h>
 
 #include <xXx/components/wireless/RF24/RF24.hpp>
-#include <xXx/os/arduinotask.hpp>
-#include <xXx/templates/queue.hpp>
 #include <xXx/utils/logging.hpp>
 
-#include <drivers/gpio/gpio.hpp>
-#include <drivers/spi/spicontroller.hpp>
-#include <drivers/spi/spidevice.hpp>
-#include <sleepmanager.hpp>
+#include "drivers/gpio/gpio.hpp"
+#include "drivers/spi/spidevice.hpp"
+#include "drivers/spi/spimgr.hpp"
 
-#include "mytask.hpp"
+#include "radiotask.hpp"
+#include "sleepmgr.hpp"
 
-// SleepManager &sleepManager   = SleepManager::getInstance();
-SpiController &spiController = SpiController::getInstance();
-
-SpiDevice spi(SPI0, 1);
-Gpio ce(EXT1_PIN_5);
-Gpio irq(EXT1_PIN_9);
+SleepMgr &sleepManager = SleepMgr::getInstance();
+SpiMgr &spiManager     = SpiMgr::getInstance();
 
 // Gpio led(LED_0_PIN);
 // Gpio button(BUTTON_0_PIN);
 
-RF24 rf24(spi, ce, irq);
-MyTask myTask(rf24);
+SpiDevice rf24_spi(SPI0, 1);
+Gpio rf24_ce(EXT1_PIN_5);
+Gpio rf24_irq(EXT1_PIN_9);
+RF24 rf24(rf24_spi, rf24_ce, rf24_irq);
+
+RadioTask radioTask(rf24);
 
 int main() {
     sysclk_init();
@@ -35,12 +33,12 @@ int main() {
 
     // sysclk_enable_peripheral_clock(ID_XDMAC);
 
-    // sleepManager.init();
-    spiController.enableMasterMode(SPI0);
-    spi.init(0, 10000000);
+    sleepManager.init();
+    spiManager.enableMasterMode(SPI0);
 
-    ce.init(IOPORT_DIR_OUTPUT);
-    // irq.init(IOPORT_DIR_INPUT);
+    rf24_spi.init(0, 10000000);
+    rf24_ce.init(IOPORT_DIR_OUTPUT);
+    rf24_irq.init(IOPORT_DIR_INPUT);
 
     // NVIC_ClearPendingIRQ(PIN_PUSHBUTTON_1_IRQn);
 

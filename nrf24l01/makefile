@@ -19,7 +19,6 @@ SOURCE_FILES += $(shell find ../libs/SEGGER_RTT -iregex ".*\.\(c\|cpp\|s\)")
 # <<< Libraries
 
 # >>> Project
-INCLUDE_DIRS += src
 INCLUDE_DIRS += src/config
 
 SOURCE_FILES += $(shell find src -iregex ".*\.\(c\|cpp\|s\)")

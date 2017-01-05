@@ -1,5 +1,5 @@
-#ifndef SLEEPMANAGER_HPP_
-#define SLEEPMANAGER_HPP_
+#ifndef SLEEPMGR_HPP_
+#define SLEEPMGR_HPP_
 
 #include <asf.h>
 
@@ -10,19 +10,19 @@
 
 using namespace xXx;
 
-class SleepManager : public Singleton<SleepManager> {
-    friend class Singleton<SleepManager>;
+class SleepMgr : public Singleton<SleepMgr> {
+    friend class Singleton<SleepMgr>;
 
   public:
     void init();
     uint32_t sleep(TickType_t ticks = 0);
 
   private:
-    SleepManager()  = default;
-    ~SleepManager() = default;
+    SleepMgr()  = default;
+    ~SleepMgr() = default;
 
     TickType_t rtc2rtos(uint32_t ticks);
     uint32_t rtos2rtc(TickType_t ticks);
 };
 
-#endif /* SLEEPMANAGER_HPP_ */
+#endif /* SLEEPMGR_HPP_ */

@@ -1,13 +1,13 @@
 #include <asf.h>
 
-#include "spicontroller.hpp"
+#include "spimgr.hpp"
 
 static inline void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
     ioport_set_pin_mode(pin, mode);
     ioport_disable_pin(pin);
 }
 
-void SpiController::enableMasterMode(Spi *spi,
+void SpiMgr::enableMasterMode(Spi *spi,
                                      uint32_t delayBetweenChipSelect) {
     configurePins(spi);
 
@@ -22,7 +22,7 @@ void SpiController::enableMasterMode(Spi *spi,
     spi_enable(spi);
 }
 
-void SpiController::configurePins(Spi *spi) {
+void SpiMgr::configurePins(Spi *spi) {
     if (spi == SPI0) {
         setPinMode(SPI0_MISO_GPIO, SPI0_MISO_FLAGS);
         setPinMode(SPI0_MOSI_GPIO, SPI0_MOSI_FLAGS);
