@@ -1,7 +1,7 @@
 #ifndef RADIOTASK_HPP_
 #define RADIOTASK_HPP_
 
-#include <xXx/components/wireless/RF24/nRF24L01.hpp>
+#include <xXx/components/wireless/nRF24L01/nRF24L01.hpp>
 #include <xXx/os/arduinotask.hpp>
 
 using namespace xXx;

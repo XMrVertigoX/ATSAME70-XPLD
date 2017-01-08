@@ -14,8 +14,11 @@ SYMBOLS += __FPU_PRESENT=1
 # >>> Libraries
 INCLUDE_DIRS += ../libs
 
-SOURCE_FILES += $(shell find ../libs/xXx -iregex ".*\.\(c\|cpp\|s\)")
-SOURCE_FILES += $(shell find ../libs/SEGGER_RTT -iregex ".*\.\(c\|cpp\|s\)")
+SOURCE_FILES += $(wildcard ../libs/xXx/components/wireless/nRF24L01/*.cpp)
+SOURCE_FILES += $(wildcard ../libs/xXx/os/*.cpp)
+SOURCE_FILES += $(wildcard ../libs/xXx/support/*.cpp)
+SOURCE_FILES += $(wildcard ../libs/xXx/utils/*.cpp)
+SOURCE_FILES += $(wildcard ../libs/SEGGER_RTT/*.c)
 # <<< Libraries
 
 # >>> Project

@@ -3,7 +3,7 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <xXx/components/wireless/RF24/nRF24L01.hpp>
+#include <xXx/components/wireless/nRF24L01/nRF24L01.hpp>
 #include <xXx/utils/logging.hpp>
 
 #include "drivers/gpio/gpio.hpp"

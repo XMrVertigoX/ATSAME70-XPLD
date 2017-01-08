@@ -63,8 +63,8 @@ void Gpio::enableInterrupt(IGpio_Callback_t callback, void *user) {
     _user[groupIndex][_pin]     = user;
 
     // Todo:
-    pio_handler_set_pin(_pin, (PIO_PULLUP | PIO_DEBOUNCE | PIO_IT_RISE_EDGE),
-                        staticISR);
+    // pio_handler_set_pin(_pin, (PIO_PULLUP | PIO_DEBOUNCE | PIO_IT_RISE_EDGE), staticISR);
+    pio_handler_set_pin(_pin, PIO_IT_FALL_EDGE, staticISR);
     pio_enable_pin_interrupt(_pin);
 }
 
