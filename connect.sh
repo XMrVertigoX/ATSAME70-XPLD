@@ -1,1 +1,1 @@
-JLinkGDBServer -device atsame70q21 -speed auto -if swd -strict
+JLinkGDBServer -device atsame70q21 -if swd -speed 12000 -nogui -xc connect.gdb

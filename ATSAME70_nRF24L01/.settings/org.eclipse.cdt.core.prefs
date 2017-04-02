@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2085871789/ASF/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2085871789/ASF/operation=append
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2085871789/ASF/value=${ProjDirPath}/../libs/asf-standalone-archive-3.33.0.50/xdk-asf-3.33.0
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2085871789/append=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.2085871789/appendContributed=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.739579514/ASF/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.739579514/ASF/operation=append
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.739579514/ASF/value=${ProjDirPath}/../libs/asf-standalone-archive-3.33.0.50/xdk-asf-3.33.0
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.739579514/append=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.toolchain.base.739579514/appendContributed=true

@@ -7,24 +7,22 @@ PROJECT_NAME     = nrf24l01
 
 include asf.mk
 
-# SYMBOLS += NDEBUG
 SYMBOLS += ARM_MATH_CM7
 SYMBOLS += __FPU_PRESENT=1
 
 # >>> Libraries
 INCLUDE_DIRS += ../libs
-
-SOURCE_FILES += $(wildcard ../libs/xXx/components/wireless/nRF24L01/*.cpp)
+INCLUDE_DIRS += ../libs/SEGGER_RTT_V612a/RTT
+SOURCE_FILES += $(wildcard ../libs/xXx/components/wireless/nrf24l01p/*.cpp)
 SOURCE_FILES += $(wildcard ../libs/xXx/os/*.cpp)
 SOURCE_FILES += $(wildcard ../libs/xXx/support/*.cpp)
 SOURCE_FILES += $(wildcard ../libs/xXx/utils/*.cpp)
-SOURCE_FILES += $(wildcard ../libs/SEGGER_RTT/*.c)
+SOURCE_FILES += ../libs/SEGGER_RTT_V612a/RTT/SEGGER_RTT.c
 # <<< Libraries
 
 # >>> Project
-INCLUDE_DIRS += src/config
-
-SOURCE_FILES += $(shell find src -iregex ".*\.\(c\|cpp\|s\)")
+INCLUDE_DIRS += ./src/config
+SOURCE_FILES += $(shell find ./src -iregex ".*\.\(c\|cpp\|s\)")
 # <<< Project
 
 # ----- Libraries -------------------------------------------------------------

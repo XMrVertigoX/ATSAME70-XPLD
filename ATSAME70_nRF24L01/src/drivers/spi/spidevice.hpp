@@ -3,12 +3,15 @@
 
 #include <asf.h>
 
+#include <FreeRTOS.h>
+#include <semphr.h>
+
 #include <xXx/interfaces/ispi.hpp>
 
 using namespace xXx;
 
 class SpiDevice : public ISpi {
-  private:
+   private:
     void configurePeripheralChipSelectPin();
     void enableChipSelect();
     void disableChipSelect();
@@ -16,13 +19,13 @@ class SpiDevice : public ISpi {
     Spi *_spi;
     uint32_t _peripheral;
 
-  public:
+   public:
     SpiDevice(Spi *spi, uint32_t peripheral);
     ~SpiDevice();
 
     void init(uint32_t mode, uint32_t baudRate);
 
-    uint8_t transmit(uint8_t mosiBytes[], uint8_t misoBytes[], size_t numBytes);
+    uint8_t transmit_receive(Queue<uint8_t> &queue);
 };
 
 #endif /* SPIDEVICE_HPP_ */

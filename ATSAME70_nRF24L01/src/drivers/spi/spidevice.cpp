@@ -3,21 +3,18 @@
 #include <asf.h>
 
 #include <FreeRTOS.h>
+#include <semphr.h>
 #include <task.h>
 
 #include <xXx/utils/logging.hpp>
 
 #include "spidevice.hpp"
 
-// clang-format off
 #define POLARITY_MASK (0b00000010)
-#define PHASE_MASK    (0b00000001)
-
+#define PHASE_MASK (0b00000001)
 #define WAIT_UNTIL(x) while (!x)
-// clang-format on
 
-SpiDevice::SpiDevice(Spi *spi, uint32_t peripheral)
-    : _spi(spi), _peripheral(peripheral) {}
+SpiDevice::SpiDevice(Spi *spi, uint32_t peripheral) : _spi(spi), _peripheral(peripheral) {}
 
 SpiDevice::~SpiDevice() {
     spi_disable(_spi);
@@ -38,25 +35,26 @@ void SpiDevice::init(uint32_t mode, uint32_t baudRate) {
     spi_set_clock_phase(_spi, _peripheral, ((~mode) & PHASE_MASK));
 }
 
-uint8_t SpiDevice::transmit(uint8_t mosiBytes[], uint8_t misoBytes[],
-                            size_t numBytes) {
-    portENTER_CRITICAL();
+uint8_t SpiDevice::transmit_receive(Queue<uint8_t> &queue) {
+    uint8_t byte;
 
     enableChipSelect();
 
-    for (int i = 0; i < numBytes; i++) {
+    for (int i = 0; i < queue.queueMessagesWaiting(); i++) {
+        queue.dequeue(byte);
+
         WAIT_UNTIL(spi_is_tx_ready(_spi));
-        spi_put(_spi, mosiBytes[i]);
+        spi_put(_spi, byte);
 
         WAIT_UNTIL(spi_is_rx_ready(_spi));
-        misoBytes[i] = spi_get(_spi);
+        byte = spi_get(_spi);
+
+        queue.enqueue(byte);
     }
 
     spi_set_lastxfer(_spi);
 
     disableChipSelect();
-
-    portEXIT_CRITICAL();
 
     return (0);
 }
