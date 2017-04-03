@@ -1,2 +1,4 @@
 *
+
 !.gitignore
+!SEGGER_RTT_*
