@@ -7,8 +7,6 @@
 
 // clang-format off
 
-#define INTERRUPT_PRIORITY_MASK (0b00011111)
-
 #define configASSERT(x)                      assert(x)
 #define configCHECK_FOR_STACK_OVERFLOW       (0)
 #define configCPU_CLOCK_HZ                   (SystemCoreClock)
@@ -23,8 +21,8 @@
 #define configUSE_TICK_HOOK                  (0)
 #define configUSE_TICKLESS_IDLE              (0)
 
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY (0xFF ^ (7 << (8 - __NVIC_PRIO_BITS)))
 #define configKERNEL_INTERRUPT_PRIORITY      (0xFF ^ (0 << (8 - __NVIC_PRIO_BITS)))
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY (0xFF ^ (7 << (8 - __NVIC_PRIO_BITS)))
 
 #define INCLUDE_vTaskPrioritySet             (1)
 #define INCLUDE_uxTaskPriorityGet            (1)
