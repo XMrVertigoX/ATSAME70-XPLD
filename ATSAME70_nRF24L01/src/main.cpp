@@ -28,8 +28,8 @@ int main() {
     sysclk_init();
     board_init();
 
-    NVIC_EnableIRQ(PIOA_IRQn);  // Button
-    NVIC_EnableIRQ(PIOD_IRQn);  // IRQ
+    NVIC_EnableIRQ(PIOA_IRQn);  // button
+    NVIC_EnableIRQ(PIOD_IRQn);  // rf24_irq
 
     spiManager.enableMasterMode(SPI0);
 
