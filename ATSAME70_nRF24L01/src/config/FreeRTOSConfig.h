@@ -7,14 +7,12 @@
 
 // clang-format off
 
-#define GET_INTERRUPT_PRIORITY(x)            (x << (8 - __NVIC_PRIO_BITS))
+#define INTERRUPT_PRIORITY_MASK (0b00011111)
 
 #define configASSERT(x)                      assert(x)
 #define configCHECK_FOR_STACK_OVERFLOW       (0)
 #define configCPU_CLOCK_HZ                   (SystemCoreClock)
-#define configKERNEL_INTERRUPT_PRIORITY      GET_INTERRUPT_PRIORITY(7)
 #define configMAX_PRIORITIES                 (4)
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY GET_INTERRUPT_PRIORITY(4)
 #define configMINIMAL_STACK_SIZE             (256)
 #define configTICK_RATE_HZ                   (1000)
 #define configTOTAL_HEAP_SIZE                (32768)
@@ -24,6 +22,9 @@
 #define configUSE_PREEMPTION                 (1)
 #define configUSE_TICK_HOOK                  (0)
 #define configUSE_TICKLESS_IDLE              (0)
+
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY (0xFF ^ (7 << (8 - __NVIC_PRIO_BITS)))
+#define configKERNEL_INTERRUPT_PRIORITY      (0xFF ^ (0 << (8 - __NVIC_PRIO_BITS)))
 
 #define INCLUDE_vTaskPrioritySet             (1)
 #define INCLUDE_uxTaskPriorityGet            (1)

@@ -74,7 +74,7 @@ void Gpio::enableInterrupt(IGpio_Callback_t callback, void *user) {
 void Gpio::interruptFunction(uint32_t groupId, uint32_t groupMask) {
     int8_t groupIndex = groupId2groupIndex(groupId);
     int8_t pinId      = __builtin_ctz(groupMask);
-    int8_t pinIndex   = pinId | (groupIndex < 5);
+    int8_t pinIndex   = pinId | (groupIndex << 5);
 
     if (groupIndex < 0) {
         return;

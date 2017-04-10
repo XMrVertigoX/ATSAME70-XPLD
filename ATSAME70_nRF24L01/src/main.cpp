@@ -18,8 +18,8 @@ Gpio led(LED_0_PIN);
 Gpio button(BUTTON_0_PIN);
 
 SpiDevice rf24_spi(SPI0, 1);
-Gpio rf24_ce(EXT1_PIN_5);
 Gpio rf24_irq(EXT1_PIN_9);
+Gpio rf24_ce(EXT1_PIN_10);
 nRF24L01P_ESB rf24(rf24_spi, rf24_ce, rf24_irq);
 
 RadioTask radioTask(rf24);
@@ -29,9 +29,7 @@ int main() {
     board_init();
 
     NVIC_EnableIRQ(PIOA_IRQn);  // Button
-    NVIC_EnableIRQ(PIOD_IRQn);  // nRF24
-
-    delay_ms(100);
+    NVIC_EnableIRQ(PIOD_IRQn);  // IRQ
 
     spiManager.enableMasterMode(SPI0);
 
@@ -44,6 +42,8 @@ int main() {
 
     rf24.taskCreate();
     radioTask.taskCreate();
+
+    delay_ms(100);
 
     LOG("Enter scheduler");
 

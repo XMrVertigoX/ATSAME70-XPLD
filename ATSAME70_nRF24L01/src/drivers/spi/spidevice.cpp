@@ -35,21 +35,15 @@ void SpiDevice::init(uint32_t mode, uint32_t baudRate) {
     spi_set_clock_phase(_spi, _peripheral, ((~mode) & PHASE_MASK));
 }
 
-uint8_t SpiDevice::transmit_receive(Queue<uint8_t> &queue) {
-    uint8_t byte;
-
+uint8_t SpiDevice::transmit_receive(uint8_t bytes[], uint32_t numBytes) {
     enableChipSelect();
 
-    for (int i = 0; i < queue.queueMessagesWaiting(); i++) {
-        queue.dequeue(byte);
-
+    for (int i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
-        spi_put(_spi, byte);
+        spi_put(_spi, bytes[i]);
 
         WAIT_UNTIL(spi_is_rx_ready(_spi));
-        byte = spi_get(_spi);
-
-        queue.enqueue(byte);
+        bytes[i] = spi_get(_spi);
     }
 
     spi_set_lastxfer(_spi);
