@@ -15,6 +15,7 @@
 #define WAIT_UNTIL(x) while (!x)
 
 static SemaphoreHandle_t semaphore;
+static bool masterModeInitialized = false;
 
 static void setPinMode(ioport_pin_t pin, ioport_mode_t mode) {
     ioport_set_pin_mode(pin, mode);
@@ -51,7 +52,7 @@ uint8_t SpiDevice::transmit_receive(uint8_t bytes[], uint32_t numBytes) {
     xSemaphoreTake(semaphore, portMAX_DELAY);
     enableChipSelect();
 
-    for (int i = 0; i < numBytes; i++) {
+    for (uint32_t i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
         spi_put(_spi, bytes[i]);
 
@@ -94,6 +95,8 @@ void SpiDevice::configureSpiPins() {
 }
 
 void SpiDevice::enableSpiMasterMode(uint32_t delayBetweenChipSelect) {
+    if (masterModeInitialized) return;
+
     configureSpiPins();
 
     spi_enable_clock(_spi);

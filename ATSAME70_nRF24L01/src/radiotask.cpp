@@ -12,7 +12,7 @@
 
 using namespace xXx;
 
-static const int64_t address = 0xE7E7E7E7E7;
+const int64_t address = 0xE7E7E7E7E7;
 
 RadioTask::RadioTask(nRF24L01P_ESB &receiver) : _receiver(receiver), _queue(Queue<uint8_t>(256)) {}
 
