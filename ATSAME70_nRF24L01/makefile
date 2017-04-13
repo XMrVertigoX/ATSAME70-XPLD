@@ -10,6 +10,7 @@ LINKER_SCRIPT    = $(ASF)/sam/utils/linker_scripts/same70/same70q21/gcc/flash.ld
 SYMBOLS += __SAME70Q21__
 SYMBOLS += BOARD=SAME70_XPLAINED
 SYMBOLS += ARM_MATH_CM7
+# SYMBOLS += NDEBUG
 
 # >>> SDK
 INCLUDE_DIRS += $(ASF)/common/boards
