@@ -11,13 +11,15 @@ class Gpio : public IGpio {
    private:
     ioport_pin_t _pin;
 
-    static void interruptFunction(uint32_t group_id, uint32_t group_mask);
     static IGpio_Callback_t _callback[160];
     static void *_user[160];
+
+    static void interruptFunction(uint32_t group_id, uint32_t group_mask);
 
    public:
     Gpio(ioport_pin_t pin);
     virtual ~Gpio();
+    
     void init(ioport_direction dir);
 
     /* General functionality */
