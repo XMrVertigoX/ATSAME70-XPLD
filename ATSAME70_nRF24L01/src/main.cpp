@@ -8,11 +8,8 @@
 
 #include "drivers/gpio/gpio.hpp"
 #include "drivers/spi/spidevice.hpp"
-#include "drivers/spi/spimgr.hpp"
 
 #include "radiotask.hpp"
-
-SpiMgr &spiManager = SpiMgr::getInstance();
 
 Gpio led(LED_0_PIN);
 Gpio button(BUTTON_0_PIN);
@@ -30,8 +27,6 @@ int main() {
 
     NVIC_EnableIRQ(PIOA_IRQn);  // button
     NVIC_EnableIRQ(PIOD_IRQn);  // rf24_irq
-
-    spiManager.enableMasterMode(SPI0);
 
     rf24_spi.init(0, 10000000);
     rf24_ce.init(IOPORT_DIR_OUTPUT);
