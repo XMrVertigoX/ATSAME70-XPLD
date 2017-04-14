@@ -50,6 +50,7 @@ void SpiDevice::init(uint32_t mode, uint32_t baudRate) {
 
 uint8_t SpiDevice::transmit_receive(uint8_t bytes[], uint32_t numBytes) {
     xSemaphoreTake(semaphore, portMAX_DELAY);
+    taskENTER_CRITICAL();
     enableChipSelect();
 
     for (uint32_t i = 0; i < numBytes; i++) {
@@ -62,6 +63,7 @@ uint8_t SpiDevice::transmit_receive(uint8_t bytes[], uint32_t numBytes) {
 
     spi_set_lastxfer(_spi);
     disableChipSelect();
+    taskEXIT_CRITICAL();
     xSemaphoreGive(semaphore);
 
     return (0);
