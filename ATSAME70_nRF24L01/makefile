@@ -53,8 +53,7 @@ SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/croutine.c
 SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/event_groups.c
 SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/list.c
 SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/portable/GCC/ARM_CM7/r0p1/port.c
-SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/portable/MemMang/heap_3.c
-# SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/portable/MemMang/heap_4.c
+SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/portable/MemMang/heap_4.c
 SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/queue.c
 SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/tasks.c
 SOURCE_FILES += $(ASF)/thirdparty/freertos/freertos-8.2.3/Source/timers.c
@@ -74,7 +73,7 @@ SOURCE_FILES += ../libs/SEGGER_RTT_V614c/RTT/SEGGER_RTT.c
 
 # >>> Project
 INCLUDE_DIRS += ./src/config
-SOURCE_FILES += $(shell find ./src -iregex ".*\.\(c\|cpp\|s\|S\)")
+SOURCE_FILES += $(shell find ./src -iregex ".*\.\(c\|cpp\)")
 # <<< Project
 
 # ----- Libraries -------------------------------------------------------------
