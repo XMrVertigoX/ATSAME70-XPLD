@@ -123,7 +123,6 @@
 									<listOptionValue builtIn="false" value="&quot;${ASF}/sam/utils/fpu&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ASF}/sam/utils/header_files&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ASF}/sam/utils/preprocessor&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../libs/SEGGER_RTT_V612a/RTT&quot;"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input.1886144231" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input"/>
 							</tool>
@@ -156,7 +155,6 @@
 									<listOptionValue builtIn="false" value="&quot;${ASF}/sam/utils/fpu&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ASF}/sam/utils/header_files&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ASF}/sam/utils/preprocessor&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../libs/SEGGER_RTT_V612a/RTT&quot;"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.1640627765" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
@@ -189,7 +187,6 @@
 									<listOptionValue builtIn="false" value="&quot;${ASF}/sam/utils/fpu&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ASF}/sam/utils/header_files&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ASF}/sam/utils/preprocessor&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../libs/SEGGER_RTT_V612a/RTT&quot;"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input.986013276" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input"/>
 							</tool>

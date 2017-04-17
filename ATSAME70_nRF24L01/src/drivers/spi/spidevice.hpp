@@ -27,7 +27,7 @@ class SpiDevice : public ISpi {
 
     void init(uint32_t mode, uint32_t baudRate);
 
-    uint8_t transmit_receive(uint8_t bytes[], uint32_t numBytes);
+    uint8_t transmit_receive(uint8_t txBytes[], uint8_t rxBytes[], size_t numBytes);
 };
 
 #endif /* SPIDEVICE_HPP_ */

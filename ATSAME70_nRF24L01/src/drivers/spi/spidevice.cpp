@@ -48,17 +48,17 @@ void SpiDevice::init(uint32_t mode, uint32_t baudRate) {
     spi_set_clock_phase(_spi, _peripheral, ((~mode) & PHASE_MASK));
 }
 
-uint8_t SpiDevice::transmit_receive(uint8_t bytes[], uint32_t numBytes) {
+uint8_t SpiDevice::transmit_receive(uint8_t txBytes[], uint8_t rxBytes[], size_t numBytes) {
     xSemaphoreTake(semaphore, portMAX_DELAY);
     taskENTER_CRITICAL();
     enableChipSelect();
 
-    for (uint32_t i = 0; i < numBytes; i++) {
+    for (size_t i = 0; i < numBytes; i++) {
         WAIT_UNTIL(spi_is_tx_ready(_spi));
-        spi_put(_spi, bytes[i]);
+        spi_put(_spi, txBytes[i]);
 
         WAIT_UNTIL(spi_is_rx_ready(_spi));
-        bytes[i] = spi_get(_spi);
+        rxBytes[i] = spi_get(_spi);
     }
 
     spi_set_lastxfer(_spi);
