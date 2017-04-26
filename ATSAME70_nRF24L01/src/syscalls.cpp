@@ -2,7 +2,7 @@
 
 #include <SEGGER_RTT.h>
 
-extern "C" int _write(int f, char *bytes, int numBytes) {
+extern "C" int _write(int f, char *bytes, size_t numBytes) {
     return (SEGGER_RTT_Write(0, bytes, numBytes));
 }
 

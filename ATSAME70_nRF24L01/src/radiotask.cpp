@@ -12,16 +12,18 @@
 
 using namespace xXx;
 
-const int64_t address = 0xE7E7E7E7E7;
-const int8_t channel  = 2;
+const uint32_t base  = 0xE7E7E7E7;
+const uint8_t prefix = 0xE7;
+const int8_t channel = 2;
 
-RadioTask::RadioTask(nRF24L01P_ESB &receiver)
-    : _receiver(receiver), _queue(Queue<Package_t>(10)), _led(Gpio(LED_0_PIN)) {}
+RadioTask::RadioTask(nRF24L01P_ESB &receiver) : _receiver(receiver), _led(Gpio(LED_0_PIN)) {}
 
 RadioTask::~RadioTask() {}
 
 void RadioTask::setup() {
-    _receiver.configureRxPipe(0, _queue, address);
+    _receiver.setRxBaseAddress_0(base);
+    _receiver.setRxAddressPrefix(0, prefix);
+
     _receiver.setDataRate(DataRate_2MBPS);
     _receiver.setCrcConfig(CrcConfig_2Bytes);
     _receiver.setChannel(channel);
@@ -30,10 +32,4 @@ void RadioTask::setup() {
     _led.init(IOPORT_DIR_OUTPUT);
 }
 
-void RadioTask::loop() {
-    Package_t rxPackage;
-    _queue.dequeue(rxPackage);
-    _led.toggle();
-
-    BUFFER("rxPackage", rxPackage.bytes, rxPackage.numBytes);
-}
+void RadioTask::loop() {}

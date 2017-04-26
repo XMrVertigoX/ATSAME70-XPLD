@@ -28,8 +28,8 @@ int main() {
     rf24_ce.init(IOPORT_DIR_OUTPUT);
     rf24_irq.init(IOPORT_DIR_INPUT);
 
-    rf24.taskCreate();
-    radioTask.taskCreate();
+    rf24.create();
+    radioTask.create();
 
     delay_ms(100);
 

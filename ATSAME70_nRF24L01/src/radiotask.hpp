@@ -12,7 +12,6 @@ using namespace xXx;
 class RadioTask : public SimpleTask {
    private:
     nRF24L01P_ESB &_receiver;
-    Queue<Package_t> _queue;
     Gpio _led;
 
    public:
