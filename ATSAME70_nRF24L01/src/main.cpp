@@ -25,11 +25,11 @@ int main() {
     NVIC_EnableIRQ(PIOD_IRQn);  // rf24_irq
 
     rf24_spi.init(0, 10000000);
-    rf24_ce.init(IOPORT_DIR_OUTPUT);
     rf24_irq.init(IOPORT_DIR_INPUT);
+    rf24_ce.init(IOPORT_DIR_OUTPUT);
 
-    rf24.create();
-    radioTask.create();
+    rf24.create(configMINIMAL_STACK_SIZE, Task_Priority_HIGH);
+    radioTask.create(configMINIMAL_STACK_SIZE, Task_Priority_MID);
 
     delay_ms(100);
 

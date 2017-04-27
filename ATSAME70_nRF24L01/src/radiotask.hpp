@@ -13,6 +13,7 @@ class RadioTask : public SimpleTask {
    private:
     nRF24L01P_ESB &_receiver;
     Gpio _led;
+    Queue<RF24_Package_t> _rxQueue;
 
    public:
     RadioTask(nRF24L01P_ESB &receiver);
