@@ -14,7 +14,7 @@
 SpiDevice rf24_spi(SPI0, 1);
 Gpio rf24_irq(EXT1_PIN_9);
 Gpio rf24_ce(EXT1_PIN_10);
-nRF24L01P_ESB rf24(rf24_spi, rf24_ce, rf24_irq);
+RF24_ESB rf24(rf24_spi, rf24_ce, rf24_irq);
 
 RadioTask radioTask(rf24);
 
