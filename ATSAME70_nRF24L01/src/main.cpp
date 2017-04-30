@@ -28,7 +28,7 @@ int main() {
     rf24_irq.init(IOPORT_DIR_INPUT);
     rf24_ce.init(IOPORT_DIR_OUTPUT);
 
-    rf24.create(configMINIMAL_STACK_SIZE, Task_Priority_HIGH);
+    rf24.create(configMINIMAL_STACK_SIZE, Task_Priority_MID);
     radioTask.create(configMINIMAL_STACK_SIZE, Task_Priority_MID);
 
     delay_ms(100);

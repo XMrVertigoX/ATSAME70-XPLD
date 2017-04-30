@@ -12,9 +12,14 @@
 
 using namespace xXx;
 
-const uint32_t baseAddress = 0xE7E7E7E7;
-const uint8_t address      = 0xE7;
-const int8_t channel       = 2;
+static const RF24_Address_t address_0 = 0xE7E7E7E7E7;
+static const RF24_Address_t address_1 = 0xC2C2C2C2C2;
+static const RF24_Address_t address_2 = 0xC2C2C2C2C3;
+static const RF24_Address_t address_3 = 0xC2C2C2C2C4;
+static const RF24_Address_t address_4 = 0xC2C2C2C2C5;
+static const RF24_Address_t address_5 = 0xC2C2C2C2C6;
+
+static const int8_t channel = 2;
 
 RadioTask::RadioTask(RF24_ESB& receiver)
     : _receiver(receiver), _led(Gpio(LED_0_PIN)), _rxQueue(Queue<RF24_Package_t>(3)) {}
@@ -22,17 +27,24 @@ RadioTask::RadioTask(RF24_ESB& receiver)
 RadioTask::~RadioTask() {}
 
 void RadioTask::setup() {
-    _receiver.setRxBaseAddress_0(baseAddress);
-    _receiver.setRxAddress(0, address);
-
-    _receiver.setDataRate(RF24_DataRate_2MBPS);
-    _receiver.setCrcConfig(RF24_CrcConfig_2Bytes);
-    _receiver.setChannel(channel);
-    _receiver.enterRxMode();
-
-    _receiver.startListening(0, _rxQueue);
+    RF24_Status_t status = RF24_Status_Success;
 
     _led.init(IOPORT_DIR_OUTPUT);
+
+    status = _receiver.setRxAddress(0, address_0);
+    status = _receiver.setRxAddress(1, address_1);
+    status = _receiver.setRxAddress(2, address_2);
+    status = _receiver.setRxAddress(3, address_3);
+    status = _receiver.setRxAddress(4, address_4);
+    status = _receiver.setRxAddress(5, address_5);
+    status = _receiver.setDataRate(RF24_DataRate::DR_2MBPS);
+    status = _receiver.setCrcConfig(RF24_CRCConfig::CRC_2Bytes);
+    status = _receiver.setChannel(channel);
+    status = _receiver.enableRxDataPipe(0, _rxQueue);
+
+    _receiver.enterRxMode();
+
+    assert(status == RF24_Status_Success);
 }
 
 void RadioTask::loop() {
