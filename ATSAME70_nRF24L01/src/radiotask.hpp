@@ -11,9 +11,9 @@ using namespace xXx;
 
 class RadioTask : public SimpleTask {
    private:
-    RF24_ESB &_receiver;
-    Gpio _led;
-    Queue<RF24_Package_t> _rxQueue;
+    RF24_ESB &receiver;
+    Gpio led;
+    Queue<RF24_Package_t> rxQueue;
 
    public:
     RadioTask(RF24_ESB &receiver);
