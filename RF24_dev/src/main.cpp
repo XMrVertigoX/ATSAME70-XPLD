@@ -31,6 +31,8 @@ int main() {
     rf24.create(configMINIMAL_STACK_SIZE, Task_Priority_LOW);
     radioTask.create(configMINIMAL_STACK_SIZE, Task_Priority_MID);
 
+    rf24_irq.enableInterrupt([](void *user) { rf24.notifyFromISR(); }, NULL);
+
     delay_ms(100);
 
     LOG("Enter scheduler");
