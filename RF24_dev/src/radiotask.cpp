@@ -13,11 +13,10 @@
 using namespace xXx;
 
 static const RF24_Address_t address_0 = 0xE7E7E7E7E7;
-
-static const int8_t channel = 2;
+static const int8_t channel           = 2;
 
 RadioTask::RadioTask(RF24_ESB& receiver)
-    : receiver(receiver), led(Gpio(LED_0_PIN)), rxQueue(Queue<RF24_Package_t>(3)) {}
+    : receiver(receiver), led(Gpio(LED_0_PIN)), rxQueue(Queue<RF24_DataPackage_t>(3)) {}
 
 RadioTask::~RadioTask() {}
 
@@ -30,7 +29,7 @@ void RadioTask::setup() {
     status = receiver.setDataRate(RF24_DataRate::DR_2MBPS);
     status = receiver.setCrcConfig(RF24_CRCConfig::CRC_2Bytes);
     status = receiver.setChannel(channel);
-    status = receiver.enableRxDataPipe(0, rxQueue);
+    status = receiver.configureRxDataPipe(0, &rxQueue);
 
     assert(status == RF24_Status::Success);
 
@@ -40,7 +39,7 @@ void RadioTask::setup() {
 }
 
 void RadioTask::loop() {
-    RF24_Package_t package;
+    RF24_DataPackage_t package;
     rxQueue.dequeue(package);
     BUFFER("package:", package.bytes, package.numBytes);
     led.toggle();
