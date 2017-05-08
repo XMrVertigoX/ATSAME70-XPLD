@@ -62,7 +62,7 @@ SOURCE_FILES += $(LIBS)/ASF/thirdparty/freertos/freertos-8.2.3/Source/timers.c
 # >>> Libraries
 INCLUDE_DIRS += ../libs
 
-SOURCE_FILES += $(wildcard ../libs/xXx/components/wireless/nrf24l01p/*.cpp)
+SOURCE_FILES += $(wildcard ../libs/xXx/components/wireless/rf24/*.cpp)
 SOURCE_FILES += $(wildcard ../libs/xXx/os/*.cpp)
 SOURCE_FILES += $(wildcard ../libs/xXx/support/*.cpp)
 SOURCE_FILES += $(wildcard ../libs/xXx/utils/*.cpp)

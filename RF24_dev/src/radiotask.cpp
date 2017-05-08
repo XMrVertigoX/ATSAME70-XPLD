@@ -3,19 +3,19 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
-#include <xXx/components/wireless/nrf24l01p/nrf24l01p_esb.hpp>
 #include <xXx/os/simpletask.hpp>
 #include <xXx/templates/queue.hpp>
 #include <xXx/utils/logging.hpp>
 
 #include "radiotask.hpp"
+#include <xXx/components/wireless/rf24/rf24.hpp>
 
 using namespace xXx;
 
 static const RF24_Address_t address_0 = 0xE7E7E7E7E7;
 static const RF24_Channel_t channel   = 2;
 
-RadioTask::RadioTask(RF24_ESB& receiver)
+RadioTask::RadioTask(RF24& receiver)
     : receiver(receiver), led(Gpio(LED_0_PIN)), rxQueue(Queue<RF24_DataPackage_t>(3)) {}
 
 RadioTask::~RadioTask() {}
