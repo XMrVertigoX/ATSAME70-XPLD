@@ -12,7 +12,8 @@
 
 using namespace xXx;
 
-static const RF24_Address_t address = 0xE7E7E7E7E7;
+static const RF24_Address_t address_p0 = 0xE7E7E7E7E7;
+static const RF24_Address_t address_p1 = 0xC2C2C2C2C2;
 static const RF24_Channel_t channel = 2;
 
 RadioTask::RadioTask(RF24& receiver)
@@ -27,11 +28,12 @@ void RadioTask::setup() {
 
     receiver.setup();
 
-    status = receiver.setRxAddress(0, address);
+    status = receiver.setRxAddress(0, address_p1);
+    status = receiver.setRxAddress(1, address_p0);
     status = receiver.setDataRate(RF24_DataRate::DR_2MBPS);
     status = receiver.setCrcConfig(RF24_CRCConfig::CRC_2Bytes);
     status = receiver.setChannel(channel);
-    status = receiver.configureRxDataPipe(0, &rxQueue);
+    status = receiver.configureRxDataPipe(1, &rxQueue);
 
     assert(status == RF24_Status::Success);
 
