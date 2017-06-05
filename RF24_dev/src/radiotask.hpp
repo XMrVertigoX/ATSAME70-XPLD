@@ -14,9 +14,7 @@ class RadioTask : public SimpleTask {
    private:
     RF24 &receiver;
     Gpio led;
-
-    RF24_DataPackage_t rxBuffer[3];
-    CircularBuffer<RF24_DataPackage_t> rxCircularBuffer;
+    CircularBuffer<RF24_DataPackage_t> rxBuffer;
 
    public:
     RadioTask(RF24 &receiver);
