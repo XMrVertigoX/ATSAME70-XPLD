@@ -4,7 +4,7 @@
 #include <xXx/components/wireless/rf24/rf24.hpp>
 #include <xXx/components/wireless/rf24/rf24_types.hpp>
 #include <xXx/os/simpletask.hpp>
-#include <xXx/templates/queue.hpp>
+#include <xXx/templates/circularbuffer.hpp>
 
 #include "drivers/gpio/gpio.hpp"
 
@@ -14,7 +14,9 @@ class RadioTask : public SimpleTask {
    private:
     RF24 &receiver;
     Gpio led;
-    Queue<RF24_DataPackage_t> rxQueue;
+
+    RF24_DataPackage_t rxBuffer[3];
+    CircularBuffer<RF24_DataPackage_t> rxCircularBuffer;
 
    public:
     RadioTask(RF24 &receiver);
