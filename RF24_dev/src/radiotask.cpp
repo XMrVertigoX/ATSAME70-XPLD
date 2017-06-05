@@ -12,14 +12,17 @@
 
 using namespace xXx;
 
-static const RF24_Address_t address_p0 = 0xE7E7E7E7E7;
-static const RF24_Address_t address_p1 = 0xC2C2C2C2C2;
-static const RF24_Address_t address_p2 = 0xC2C2C2C2C3;
-static const RF24_Address_t address_p3 = 0xC2C2C2C2C4;
-static const RF24_Address_t address_p4 = 0xC2C2C2C2C5;
-static const RF24_Address_t address_p5 = 0xC2C2C2C2C6;
+static const uint32_t baseAddress_0 = 0xE7E7E7E7;
+static const uint32_t baseAddress_1 = 0xC2C2C2C2;
 
-static const RF24_Channel_t channel = 2;
+static const uint8_t address_p0 = 0xE7;
+static const uint8_t address_p1 = 0xC2;
+// static const uint8_t address_p2 = 0xC3;
+// static const uint8_t address_p3 = 0xC4;
+// static const uint8_t address_p4 = 0xC5;
+// static const uint8_t address_p5 = 0xC6;
+
+static const uint8_t channel = 2;
 
 RadioTask::RadioTask(RF24& receiver)
     : receiver(receiver), led(Gpio(LED_0_PIN)), rxQueue(Queue<RF24_DataPackage_t>(3)) {}
@@ -33,13 +36,10 @@ void RadioTask::setup() {
 
     receiver.setup();
 
-    status = receiver.setChannel(channel);
+    status = receiver.setRxBaseAddress(0, baseAddress_0);
     assert(status == RF24_Status::Success);
 
-    status = receiver.setCrcConfig(RF24_CRCConfig::CRC_2Bytes);
-    assert(status == RF24_Status::Success);
-
-    status = receiver.setDataRate(RF24_DataRate::DR_2MBPS);
+    status = receiver.setRxBaseAddress(1, baseAddress_1);
     assert(status == RF24_Status::Success);
 
     status = receiver.setRxAddress(0, address_p0);
@@ -48,7 +48,13 @@ void RadioTask::setup() {
     status = receiver.setRxAddress(1, address_p1);
     assert(status == RF24_Status::Success);
 
-    status = receiver.setRxAddress(2, address_p2);
+    status = receiver.setChannel(channel);
+    assert(status == RF24_Status::Success);
+
+    status = receiver.setCrcConfig(RF24_CRCConfig::CRC_2Bytes);
+    assert(status == RF24_Status::Success);
+
+    status = receiver.setDataRate(RF24_DataRate::DR_2MBPS);
     assert(status == RF24_Status::Success);
 
     status = receiver.configureRxDataPipe(0, &rxQueue);
