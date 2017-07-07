@@ -24,13 +24,18 @@ static const uint8_t address_p1 = 0xC2;
 
 static const uint8_t channel = 2;
 
-RadioTask::RadioTask(RF24 &receiver)
-    : receiver(receiver), led(Gpio(LED_0_PIN)), rxBuffer(CircularBuffer<RF24_DataPackage_t>(3)) {}
+RadioTask::RadioTask(RF24 &receiver) : receiver(receiver), led(Gpio(LED_0_PIN)) {}
 
 RadioTask::~RadioTask() {}
 
 void RadioTask::setup() {
     RF24_Status status = RF24_Status::Success;
+
+    RF24_RxCallback_t callback = [](RF24_DataPackage_t data, void *user) {
+        RadioTask *self = static_cast<RadioTask *>(user);
+        BUFFER("package:", data.bytes, data.numBytes);
+        self->led.toggle();
+    };
 
     led.init(IOPORT_DIR_OUTPUT);
 
@@ -57,7 +62,7 @@ void RadioTask::setup() {
     status = receiver.setDataRate(RF24_DataRate::DR_2MBPS);
     assert(status == RF24_Status::Success);
 
-    status = receiver.startListening(0, &rxBuffer);
+    status = receiver.startListening(0, callback, this);
     assert(status == RF24_Status::Success);
 
     receiver.enterRxMode();
@@ -66,14 +71,5 @@ void RadioTask::setup() {
 }
 
 void RadioTask::loop() {
-    if (rxBuffer.itemsAvailable()) {
-        RF24_DataPackage_t package;
-
-        if (rxBuffer.pop(package)) {
-            BUFFER("package:", package.bytes, package.numBytes);
-            led.toggle();
-        }
-    }
-
     receiver.loop();
 }
