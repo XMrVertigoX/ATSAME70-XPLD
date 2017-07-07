@@ -24,7 +24,8 @@ static const uint8_t address_p1 = 0xC2;
 
 static const uint8_t channel = 2;
 
-RadioTask::RadioTask(RF24 &receiver) : receiver(receiver), led(Gpio(LED_0_PIN)) {}
+RadioTask::RadioTask(RF24 &receiver)
+    : receiver(receiver), led(Gpio(LED_0_PIN)) {}
 
 RadioTask::~RadioTask() {}
 
