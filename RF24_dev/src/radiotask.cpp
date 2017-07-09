@@ -34,7 +34,7 @@ void RadioTask::setup() {
 
     RF24_RxCallback_t callback = [](RF24_DataPackage_t data, void *user) {
         RadioTask *self = static_cast<RadioTask *>(user);
-        BUFFER("package:", data.bytes, data.numBytes);
+        HEXDUMP(data.bytes, data.numBytes);
         self->led.toggle();
     };
 

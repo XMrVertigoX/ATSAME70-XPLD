@@ -32,7 +32,7 @@ int main() {
 
     delay_ms(100);
 
-    LOG("Enter scheduler");
+    LOG("Enter scheduler\n");
 
     vTaskStartScheduler();
 }
