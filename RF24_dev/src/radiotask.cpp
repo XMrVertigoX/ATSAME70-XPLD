@@ -42,16 +42,16 @@ void RadioTask::setup() {
 
     receiver.setup();
 
-    status = receiver.setRxBaseAddress(0, baseAddress_0);
+    status = receiver.writeRxBaseAddress(0, baseAddress_0);
     assert(status == RF24_Status::Success);
 
-    status = receiver.setRxBaseAddress(1, baseAddress_1);
+    status = receiver.writeRxBaseAddress(1, baseAddress_1);
     assert(status == RF24_Status::Success);
 
-    status = receiver.setRxAddress(0, address_p0);
+    status = receiver.writeRxAddress(0, address_p0);
     assert(status == RF24_Status::Success);
 
-    status = receiver.setRxAddress(1, address_p1);
+    status = receiver.writeRxAddress(1, address_p1);
     assert(status == RF24_Status::Success);
 
     status = receiver.setChannel(channel);
