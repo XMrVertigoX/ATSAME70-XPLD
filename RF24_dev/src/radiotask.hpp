@@ -8,12 +8,10 @@
 
 #include "drivers/gpio.hpp"
 
-using namespace drivers;
-
 class RadioTask : public xXx::SimpleTask {
    private:
     xXx::RF24 &receiver;
-    Gpio led;
+    drivers::Gpio led;
 
    public:
     RadioTask(xXx::RF24 &receiver);

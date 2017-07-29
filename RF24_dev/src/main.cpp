@@ -11,11 +11,10 @@
 
 #include "radiotask.hpp"
 
-using namespace drivers;
+drivers::SpiDevice rf24_spi(SPI0, 1);
+drivers::Gpio rf24_irq(EXT1_PIN_9);
+drivers::Gpio rf24_ce(EXT1_PIN_10);
 
-SpiDevice rf24_spi(SPI0, 1);
-Gpio rf24_irq(EXT1_PIN_9);
-Gpio rf24_ce(EXT1_PIN_10);
 xXx::RF24 rf24(rf24_spi, rf24_ce, rf24_irq);
 
 RadioTask radioTask(rf24);

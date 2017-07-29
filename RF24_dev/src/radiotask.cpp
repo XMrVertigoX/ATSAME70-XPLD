@@ -10,8 +10,6 @@
 
 #include "radiotask.hpp"
 
-using namespace drivers;
-
 static const uint32_t baseAddress_0 = 0xE7E7E7E7;
 static const uint32_t baseAddress_1 = 0xC2C2C2C2;
 
@@ -25,7 +23,7 @@ static const uint8_t address_p1 = 0xC2;
 static const uint8_t channel = 2;
 
 RadioTask::RadioTask(xXx::RF24 &receiver)
-    : receiver(receiver), led(Gpio(LED_0_PIN)) {}
+    : receiver(receiver), led(drivers::Gpio(LED_0_PIN)) {}
 
 RadioTask::~RadioTask() {}
 
