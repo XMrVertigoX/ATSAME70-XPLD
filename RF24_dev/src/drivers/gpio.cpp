@@ -4,7 +4,7 @@
 
 #include "gpio.hpp"
 
-namespace xXx {
+namespace drivers {
 
 static inline int8_t groupId2groupIndex(uint32_t groupId) {
     switch (groupId) {
@@ -28,7 +28,7 @@ static inline int8_t groupId2groupIndex(uint32_t groupId) {
     return (-1);
 }
 
-IGpio_Callback_t Gpio::_callback[160];
+xXx::IGpio_Callback_t Gpio::_callback[160];
 void *Gpio::_user[160];
 
 Gpio::Gpio(ioport_pin_t pin) : _pin(pin) {}
@@ -60,7 +60,7 @@ void Gpio::disableInterrupt() {
     pio_disable_pin_interrupt(_pin);
 }
 
-void Gpio::enableInterrupt(IGpio_Callback_t callback, void *user) {
+void Gpio::enableInterrupt(xXx::IGpio_Callback_t callback, void *user) {
     // Configuration for button use
     // pio_handler_set_pin(_pin, (PIO_PULLUP | PIO_DEBOUNCE | PIO_IT_RISE_EDGE), interruptFunction);
     pio_handler_set_pin(_pin, PIO_IT_FALL_EDGE, interruptFunction);
@@ -85,4 +85,4 @@ void Gpio::interruptFunction(uint32_t groupId, uint32_t groupMask) {
     }
 }
 
-} /* namespace xXx */
+} /* namespace */

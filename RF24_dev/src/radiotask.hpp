@@ -6,17 +6,17 @@
 #include <xXx/os/simpletask.hpp>
 #include <xXx/templates/circularbuffer.hpp>
 
-#include "drivers/gpio/gpio.hpp"
+#include "drivers/gpio.hpp"
 
-using namespace xXx;
+using namespace drivers;
 
-class RadioTask : public SimpleTask {
+class RadioTask : public xXx::SimpleTask {
    private:
-    RF24 &receiver;
+    xXx::RF24 &receiver;
     Gpio led;
 
    public:
-    RadioTask(RF24 &receiver);
+    RadioTask(xXx::RF24 &receiver);
     ~RadioTask();
     void setup();
     void loop();

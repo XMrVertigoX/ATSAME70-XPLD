@@ -6,15 +6,17 @@
 #include <xXx/components/wireless/rf24/rf24.hpp>
 #include <xXx/utils/logging.hpp>
 
-#include "drivers/gpio/gpio.hpp"
-#include "drivers/spi/spidevice.hpp"
+#include "drivers/gpio.hpp"
+#include "drivers/spidevice.hpp"
 
 #include "radiotask.hpp"
+
+using namespace drivers;
 
 SpiDevice rf24_spi(SPI0, 1);
 Gpio rf24_irq(EXT1_PIN_9);
 Gpio rf24_ce(EXT1_PIN_10);
-RF24 rf24(rf24_spi, rf24_ce, rf24_irq);
+xXx::RF24 rf24(rf24_spi, rf24_ce, rf24_irq);
 
 RadioTask radioTask(rf24);
 

@@ -89,7 +89,7 @@ GCCFLAGS += -mthumb
 GCCFLAGS += -mfloat-abi=hard
 GCCFLAGS += -mfpu=fpv5-d16
 
-COMMON_CFLAGS += -Og
+COMMON_CFLAGS += -O3
 
 CFLAGS += -std=gnu11
 

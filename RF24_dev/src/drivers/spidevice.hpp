@@ -8,9 +8,9 @@
 
 #include <xXx/interfaces/ispi.hpp>
 
-using namespace xXx;
+namespace drivers {
 
-class SpiDevice : public ISpi {
+class SpiDevice : public xXx::ISpi {
    private:
     void configurePeripheralChipSelectPin();
     void configureSpiPins();
@@ -29,5 +29,7 @@ class SpiDevice : public ISpi {
 
     uint8_t transmit_receive(uint8_t txBytes[], uint8_t rxBytes[], size_t numBytes);
 };
+
+} /* namespace */
 
 #endif /* SPIDEVICE_HPP_ */

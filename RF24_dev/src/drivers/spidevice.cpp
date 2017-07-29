@@ -10,6 +10,8 @@
 
 #include "spidevice.hpp"
 
+namespace drivers {
+
 #define POLARITY_MASK (0b00000010)
 #define PHASE_MASK (0b00000001)
 #define WAIT_UNTIL(x) while (!x)
@@ -111,3 +113,5 @@ void SpiDevice::enableSpiMasterMode(uint32_t delayBetweenChipSelect) {
     spi_set_delay_between_chip_select(_spi, delayBetweenChipSelect);
     spi_enable(_spi);
 }
+
+} /* namespace */
